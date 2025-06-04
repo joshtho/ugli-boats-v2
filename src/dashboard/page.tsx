@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/app-sidebar"
-import HistoryPage from "@/components/HistoryPage"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +13,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+
 import { Routes, Route } from "react-router-dom"
+import BuildPage from "@/components/BuildPage"
+import ForSalePage from "@/components/ForSalePage"
+import HistoryPage from "@/components/HistoryPage"
+import AboutPage from "@/components/AboutPage"
 export default function Page() {
   return (
     
@@ -43,9 +47,10 @@ export default function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
             <Routes>
+              <Route path="/builds" element={<BuildPage />} />
               <Route path="/history" element={<HistoryPage />} />
-              <Route path="/history" element={<HistoryPage />} />
-              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/for-sale" element={<ForSalePage />} />
+              <Route path='/about' element={<AboutPage />} />
             </Routes>
             <div className="bg-muted/50 aspect-video rounded-xl" />
             <div className="bg-muted/50 aspect-video rounded-xl" />
