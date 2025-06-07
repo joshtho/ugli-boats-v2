@@ -19,7 +19,19 @@ import BuildPage from "@/components/BuildPage"
 import ForSalePage from "@/components/ForSalePage"
 import HistoryPage from "@/components/HistoryPage"
 import AboutPage from "@/components/AboutPage"
+import { useLocation } from "react-router-dom"
+
+
 export default function Page() {
+  const location = useLocation().pathname.slice(1)
+const header =
+  location === ""
+    ? "Dashboard"
+    : location
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+  
   return (
     
     <SidebarProvider>
@@ -33,12 +45,12 @@ export default function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    UGLI Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>{header}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
