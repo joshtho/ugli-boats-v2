@@ -35,8 +35,23 @@ function AboutPage() {
         <br />
 
         When I saw it I decided to call her "UgliBoat". It had an old 100 Johnson on it, center console, and a rotted floor. The transom had been cut out and heavy steel reinforcements were attached. The guy wanted $2500, and even though I usually try to get a bargain, I didn't even haggle over the price.
-      </p>
+
+        <br />
+        <br />
+        <hr />
+        <br />
+        This is the picture of UgliBoat #1 the day I bought it. Many thanks to my friends wife, Michelle, who saved these early pictures.
+        <br />
+        <br />
       <img src='/IMAGES/AU Ugli1 purchase day.jpg' />
+        <br />
+
+        Once we started working on UgliBoat #1 we really caught the bug for these boats. I sold Ugli #1 because of financial reasons, but am currently working on UgliBoat #2 which also took over a year to locate.
+
+        Since I had to drive all the way to Oklahoma for Ugli#2, and have been accumulating all the expensive new toys to put on it - Ugli2 is for keeps !
+
+        I will have so much time and money in Ugli2, that I may just decide to be buried in it.
+      </p>
     </div>
   )
 }
