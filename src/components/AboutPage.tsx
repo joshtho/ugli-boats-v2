@@ -1,9 +1,9 @@
-import React from 'react'
+
 
 function AboutPage() {
   return (
     
-    <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min">
+    <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
       <h1 className="text-2xl font-bold p-4">How this all started</h1>
       <h1 className="text-xl text-left p-4">A Couple of Ugli guys</h1>
       <p className="p-4">
@@ -11,6 +11,7 @@ function AboutPage() {
         <br />
         <br />
         At that time I thought he had it way over priced for a big "Jon-Boat". During the three years that he left it here, I kept offering more money, but I could never bring myself to spend that much on a hull. I had named it FISHGUTS.
+        <br />
         <br />
         <img src='/IMAGES/AUpage fishguts pic.jpg' />
         <br />
@@ -38,7 +39,10 @@ function AboutPage() {
 
         <br />
         <br />
-        <hr />
+        </p>
+        <hr/>
+        <p className='p-4'>
+
         <br />
         This is the picture of UgliBoat #1 the day I bought it. Many thanks to my friends wife, Michelle, who saved these early pictures.
         <br />
@@ -51,7 +55,8 @@ function AboutPage() {
         Since I had to drive all the way to Oklahoma for Ugli#2, and have been accumulating all the expensive new toys to put on it - Ugli2 is for keeps !
 
         I will have so much time and money in Ugli2, that I may just decide to be buried in it.
-      </p>
+      
+        </p>
     </div>
   )
 }

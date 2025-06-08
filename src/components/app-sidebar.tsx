@@ -16,6 +16,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+import { useIsMobile } from "@/hooks/use-mobile"
+
 // This is sample data.
 const data = {
   navMain: [
@@ -48,13 +50,20 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar } = useSidebar()
+  const isMobile = useIsMobile()
+  function handleSidebarToggle() {
+    if (isMobile) {
+      toggleSidebar() 
+    }
+  }
+  
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
               <Link to="/">
-            <SidebarMenuButton onClick={toggleSidebar} size="lg" >
+            <SidebarMenuButton onClick={handleSidebarToggle} size="lg" >
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Ship className="size-4" />
                   
@@ -72,16 +81,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarMenu>
             <Link to="/builds">
-            <SidebarMenuButton onClick={toggleSidebar}>Builds</SidebarMenuButton>
+            <SidebarMenuButton onClick={handleSidebarToggle}>Builds</SidebarMenuButton>
             </Link>
             <Link to="/about">
-              <SidebarMenuButton onClick={toggleSidebar}>About us</SidebarMenuButton>
+              <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
             </Link>
             <Link to="/history">
-              <SidebarMenuButton onClick={toggleSidebar}>History</SidebarMenuButton>
+              <SidebarMenuButton onClick={handleSidebarToggle}>History</SidebarMenuButton>
             </Link>
             <Link to="/for-sale">
-              <SidebarMenuButton onClick={toggleSidebar}>For Sale</SidebarMenuButton>
+              <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
             </Link>
             {/* {data.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>

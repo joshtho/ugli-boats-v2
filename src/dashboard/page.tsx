@@ -15,22 +15,23 @@ import {
 } from "@/components/ui/sidebar"
 
 import { Routes, Route } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import BuildPage from "@/components/BuildPage"
 import ForSalePage from "@/components/ForSalePage"
 import HistoryPage from "@/components/HistoryPage"
 import AboutPage from "@/components/AboutPage"
-import { useLocation } from "react-router-dom"
+import HomePage from "@/components/HomePage"
 
 
 export default function Page() {
   const location = useLocation().pathname.slice(1)
-const header =
-  location === ""
-    ? "Dashboard"
-    : location
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")
+  const header =
+    location === ""
+      ? "Dashboard"
+      : location
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
   
   return (
     
@@ -44,8 +45,8 @@ const header =
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    UGLI Dashboard
+                  <BreadcrumbLink href="/">
+                    UGLI Home
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
@@ -58,6 +59,7 @@ const header =
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
             <Routes>
+              <Route path="/" element={<HomePage />} />
               <Route path="/builds" element={<BuildPage />} />
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/for-sale" element={<ForSalePage />} />
