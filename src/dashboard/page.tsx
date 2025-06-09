@@ -14,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 import BuildPage from "@/components/BuildPage"
 import ForSalePage from "@/components/ForSalePage"
@@ -28,7 +28,7 @@ export default function Page() {
   const location = useLocation().pathname.slice(1)
   const header =
     location === ""
-      ? "Dashboard"
+      ? "Home"
       : location
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -46,9 +46,9 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/">
+                  <Link to="/">
                     UGLI Home
-                  </BreadcrumbLink>
+                  </Link>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
