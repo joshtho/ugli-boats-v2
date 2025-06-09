@@ -23,6 +23,7 @@ import AboutPage from "@/components/AboutPage"
 import HomePage from "@/components/HomePage"
 
 
+
 export default function Page() {
   const location = useLocation().pathname.slice(1)
   const header =
@@ -34,10 +35,10 @@ export default function Page() {
           .join(" ")
   
   return (
-    
-    <SidebarProvider>
+
+    <SidebarProvider >
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset >
         <header className=" flex h-16 shrink-0 items-center gap-2 border-b ">
           <div className=" flex items-center gap-2 px-3 ">
             <SidebarTrigger />

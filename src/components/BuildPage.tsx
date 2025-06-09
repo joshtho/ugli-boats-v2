@@ -1,9 +1,10 @@
-import React from 'react'
+
 
 function BuildPage() {
   return (
-    <div>BuildPage
-        <img src='/IMAGES/ugliboat 3 web image.jpg' />
+    <div className="mx-auto max-w-2xl p-4">
+      <h1 className="text-2xl font-bold">BuildPage</h1>
+      <img src='/IMAGES/ugliboat 3 web image.jpg' alt="Ugli Boat" className="w-full h-auto rounded-lg" />
     </div>
   )
 }
