@@ -18,35 +18,7 @@ import {
 
 import { useIsMobile } from "@/hooks/use-mobile"
 
-// This is sample data.
-const data = {
-  navMain: [
-    {
-      title: "Builds",
-      url: "builds",
-      items: [
-        {
-          title: "Installation",
-          url: "builds",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "About us",
-      url: "about",
-      items: [
-        {
-          title: "Routing",
-          url: "#",
-        },
-      ],
-    },
-  ],
-}
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar } = useSidebar()

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import data from '@/assets/data'
 
 function BuildPage() {
 
@@ -7,11 +7,16 @@ function BuildPage() {
 //     .then(res => res.text())
 //     .then(data => console.log(data));
 // }, []);
+const images = data.builds.flatMap(build => build.images)
+console.log(images)
+
 
   return (
     <div className="mx-auto max-w-2xl p-4">
       <h1 className="text-2xl font-bold">BuildPage</h1>
-      <img src='/IMAGES/ugliboat 3 web image.jpg' alt="Ugli Boat" className="w-full h-auto rounded-lg" />
+      {images.map((image, idx) => (
+        <img key={idx} src={image.url} alt={image.alt} />
+      ))}
     </div>
   )
 }
