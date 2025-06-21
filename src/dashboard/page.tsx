@@ -21,6 +21,7 @@ import ForSalePage from "@/components/ForSalePage"
 import HistoryPage from "@/components/HistoryPage"
 import AboutPage from "@/components/AboutPage"
 import HomePage from "@/components/HomePage"
+import BoatPage from "@/components/BoatPage"
 
 
 
@@ -65,6 +66,8 @@ export default function Page() {
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/for-sale" element={<ForSalePage />} />
               <Route path='/about' element={<AboutPage />} />
+              <Route path="/boats/:name" element={<BoatPage />} />
+              {/* Add more routes as needed */}
             </Routes>
           {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3">
             </div> */}
