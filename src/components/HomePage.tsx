@@ -22,14 +22,6 @@ export default function HomePage() {
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
             <br />
-          <div className="sm:mb-8 sm:flex sm:justify-center">
-            <Button className=" bg-white relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:bg-amber-50">
-              {' '}
-              <span onClick={() => setToggleHidden(!toggleHidden)} className="hover:pointer-events-auto font-semibold text-[#414d0b]">
-                Read more <span aria-hidden="true">&rarr;</span>
-              </span>
-            </Button>
-          </div>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link to="/builds">
                 <Button
@@ -46,6 +38,14 @@ export default function HomePage() {
             </div>
           </div>
           <br />
+          <div className="sm:mb-8 sm:flex sm:justify-center">
+            <Button className=" bg-white relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:bg-amber-50">
+              {' '}
+              <span onClick={() => setToggleHidden(!toggleHidden)} className="hover:pointer-events-auto font-semibold text-[#414d0b]">
+                Read {toggleHidden ? "More" : "Less"} <span aria-hidden="true">&rarr;</span>
+              </span>
+            </Button>
+          </div>
           <br />
                   <p className={toggleHidden ? "hidden" : "text-lg font-medium text-pretty text-gray-500 sm:text-xl/8"}>
                     Although we are most partial to the Bailey Bridge Boat hulls, this site is dedicated to all fishermen and hunters that are enthusiasts of any old aluminum fishing boats and their restoration and fabrication. If you love old aluminum military boats, work vessels, and unique or unusual old boats, this is the site for you.<br />
