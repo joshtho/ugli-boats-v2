@@ -38,7 +38,7 @@ export default function HomePage() {
             </div>
           </div>
           <br />
-          <div className="sm:mb-8 sm:flex sm:justify-center">
+          <div className='flex items-center justify-center'>
             <Button className=" bg-white relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:bg-amber-50">
               {' '}
               <span onClick={() => setToggleHidden(!toggleHidden)} className="hover:pointer-events-auto font-semibold text-[#414d0b]">
