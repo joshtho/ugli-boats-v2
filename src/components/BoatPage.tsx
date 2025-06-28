@@ -26,6 +26,9 @@ function BoatPage() {
       <h1 className="text-3xl font-bold mb-10 text-center">{build.name}</h1>
       <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
         {build.images.map((img, idx) => (
+          img.url.includes(".mp4") ?
+          <video src={img.url} muted autoPlay preload='metadata'/>
+          :
           <img
             key={idx}
             src={img.url}
@@ -39,35 +42,35 @@ function BoatPage() {
         ))}
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
-  <DialogContent
-    className="
-      flex flex-col items-center
-      w-full
-      max-w-full
-      sm:max-w-2xl
-      md:max-w-3xl
-      lg:max-w-5xl
-      xl:max-w-6xl
-      p-4
-      pt-10
-    "
-  >
-    {selectedImg && (
-      <img
-        src={selectedImg.url}
-        alt={selectedImg.alt}
-        className="
-          w-full
-          max-w-full
-          max-h-[80vh]
-          object-contain
-          rounded
-          transition-all
-        "
-      />
-    )}
-  </DialogContent>
-</Dialog>
+        <DialogContent
+          className="
+            flex flex-col items-center
+            w-full
+            max-w-full
+            sm:max-w-2xl
+            md:max-w-3xl
+            lg:max-w-5xl
+            xl:max-w-6xl
+            p-4
+            pt-10
+          "
+        >
+          {selectedImg && (
+            <img
+              src={selectedImg.url}
+              alt={selectedImg.alt}
+              className="
+                w-full
+                max-w-full
+                max-h-[80vh]
+                object-contain
+                rounded
+                transition-all
+              "
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
