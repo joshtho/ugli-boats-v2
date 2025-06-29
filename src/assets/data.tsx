@@ -474,7 +474,7 @@ const data: {
       ],
     },
     {
-      name: "David Baker",
+      name: "David Baker Build - Duck Boat",
       images: [
         {
           alt: "David Baker 1",
@@ -803,11 +803,6 @@ const data: {
           url: "/IMAGES/MarkSmith-Build Pics/MarkSmith6.jpg",
         },
         {
-          alt: "Mark Smith 6",
-          caption: "",
-          url: "/IMAGES/MarkSmith-Build Pics/MarkSmith6.jpg",
-        },
-        {
           alt: "Mark Smith video 1",
           caption: "",
           url: "/IMAGES/MarkSmith-Build Pics/MarkSmithVID1.mp4",
@@ -820,28 +815,59 @@ const data: {
       ],
     },
     {
-      name: "Brent Mitchell",
+      name: "Mathew Goodrich",
       images: [
         {
-          alt: "jordan 1",
+          alt: "mathew goodrich 1",
           caption: "",
-          url: "/IMAGES/jordan/jordan 1.jpg",
+          url: "/IMAGES/MathewGoodrichPics/MathewGoodrichugliboat.jpg",
         },
         {
-          alt: "jordan 2",
+          alt: "mathew goodrich 2",
           caption: "",
-          url: "/IMAGES/jordan/jordan 2.jpg",
+          url: "/IMAGES/MathewGoodrichPics/MG EMY MAY 1.jpg",
         },
         {
-          alt: "jordan 3", 
+          alt: "mathew goodrich 3",
           caption: "",
-          url: "/IMAGES/jordan/jordan 3.jpg",
+          url: "/IMAGES/MathewGoodrichPics/MG EMY MAY 2.jpg",
         },
         {
-          alt: "jordan 4",
+          alt: "mathew goodrich 4",
           caption: "",
-          url: "/IMAGES/jordan/jordan 4.jpg",
+          url: "/IMAGES/MathewGoodrichPics/MG1.jpg",
         },
+        {
+          alt: "mathew goodrich 5",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG2.jpg",
+        },
+        {
+          alt: "mathew goodrich 6",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG3.jpg",
+        },
+        {
+          alt: "mathew goodrich 7",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG4.jpg",
+        },
+        {
+          alt: "mathew goodrich 8",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG5.jpg",
+        },
+        {
+          alt: "mathew goodrich 9",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG6.JPG",
+        },
+        {
+          alt: "mathew goodrich 10",
+          caption: "",
+          url: "/IMAGES/MathewGoodrichPics/MG7.jpg",
+        },
+
       ],
     },
     
