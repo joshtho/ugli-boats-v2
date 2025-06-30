@@ -1,4 +1,3 @@
-import React from 'react'
 
 function HistoryPage() {
   return (
@@ -46,6 +45,10 @@ function HistoryPage() {
 
         
         </p>
+        <hr />
+        <p className='p-4'>Entire Field manual links: </p>
+        <h1 className="text-xl text-left p-4 text-decoration-line: underline">Military Float Bridging Equipment</h1>
+        <h3 className="text-l text-left p-4">Table of Contents</h3>
         
         <a
           href="/PDF/ch1rivercrossingconcepts.pdf"
@@ -101,7 +104,7 @@ function HistoryPage() {
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Chapter 7: Light Tactical Rafts and Bridges)
+             Field Manual PDF (Chapter 7: Light Tactical Rafts and Bridges)
         </a>
         <a
           href="/PDF/ch8anchorageoffloatingbridges.pdf"
@@ -109,7 +112,7 @@ function HistoryPage() {
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Chapter 8: Anchorage of Floating Bridges)
+             Field Manual PDF (Chapter 8: Anchorage of Floating Bridges)
         </a>
         <a
           href="public/PDF/ch9floatbridgeprotectivedevices.pdf"
@@ -117,7 +120,7 @@ function HistoryPage() {
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Chapter 9: Flot Bridge Protective Devices)
+             Field Manual PDF (Chapter 9: Flot Bridge Protective Devices)
         </a>
         <a
           href="/PDF/apaaknotsandlashings.pdf"
@@ -125,7 +128,7 @@ function HistoryPage() {
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix A - Knots and Lashings)
+             Field Manual PDF (Appendix A - Knots and Lashings)
         </a>
         <a
           href="/PDF/appbairliftops.pdf"
@@ -133,48 +136,87 @@ function HistoryPage() {
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix B - Airlift Operations)
+            Field Manual PDF (Appendix B - Airlift Operations)
         </a>
         <a
-          href="https://ugliboats.com/PDF/ch1rivercrossingconcepts.pdf"
+          href="/PDF/appcexpediantdesignofanchorsystems.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix C)
+            APPENDIX C - EXPEDIENT DESIGN OF OVERHEAD ANCHORAGE SYSTEMS
         </a>
         <a
-          href="https://ugliboats.com/PDF/ch1rivercrossingconcepts.pdf"
+          href="/PDF/appdexpediantanchorages.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix B)
+            APPENDIX D - EXPEDIENT ANCHORAGES
         </a>
         <a
-          href="https://ugliboats.com/PDF/ch1rivercrossingconcepts.pdf"
+          href="/PDF/appealuminumfloatingfootbridges.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix B)
+            APPENDIX E - ALUMINUM FLOATING FOOTBRIDGE
         </a>
         <a
-          href="https://ugliboats.com/PDF/ch1rivercrossingconcepts.pdf"
+          href="/PDF/appfaccessandegressroadwayaers.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix B)
+            APPENDIX F - ACCESS/EGRESS ROADWAY SYSTEM (AERS)
         </a>
         <a
-          href="https://ugliboats.com/PDF/ch1rivercrossingconcepts.pdf"
+          href="/PDF/glossary.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            View Field Manual PDF (Appendix B)
+            Glossary
         </a>
+        <a
+          href="/PDF/references.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
+          >
+            REFERENCES
+        </a>
+        <a
+          href="/PDF/TC5210authorizationletter.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
+          >
+            AUTHORIZATION LETTER
+        </a>
+        <a
+          href="/PDF/toc.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
+          >
+            Table of Contents
+        </a>
+        <h3 className="p-4">DISTRIBUTION RESTRICTION: Approved for public release; distribution is unlimited.</h3>
+        <hr/>
+        <a
+          href="/PDF/spoonbow high chin ponton milspecs.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
+          >
+            SpoonBow High Chin Ponton MILSECS PDF
+        </a>
+        <p className="p-4">This document shows the manufacturing processes and quality assurance standards that were established for manufacturing companies that supplied the Ponton Bridge Boat to the military.</p>
+        <hr />
+        <h1 className="text-xl text-left p-4 pb-0.5">Book: The Military Engineer</h1>
+        <p className="text-s text-left p-4 pt-0">January 1920 through December 1921</p>
+        <img className="md:max-w-[500px]" src="public/IMAGES/PHpage Military Engineer Cover Pic.jpg"/>
         
     </div>
   )
