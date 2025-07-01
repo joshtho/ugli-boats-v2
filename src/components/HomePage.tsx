@@ -32,7 +32,20 @@ export default function HomePage() {
               </Link>
               <Link to="/about">
                 <Button className="text-sm/6 font-semibold text-white">
-                  About us <span aria-hidden="true">→</span>
+                  About us 
+                </Button>
+              </Link>
+              
+              <Link to="/for-sale"> 
+                <Button
+                className="rounded-md bg-[#414d0b] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  For Sale
+                </Button>
+              </Link>
+              <Link to="/history">
+                <Button className="text-sm/6 font-semibold text-white">
+                  Ugli-History 
                 </Button>
               </Link>
             </div>

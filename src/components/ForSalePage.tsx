@@ -28,7 +28,7 @@ function ForSalePage() {
         <br />
         </p>
         <p className='p-4'>
-        Here are the Key words that I have had some success with: <br/><br/> ponton bridge half-section, ponton bridge boat for sale, bailey bridge boat for sale, big aluminum boat for sale, 18.5' aluminum boat for sale, aluminum military surplus boat for sale, corps of engineers boat for sale, the perfect duck boat for sale, wide aluminum boat for sale, aluminum guide boat for sale, striper boat for sale, very stable boat for sale, aluminum river boat for sale.
+        Here are the key words that I have had some success with when searching marketplaces: <br/><br/> ponton bridge half-section, ponton bridge boat for sale, bailey bridge boat for sale, big aluminum boat for sale, 18.5' aluminum boat for sale, aluminum military surplus boat for sale, corps of engineers boat for sale, the perfect duck boat for sale, wide aluminum boat for sale, aluminum guide boat for sale, striper boat for sale, very stable boat for sale, aluminum river boat for sale.
         <br />
         </p>
     </div>

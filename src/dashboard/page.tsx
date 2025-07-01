@@ -82,11 +82,11 @@ export default function Page() {
           </div>
         </header>
         <img
-    src="/IMAGES/ugliboatsbanner.jpg"
-    alt="ugliboats.com banner"
-    className="h-20 object-contain"
-    style={{ maxWidth: '100%' }}
-  />
+          src="/IMAGES/ugliboatsbanner.jpg"
+          alt="ugliboats.com banner"
+          className="object-contain lg:h-25"
+          style={{ maxWidth: '100%' }}
+        />
         <div className="flex flex-1 flex-col gap-4 p-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
