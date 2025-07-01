@@ -78,17 +78,17 @@ function HistoryPage() {
   {
     img: "/IMAGES/mil-eng-pon1.png",
     alt: "Military Engineer Interior",
-    description: "Page 910 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+    description: "Page 1070 of the Military Engineer",
   },
   {
     img: "/IMAGES/mil-eng-pon2.png",
     alt: "Military Engineer Interior",
-    description: "Page 911 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+    description: "Page 1090 of the Military Engineer.",
   },
   {
     img: "/IMAGES/mil-eng-pon3.png",
     alt: "Military Engineer Interior",
-    description: "Page 912 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+    description: "Page 1091 of the Military Engineer",
   },
   ]
   
@@ -305,6 +305,16 @@ function HistoryPage() {
             SpoonBow High Chin Ponton MILSECS PDF
         </a>
         <p className="p-4">This document shows the manufacturing processes and quality assurance standards that were established for manufacturing companies that supplied the Ponton Bridge Boat to the military.</p>
+        <hr/>
+        <a
+          href="public/PDF/baileybridgebook.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
+          >
+            Article: The Bailey: The Amazing, All-Purpose Bridge - WWII
+        </a>
+        <p className="p-4">This pdf is an article about building Bailey bridges during WW2</p>
         <hr />
         <h1 className="text-xl text-left p-4 pb-0.5">Book: The Military Engineer</h1>
         <p className="text-s text-left p-4 pt-0">January 1920 through December 1921</p>

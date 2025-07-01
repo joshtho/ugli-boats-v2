@@ -4,6 +4,9 @@ function AboutPage() {
   return (
     
     <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
+      <a href="#contact" className="text-green-600 underline hover:text-green-800 p-4 block text-sm text-right">
+  Jump to Contact Info
+</a>
       <h1 className="text-2xl font-bold p-4">How this all started</h1>
       <h1 className="text-xl text-left p-4">A Couple of Ugli guys</h1>
       <p className="p-4">
@@ -56,6 +59,24 @@ function AboutPage() {
 
         I will have so much time and money in Ugli2, that I may just decide to be buried in it.
       
+        </p>
+        <br/>
+        <br/>
+        <hr/>
+        <h1 id="contact" className="text-xl text-left p-4">For any questions regarding our website, or any other questions, please contact us at:
+
+        greg@ugliboats.com or call (817) 808-8970</h1>
+        <div className="flex items-center p-4">
+          <span className="relative flex size-3">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+          <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
+          </span>
+          <p className="ml-2">Notice!</p>
+        </div>
+
+        <p className='animate-pulse p-4'>
+        IF YOU KNOW WHERE ANY OF THESE ARE FOR SALE, PLEASE CONTACT ME AT THE EMAIL OR PHONE NUMBER ABOVE.
+        <br />
         </p>
     </div>
   )
