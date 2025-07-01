@@ -4,9 +4,9 @@ function AboutPage() {
   return (
     
     <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
-      <a href="#contact" className="text-green-600 underline hover:text-green-800 p-4 block text-sm text-right">
+      {/* <a href="#contact" className="text-green-600 underline hover:text-green-800 p-4 block text-sm text-right">
       Jump to Contact Info
-      </a>
+      </a> */}
       <h1 className="text-2xl font-bold p-4">How this all started</h1>
       <h1 className="text-xl text-left p-4">A Couple of Ugli guys</h1>
       <p className="p-4">

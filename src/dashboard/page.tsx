@@ -82,9 +82,9 @@ export default function Page() {
           </div>
         </header>
         <img
-          src="/IMAGES/ugliboatsbanner.jpg"
+          src="/IMAGES/Ugli-banner.png"
           alt="ugliboats.com banner"
-          className="object-contain lg:h-25"
+          className="object-contain lg:h-50"
           style={{ maxWidth: '100%' }}
         />
         <div className="flex flex-1 flex-col gap-4 p-4">
