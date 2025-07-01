@@ -1,5 +1,97 @@
 
+import { useState } from "react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel"
+
 function HistoryPage() {
+  const dialogImages = [
+  {
+    img: "/IMAGES/Mil-eng-898pdf.png",
+    alt: "Military Engineer Interior",
+    description: "Page 907 of the Military Engineer showing a footbridge across the Marne built by the Yankee Division.",
+  },
+  {
+    img: "public/IMAGES/mil-eng-908.png",
+    alt: "Military Engineer Interior",
+    description: "Page 908 of the Military Engineer.",
+  },
+  {
+    img: "/IMAGES/mil-eng-909.png",
+    alt: "Military Engineer Interior",
+    description: "Page 909 of the Military Engineer",
+  },
+  {
+    img: "/IMAGES/mil-eng-910.png",
+    alt: "Military Engineer Interior",
+    description: "Page 910 of the Military Engineer",
+  },
+  {
+    img: "/IMAGES/mil-eng-1024.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1024 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1025.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1025 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1026.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1026 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1027.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1027 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1028.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1028 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1029.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1029 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1030.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1030 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1031.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1031 of the Military Engineer ",
+  },
+  {
+    img: "/IMAGES/mil-eng-1032.png",
+    alt: "Military Engineer Interior",
+    description: "Page 1032 of the Military Engineer",
+  },
+  {
+    img: "/IMAGES/mil-eng-pon1.png",
+    alt: "Military Engineer Interior",
+    description: "Page 910 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+  },
+  {
+    img: "/IMAGES/mil-eng-pon2.png",
+    alt: "Military Engineer Interior",
+    description: "Page 911 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+  },
+  {
+    img: "/IMAGES/mil-eng-pon3.png",
+    alt: "Military Engineer Interior",
+    description: "Page 912 of the Military Engineer showing a pontoon bridge at Camp Merritt, New Jersey.",
+  },
+  ]
+  
   return (
     <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
       <h1 className="text-2xl font-bold p-4">History of the Half-Ponton Bridge Boat</h1>
@@ -217,7 +309,39 @@ function HistoryPage() {
         <h1 className="text-xl text-left p-4 pb-0.5">Book: The Military Engineer</h1>
         <p className="text-s text-left p-4 pt-0">January 1920 through December 1921</p>
         <img className="md:max-w-[500px]" src="public/IMAGES/PHpage Military Engineer Cover Pic.jpg"/>
-        
+        <br />
+        <p className="text-s text-left p-4 pt-0">
+          These 1146 pages chronicle two years of articles for military engineers. There are several sections of interest that include articles and pictures of ponton bridges. You can download the complete PDF{' '}
+          <a
+            href="https://drive.google.com/file/d/1iaYZbBT8YPq8tTO9Q6UuWK_VQ7a-fZoj/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline hover:text-blue-800"
+          >
+            here
+          </a>
+          . <br/> I have complied some of the most interesting and relevant pages below.
+        </p>
+        <div className="my-8">
+          <Carousel className="w-full max-w-xl mx-auto">
+            <CarouselContent>
+              {dialogImages.map((item, idx) => (
+                <CarouselItem key={idx} className="flex flex-col items-center">
+                  <img
+                    key={idx}
+                    src={item.img}
+                    alt={item.alt}
+                    className="w-full max-w-xs sm:max-w-md md:max-w-lg h-auto mx-auto rounded"
+                    style={{ maxHeight: '70vh' }}
+                  />
+                  <p className="text-sm text-gray-600 mt-2 text-center">{item.description}</p>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
     </div>
   )
 }
