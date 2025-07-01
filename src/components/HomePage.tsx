@@ -7,17 +7,17 @@ import {Button} from '@/components/ui/button'
 
 
 export default function HomePage() {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toggleHidden, setToggleHidden] = useState(true)
 
   return (
     <div className="bg-white">
       <div className="relative isolate ">
-        <div className="mx-auto max-w-2xl py-32 sm:py-25 lg:py-26">
+        <div className="mx-auto max-w-2xl py-5">
           <div className="text-center">
-            <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
+            <h1 className="mb-8 text-5xl font-semibold tracking-tight text-balance sm:text-7xl" style={{ color: '#414d0b' }}>
               Welcome to UGLI Boats
             </h1>
+            <img src='/IMAGES/OMBpage gunner river boat.jpg' />
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
