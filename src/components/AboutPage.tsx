@@ -16,7 +16,7 @@ function AboutPage() {
         At that time I thought he had it way over priced for a big "Jon-Boat". During the three years that he left it here, I kept offering more money, but I could never bring myself to spend that much on a hull. I had named it FISHGUTS.
         <br />
         <br />
-        <img src='/IMAGES/AUpage fishguts pic.jpg' />
+        <img src='/ugli-boats-v2/IMAGES/AUpage fishguts pic.jpg' />
         <br />
         When my ex-neighbor finally came and got his boat - I almost immediately regretted not grabbing it when I had the chance.
         <br />
@@ -50,7 +50,7 @@ function AboutPage() {
         This is the picture of UgliBoat #1 the day I bought it. Many thanks to my friends wife, Michelle, who saved these early pictures.
         <br />
         <br />
-      <img src='/IMAGES/AU Ugli1 purchase day.jpg' />
+      <img src='/ugli-boats-v2/IMAGES/AU Ugli1 purchase day.jpg' />
         <br />
 
         Once we started working on UgliBoat #1 we really caught the bug for these boats. I sold Ugli #1 because of financial reasons, but am currently working on UgliBoat #2 which also took over a year to locate.

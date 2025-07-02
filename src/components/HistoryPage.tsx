@@ -11,82 +11,82 @@ import {
 function HistoryPage() {
   const dialogImages = [
   {
-    img: "/IMAGES/Mil-eng-898pdf.png",
+    img: "/ugli-boats-v2/IMAGES/Mil-eng-898pdf.png",
     alt: "Military Engineer Interior",
     description: "Page 907 of the Military Engineer showing a footbridge across the Marne built by the Yankee Division.",
   },
   {
-    img: "public/IMAGES/mil-eng-908.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-908.png",
     alt: "Military Engineer Interior",
     description: "Page 908 of the Military Engineer.",
   },
   {
-    img: "/IMAGES/mil-eng-909.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-909.png",
     alt: "Military Engineer Interior",
     description: "Page 909 of the Military Engineer",
   },
   {
-    img: "/IMAGES/mil-eng-910.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-910.png",
     alt: "Military Engineer Interior",
     description: "Page 910 of the Military Engineer",
   },
   {
-    img: "/IMAGES/mil-eng-1024.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1024.png",
     alt: "Military Engineer Interior",
     description: "Page 1024 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1025.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1025.png",
     alt: "Military Engineer Interior",
     description: "Page 1025 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1026.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1026.png",
     alt: "Military Engineer Interior",
     description: "Page 1026 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1027.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1027.png",
     alt: "Military Engineer Interior",
     description: "Page 1027 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1028.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1028.png",
     alt: "Military Engineer Interior",
     description: "Page 1028 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1029.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1029.png",
     alt: "Military Engineer Interior",
     description: "Page 1029 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1030.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1030.png",
     alt: "Military Engineer Interior",
     description: "Page 1030 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1031.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1031.png",
     alt: "Military Engineer Interior",
     description: "Page 1031 of the Military Engineer ",
   },
   {
-    img: "/IMAGES/mil-eng-1032.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-1032.png",
     alt: "Military Engineer Interior",
     description: "Page 1032 of the Military Engineer",
   },
   {
-    img: "/IMAGES/mil-eng-pon1.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-pon1.png",
     alt: "Military Engineer Interior",
     description: "Page 1070 of the Military Engineer",
   },
   {
-    img: "/IMAGES/mil-eng-pon2.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-pon2.png",
     alt: "Military Engineer Interior",
     description: "Page 1090 of the Military Engineer.",
   },
   {
-    img: "/IMAGES/mil-eng-pon3.png",
+    img: "/ugli-boats-v2/IMAGES/mil-eng-pon3.png",
     alt: "Military Engineer Interior",
     description: "Page 1091 of the Military Engineer",
   },
@@ -132,7 +132,7 @@ function HistoryPage() {
         <p className='p-4'>
         The following is directly from the field manual for these Light tactical rafts (LTRs) and bridges :
         <h3 className="text-xl text-left p-4">Chapter 7 Half-Ponton:</h3>
-        <img src='/IMAGES/PHpage pic.jpg' />
+        <img src='/ugli-boats-v2/IMAGES/PHpage pic.jpg' />
         The aluminum alloy half-ponton has an effective length of 18 feet 6 inches, is 6 feet 8.5 inches wide, and 2 feet 10 inches high. The bow of each half-ponton is raised approximately 7 inches higher than the stem to prevent the ponton from swamping when rafting in swift currents. The half-ponton weighs approximately 650 pounds and has a displacement of 6.25 tons. Two half-pontons are joined stem to stem to form a whole ponton which supports the light floating bridge or raft.
 
         

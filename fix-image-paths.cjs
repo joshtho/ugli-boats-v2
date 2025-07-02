@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const exts = ['.tsx', '.jsx'];
+const exts = ['.js', '.ts', '.jsx', '.tsx'];
 const base = '/ugli-boats-v2';
+
+// Regex: match any string that starts with /IMAGES/ or public/IMAGES/
+const regex = /(['"`])(?:\/|public\/)IMAGES\//g;
 
 function fixFile(filePath) {
   let content = fs.readFileSync(filePath, 'utf8');
-  let updated = content
-    // Replace src="/IMAGES/...
-    .replace(/src="\/IMAGES\//g, `src="${base}/IMAGES/`)
-    // Replace src="public/IMAGES/...
-    .replace(/src="public\/IMAGES\//g, `src="${base}/IMAGES/`);
+  let updated = content.replace(regex, `$1${base}/IMAGES/`);
   if (updated !== content) {
     fs.writeFileSync(filePath, updated, 'utf8');
     console.log(`Fixed: ${filePath}`);

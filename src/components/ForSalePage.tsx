@@ -9,9 +9,9 @@ function ForSalePage() {
         <br />
         We have these last 3 unmolested UgliBoats left. We are in the DFW area of North Texas. Call UgliGreg @ 817-808-8970
       </p>
-      <img src='/IMAGES/Last-Ugliboats-2023.jpg'/>
+      <img src='/ugli-boats-v2/IMAGES/Last-Ugliboats-2023.jpg'/>
       <br/>
-      <img src='/IMAGES/UgliBoat-Flooring - 2023.jpg'/>
+      <img src='/ugli-boats-v2/IMAGES/UgliBoat-Flooring - 2023.jpg'/>
       <br/>
       <br/>
       <div className="flex items-center p-4">

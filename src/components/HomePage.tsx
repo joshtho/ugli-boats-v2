@@ -17,7 +17,7 @@ export default function HomePage() {
             <h1 className="mb-8 text-5xl font-semibold tracking-tight text-balance sm:text-7xl" style={{ color: '#414d0b' }}>
               Welcome to UGLI Boats
             </h1>
-            <img src='/IMAGES/OMBpage gunner river boat.jpg' />
+            <img src='/ugli-boats-v2/IMAGES/OMBpage gunner river boat.jpg' />
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
