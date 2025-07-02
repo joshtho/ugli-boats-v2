@@ -1,5 +1,4 @@
-
-    'use client'
+'use client'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -22,30 +21,25 @@ export default function HomePage() {
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
             <br />
-            <div className="mt-10 flex items-center justify-center gap-x-2">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mx-auto">
               <Link to="/builds">
-                <Button
-                className="rounded-md bg-[#414d0b] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+                <Button className="w-full rounded-md bg-[#202704] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   UGLI Builds
                 </Button>
               </Link>
               <Link to="/about">
-                <Button className="text-sm/6 font-semibold text-white">
-                  About us 
+                <Button className="w-full text-sm/6 font-semibold text-white bg-[#414d0b] hover:bg-[#727a17]">
+                  About us
                 </Button>
               </Link>
-              
-              <Link to="/for-sale"> 
-                <Button
-                className="rounded-md bg-[#414d0b] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+              <Link to="/for-sale">
+                <Button className="w-full rounded-md bg-[#202704] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   For Sale
                 </Button>
               </Link>
               <Link to="/history">
-                <Button className="text-sm/6 font-semibold text-white">
-                  Ugli-History 
+                <Button className="w-full text-sm/6 font-semibold text-white bg-[#414d0b] hover:bg-[#727a17]">
+                  Ugli-History
                 </Button>
               </Link>
             </div>
