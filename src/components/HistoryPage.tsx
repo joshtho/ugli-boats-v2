@@ -143,7 +143,7 @@ function HistoryPage() {
         <h3 className="text-l text-left p-4">Table of Contents</h3>
         
         <a
-          href="/PDF/ch1rivercrossingconcepts.pdf"
+          href="/ugli-boats-v2/PDF/ch1rivercrossingconcepts.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -151,15 +151,15 @@ function HistoryPage() {
             Field Manual PDF (Chapter 1: River Crossing Concepts)
         </a>
         <a
-          href="/PDF/ch2watermanshipandsafety.pdf"
+          href="/ugli-boats-v2/PDF/ch2watermanshipandsafety.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-            Field Manual PDF (Chapter 2: Watermanship and Saftey)
+            Field Manual PDF (Chapter 2: Watermanship and Safety)
         </a>
         <a
-          href="/PDF/ch3boatsandmotors.pdf"
+          href="/ugli-boats-v2/PDF/ch3boatsandmotors.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -167,15 +167,15 @@ function HistoryPage() {
              Field Manual PDF (Chapter 3: Boats and Motors)
         </a>
         <a
-          href="/PDF/ch4improvedfloatbridgeribbon.pdf"
+          href="/ugli-boats-v2/PDF/ch4improvedfloatbridgeribbon.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-             Field Manual PDF (Chapter 4: Imporved Float Bridge (Ribbon))
+             Field Manual PDF (Chapter 4: Improved Float Bridge (Ribbon))
         </a>
         <a
-          href="/PDF/ch5floatingbridgesandrafts.pdf"
+          href="/ugli-boats-v2/PDF/ch5floatingbridgesandrafts.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -183,7 +183,7 @@ function HistoryPage() {
              Field Manual PDF (Chapter 5: M4T6 Floating Bridges and Rafts)
         </a>
         <a
-          href="/PDF/ch6floatingbridge.pdf"
+          href="/ugli-boats-v2/PDF/ch6floatingbridge.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -191,7 +191,7 @@ function HistoryPage() {
              Field Manual PDF (Chapter 6: Class 60 Floating Bridge)
         </a>
         <a
-          href="/PDF/ch7lighttacticalraftsandbridges.pdf"
+          href="/ugli-boats-v2/PDF/ch7lighttacticalraftsandbridges.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -199,7 +199,7 @@ function HistoryPage() {
              Field Manual PDF (Chapter 7: Light Tactical Rafts and Bridges)
         </a>
         <a
-          href="/PDF/ch8anchorageoffloatingbridges.pdf"
+          href="/ugli-boats-v2/PDF/ch8anchorageoffloatingbridges.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -207,15 +207,15 @@ function HistoryPage() {
              Field Manual PDF (Chapter 8: Anchorage of Floating Bridges)
         </a>
         <a
-          href="public/PDF/ch9floatbridgeprotectivedevices.pdf"
+          href="/ugli-boats-v2/PDF/ch9floatbridgeprotectivedevices.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
           >
-             Field Manual PDF (Chapter 9: Flot Bridge Protective Devices)
+             Field Manual PDF (Chapter 9: Float Bridge Protective Devices)
         </a>
         <a
-          href="/PDF/apaaknotsandlashings.pdf"
+          href="/ugli-boats-v2/PDF/apaaknotsandlashings.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -223,7 +223,7 @@ function HistoryPage() {
              Field Manual PDF (Appendix A - Knots and Lashings)
         </a>
         <a
-          href="/PDF/appbairliftops.pdf"
+          href="/ugli-boats-v2/PDF/appbairliftops.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -231,7 +231,7 @@ function HistoryPage() {
             Field Manual PDF (Appendix B - Airlift Operations)
         </a>
         <a
-          href="/PDF/appcexpediantdesignofanchorsystems.pdf"
+          href="/ugli-boats-v2/PDF/appcexpediantdesignofanchorsystems.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -239,7 +239,7 @@ function HistoryPage() {
             APPENDIX C - EXPEDIENT DESIGN OF OVERHEAD ANCHORAGE SYSTEMS
         </a>
         <a
-          href="/PDF/appdexpediantanchorages.pdf"
+          href="/ugli-boats-v2/PDF/appdexpediantanchorages.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -247,7 +247,7 @@ function HistoryPage() {
             APPENDIX D - EXPEDIENT ANCHORAGES
         </a>
         <a
-          href="/PDF/appealuminumfloatingfootbridges.pdf"
+          href="/ugli-boats-v2/PDF/appealuminumfloatingfootbridges.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -255,7 +255,7 @@ function HistoryPage() {
             APPENDIX E - ALUMINUM FLOATING FOOTBRIDGE
         </a>
         <a
-          href="/PDF/appfaccessandegressroadwayaers.pdf"
+          href="/ugli-boats-v2/PDF/appfaccessandegressroadwayaers.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -263,7 +263,7 @@ function HistoryPage() {
             APPENDIX F - ACCESS/EGRESS ROADWAY SYSTEM (AERS)
         </a>
         <a
-          href="/PDF/glossary.pdf"
+          href="/ugli-boats-v2/PDF/glossary.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -271,7 +271,7 @@ function HistoryPage() {
             Glossary
         </a>
         <a
-          href="/PDF/references.pdf"
+          href="/ugli-boats-v2/PDF/references.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -279,7 +279,7 @@ function HistoryPage() {
             REFERENCES
         </a>
         <a
-          href="/PDF/TC5210authorizationletter.pdf"
+          href="/ugli-boats-v2/PDF/TC5210authorizationletter.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -287,7 +287,7 @@ function HistoryPage() {
             AUTHORIZATION LETTER
         </a>
         <a
-          href="/PDF/toc.pdf"
+          href="/ugli-boats-v2/PDF/toc.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -297,7 +297,7 @@ function HistoryPage() {
         <h3 className="p-4">DISTRIBUTION RESTRICTION: Approved for public release; distribution is unlimited.</h3>
         <hr/>
         <a
-          href="/PDF/spoonbow high chin ponton milspecs.pdf"
+          href="/ugli-boats-v2/PDF/spoonbow high chin ponton milspecs.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"
@@ -307,7 +307,7 @@ function HistoryPage() {
         <p className="p-4">This document shows the manufacturing processes and quality assurance standards that were established for manufacturing companies that supplied the Ponton Bridge Boat to the military.</p>
         <hr/>
         <a
-          href="public/PDF/baileybridgebook.pdf"
+          href="/ugli-boats-v2/PDF/baileybridgebook.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 underline hover:text-blue-800 font-semibold block p-4"

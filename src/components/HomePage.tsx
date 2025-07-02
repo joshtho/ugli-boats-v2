@@ -22,7 +22,7 @@ export default function HomePage() {
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
             <br />
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10 flex items-center justify-center gap-x-2">
               <Link to="/builds">
                 <Button
                 className="rounded-md bg-[#414d0b] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
