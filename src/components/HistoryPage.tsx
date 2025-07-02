@@ -318,7 +318,7 @@ function HistoryPage() {
         <hr />
         <h1 className="text-xl text-left p-4 pb-0.5">Book: The Military Engineer</h1>
         <p className="text-s text-left p-4 pt-0">January 1920 through December 1921</p>
-        <img className="md:max-w-[500px]" src="public/IMAGES/PHpage Military Engineer Cover Pic.jpg"/>
+        <img className="md:max-w-[500px]" src="/ugli-boats-v2/IMAGES/PHpage Military Engineer Cover Pic.jpg"/>
         <br />
         <p className="text-s text-left p-4 pt-0">
           These 1146 pages chronicle two years of articles for military engineers. There are several sections of interest that include articles and pictures of ponton bridges. You can download the complete PDF{' '}
