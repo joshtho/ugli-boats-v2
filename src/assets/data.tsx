@@ -870,7 +870,428 @@ const data: {
 
       ],
     },
-    
+    {
+      name: "Mat Kessler",
+      images: [
+        {
+          alt: "Mat Kessler 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 1.JPG",
+        },
+        {
+          alt: "Mat Kessler 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 2.JPG",
+        },
+        {
+          alt: "Mat Kessler 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 3.JPG",
+        },
+        {
+          alt: "Mat Kessler 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 4.JPG",
+        },
+        {
+          alt: "Mat Kessler 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 5.JPG",
+        },
+        {
+          alt: "Mat Kessler 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 6.JPG",
+        },
+        {
+          alt: "Mat Kessler 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 7.JPG",
+        },
+        {
+          alt: "Mat Kessler 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 8.JPG",
+        },
+        {
+          alt: "Mat Kessler 9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 9.JPG",
+        },
+        {
+          alt: "Mat Kessler 10",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 10.JPG",
+        },
+        {
+          alt: "Mat Kessler 11",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 11.JPG",
+        },
+        {
+          alt: "Mat Kessler 12",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 12.JPG",
+        },
+        {
+          alt: "Mat Kessler 13",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 13.JPG",
+        },
+        {
+          alt: "Mat Kessler 14",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 14.JPG",
+        },
+        {
+          alt: "Mat Kessler 15",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 15.JPG",
+        },
+        {
+          alt: "Mat Kessler 16",
+          caption: "",          
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 16.JPG",
+        },
+        {
+          alt: "Mat Kessler 17",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 17.JPG",
+        },
+        {
+          alt: "Mat Kessler 17a",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 17a.JPG",
+        },
+        {
+          alt: "Mat Kessler 17b",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 17b.JPG",
+        },
+        {
+          alt: "Mat Kessler 18",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 18.JPG",
+        },
+        {
+          alt: "Mat Kessler 19",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 19.JPG",
+        },
+        {
+          alt: "Mat Kessler 20",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 20.JPG",
+        },
+        {
+          alt: "Mat Kessler 21",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 21.JPG",
+        },
+        {
+          alt: "Mat Kessler 22",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 22.JPG",
+        },
+        {
+          alt: "Mat Kessler 23",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 23.JPG",
+        },
+        {
+          alt: "Mat Kessler 24",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MatKesslerBuildPics/kessler 24.JPG",
+        }
+      ],
+    },
+    {
+      name: "Matt Pieper",
+      images: [
+        {
+          alt: "Matt Pieper 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper1.jpg",
+        },
+        {
+          alt: "Matt Pieper 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper2.jpg",
+        },
+        {
+          alt: "Matt Pieper 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper3.jpg",
+        },
+        {
+          alt: "Matt Pieper 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper4.jpg",
+        },
+        {
+          alt: "Matt Pieper 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper5.jpg",
+        },
+        {
+          alt: "Matt Pieper 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper6.jpg",
+        },
+        {
+          alt: "Matt Pieper 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper7.jpg",
+        },
+        {
+          alt: "Matt Pieper 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper8.jpg",
+        },
+        {
+          alt: "Matt Pieper 9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper9.jpg",
+        },
+        {
+          alt: "Matt Pieper 10",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper10.jpg",
+        },
+        {
+          alt: "Matt Pieper 11",    
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper11.jpg",
+        },
+        {
+          alt: "Matt Pieper 12",
+          caption: "",      
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper12.jpg",
+        },
+        {
+          alt: "Matt Pieper 13",    
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper13.jpg",
+        },
+        {   
+          alt: "Matt Pieper 14",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper14.jpg",
+        },
+        {
+          alt: "Matt Pieper 15",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper15.jpg",
+        },
+        {
+          alt: "Matt Pieper 16",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper16.jpg",
+        },
+        {
+          alt: "Matt Pieper 17",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper17.jpg",
+        },
+        {
+          alt: "Matt Pieper 18",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper18.jpg",
+        },
+        {
+          alt: "Matt Pieper 19",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper19.jpg",
+        },
+        {
+          alt: "Matt Pieper 20",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper20.jpg",
+        },
+        {
+          alt: "Matt Pieper 21",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper21.jpg",
+        },
+        {
+          alt: "Matt Pieper 22",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MattPieperBuildPics/MattPieper22.jpg",
+        },
+      ],
+    },
+    {
+      name: "Patrick Anon",
+      images: [
+        {
+          alt: "Patrick Anon 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PatrickAnonBuildPics/PatrickAnon1.jpg",
+        },
+        {
+          alt: "Patrick Anon 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PatrickAnonBuildPics/PatrickAnon2.jpg",
+        },
+        {
+          alt: "Patrick Anon 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PatrickAnonBuildPics/PatrickAnon3.jpg",
+        },
+        {
+          alt: "Patrick Anon 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/MikeMcGowanBuildPics/PatrickAnon4.jpg",
+        },
+        
+      ],
+    },
+    {
+      name: "Paul Meyer",
+      images: [
+        {
+          alt: "Paul Meyer 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer1.jpg"
+        },
+        {
+          alt: "Paul Meyer 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer2.jpg"
+        },
+        {
+          alt: "Paul Meyer 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer3.jpg"
+        },
+        {
+          alt: "Paul Meyer 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer4.jpg"
+        },
+        {
+          alt: "Paul Meyer 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer5.jpg"
+        },
+        {
+          alt: "Paul Meyer 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer6.jpg"
+        },
+        {
+          alt: "Paul Meyer 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer7.jpg"
+        },
+        {
+          alt: "Paul Meyer 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer8.jpg"
+        },
+        {
+          alt: "Paul Meyer 9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer9.jpg"
+        },
+        {
+          alt: "Paul Meyer 10",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer10.jpg"
+        },
+        {
+          alt: "Paul Meyer 11",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer11.jpg"
+        },
+        {
+          alt: "Paul Meyer 12",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer12.jpg"
+        },
+        {
+          alt: "Paul Meyer 13",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/PaulMeyerBuildPics/PaulMeyer13.jpg"
+        },
+        
+      ]
+    },
+    {
+      name: "Robert Dorch",
+      images: [
+        {
+          alt: "Robert Dorch 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch1.jpg"
+        },
+        {
+          alt: "Robert Dorch 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch2.jpg"
+        },
+        {
+          alt: "Robert Dorch 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch3.jpg"
+        },
+        {
+          alt: "Robert Dorch 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch4.jpg"
+        },
+        {
+          alt: "Robert Dorch 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch5.jpg"
+        },
+        {
+          alt: "Robert Dorch 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch6.jpg"
+        },
+        {
+          alt: "Robert Dorch 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch7.jpg"
+        },
+        {
+          alt: "Robert Dorch 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch8.jpg"
+        },
+        {
+          alt: "Robert Dorch 9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch9.jpg"
+        },
+      ]
+    },
+    {
+      name: "Robert Byers",
+      images: [
+        {
+          alt: "Robert Byers 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobtByersBuild/RobertByers1.jpg"
+        },
+        {
+          alt: "Robert Byers 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobtByersBuild/RobertByers2.jpg"
+        },
+        {
+          alt: "Robert Byers 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobtByersBuild/RobertByers3.jpg"
+        },
+        {
+          alt: "Robert Byers 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RobtByersBuild/RobertByers4.jpg"
+        },
+      ]
+    },
   ],
 }
 

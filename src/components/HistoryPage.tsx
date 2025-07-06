@@ -11,82 +11,82 @@ import {
 function HistoryPage() {
   const dialogImages = [
   {
-    img: "/ugli-boats-v2/IMAGES/Mil-eng-898pdf.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/Mil-eng-898pdf.png",
     alt: "Military Engineer Interior",
     description: "Page 907 of the Military Engineer showing a footbridge across the Marne built by the Yankee Division.",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-908.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-908.png",
     alt: "Military Engineer Interior",
     description: "Page 908 of the Military Engineer.",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-909.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-909.png",
     alt: "Military Engineer Interior",
     description: "Page 909 of the Military Engineer",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-910.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-910.png",
     alt: "Military Engineer Interior",
     description: "Page 910 of the Military Engineer",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1024.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1024.png",
     alt: "Military Engineer Interior",
     description: "Page 1024 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1025.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1025.png",
     alt: "Military Engineer Interior",
     description: "Page 1025 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1026.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1026.png",
     alt: "Military Engineer Interior",
     description: "Page 1026 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1027.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1027.png",
     alt: "Military Engineer Interior",
     description: "Page 1027 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1028.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1028.png",
     alt: "Military Engineer Interior",
     description: "Page 1028 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1029.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1029.png",
     alt: "Military Engineer Interior",
     description: "Page 1029 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1030.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1030.png",
     alt: "Military Engineer Interior",
     description: "Page 1030 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1031.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1031.png",
     alt: "Military Engineer Interior",
     description: "Page 1031 of the Military Engineer ",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-1032.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-1032.png",
     alt: "Military Engineer Interior",
     description: "Page 1032 of the Military Engineer",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-pon1.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-pon1.png",
     alt: "Military Engineer Interior",
     description: "Page 1070 of the Military Engineer",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-pon2.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-pon2.png",
     alt: "Military Engineer Interior",
     description: "Page 1090 of the Military Engineer.",
   },
   {
-    img: "/ugli-boats-v2/IMAGES/mil-eng-pon3.png",
+    img: "/ugli-boats-v2/IMAGES/militaryEngineer/mil-eng-pon3.png",
     alt: "Military Engineer Interior",
     description: "Page 1091 of the Military Engineer",
   },
