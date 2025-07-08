@@ -1292,6 +1292,706 @@ const data: {
         },
       ]
     },
+    {
+      name: "Ronald Zscherneck",
+      images: [
+        {
+          alt: "Ronald Zscherneck 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck1.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck2.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck3.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck4.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck5.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck6.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck7.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck8.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck9.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 10",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck10.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 11",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck11.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 12",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck12.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 13",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck13.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 14",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck14.jpg"
+        },
+        {
+          alt: "Ronald Zscherneck 15",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/RonaldZscherneckBuild/RonaldZscherneck15.jpg"
+        },
+      ]
+    },
+    {
+      name: "Sean Clark",
+      images: [
+        {
+          alt: "Sean-build-1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-1.jpg"
+        },
+        {
+          alt: "Sean-build-2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-2.jpg"
+        },
+        {
+          alt: "Sean-build-3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-3.jpg"
+        },
+        {
+          alt: "Sean-build-4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-4.jpg"
+        },
+        {
+          alt: "Sean-build-5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-5.jpg"
+        },
+        {
+          alt: "Sean-build-6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-6.jpg"
+        },
+        {
+          alt: "Sean-build-7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-7.jpg"
+        },
+        {
+          alt: "Sean-build-8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-8.jpg"
+        },
+        {
+          alt: "Sean-build-9",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-9.jpg"
+        },
+        {
+          alt: "Sean-build-10",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-10.jpg"
+        },
+        {
+          alt: "Sean-build-11",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/Sean Clark Build/sean-build-11.jpg"
+        },
+      ]
+    },
+    {
+      name: "Tom Anderson",
+      images: [
+        {
+          alt: "Tom Anderson build 1",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 1.PNG"
+        },
+        {
+          alt: "Tom Anderson build 2",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 2.png"
+        },
+        {
+          alt: "Tom Anderson build 3",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 3.png"
+        },
+        {
+          alt: "Tom Anderson build 4",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 4.png"
+        },
+        {
+          alt: "Tom Anderson build 5",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 5.png"
+        },
+        {
+          alt: "Tom Anderson build 6",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 6.jpg"
+        },
+        {
+          alt: "Tom Anderson build 7",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 7.png"
+        },
+        {
+          alt: "Tom Anderson build 8",
+          caption: "",
+          url: "/ugli-boats-v2/IMAGES/TomAndersonBuildPics/tom anderson pig 8.png"
+        },
+      ]
+    },
+    {
+  name: "Ugli 1 Build",
+  images: [
+  {
+    "alt": "1 Ugli 1 boat tag",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli 1 boat tag.jpg"
+  },
+  {
+    "alt": "1 Ugli1 purchase day",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli1 purchase day.jpg"
+  },
+  {
+    "alt": "10 Ugli 1 shallow",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10 Ugli 1 shallow.jpg"
+  },
+  {
+    "alt": "10a Ugli 1 trollspeed",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10a Ugli 1 trollspeed.jpg"
+  },
+  {
+    "alt": "10b Ugli 1speed2",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10b Ugli 1speed2.jpg"
+  },
+  {
+    "alt": "10c Ugli 1mike",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10c Ugli 1mike.jpg"
+  },
+  {
+    "alt": "11 Ugli 1 g n m n m",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/11 Ugli 1 g n m n m.jpg"
+  },
+  {
+    "alt": "1b Ugli 1 Painting",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1b Ugli 1 Painting.jpg"
+  },
+  {
+    "alt": "1c Ugli 1 start project",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1c Ugli 1 start project.jpg"
+  },
+  {
+    "alt": "2 Ugli 1 project wirewheel",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/2 Ugli 1 project wirewheel.jpg"
+  },
+  {
+    "alt": "2a Ugli 1 project fill foam",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/2a Ugli 1 project fill foam.jpg"
+  },
+  {
+    "alt": "2b Ugli 1 project 008",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/2b Ugli 1 project 008.jpg"
+  },
+  {
+    "alt": "4 Ugli 1 transom removal",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/4 Ugli 1 transom removal.jpg"
+  },
+  {
+    "alt": "5 Ugli 1 transom mockup",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5 Ugli 1 transom mockup.jpg"
+  },
+  {
+    "alt": "5a Ugli 1 Build console",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5a Ugli 1 Build console.jpg"
+  },
+  {
+    "alt": "5aa Ugli 1 gas tank",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5aa Ugli 1 gas tank.jpg"
+  },
+  {
+    "alt": "5b Ugli 1 transom welding",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5b Ugli 1 transom welding.jpg"
+  },
+  {
+    "alt": "5c Ugli 1 transom welding",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5c Ugli 1 transom welding.jpg"
+  },
+  {
+    "alt": "6 Ugli 1 Interior 006",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6 Ugli 1 Interior 006.jpg"
+  },
+  {
+    "alt": "6a Ugli 1 boatdeck 004",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6a Ugli 1 boatdeck 004.jpg"
+  },
+  {
+    "alt": "6b Ugli 1 boatdeck 008",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6b Ugli 1 boatdeck 008.jpg"
+  },
+  {
+    "alt": "6c Ugli 1 front deck mike chair",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6c Ugli 1 front deck mike chair.jpg"
+  },
+  {
+    "alt": "7a Ugli 1 115 n trailer",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7a Ugli 1 115 n trailer.jpg"
+  },
+  {
+    "alt": "7a1 Ugli 1 Texoma",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7a1 Ugli 1 Texoma.jpg"
+  },
+  {
+    "alt": "7a2 Ugli 1 Texoma2",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7a2 Ugli 1 Texoma2.JPG"
+  },
+  {
+    "alt": "7b Ugli 1 transom before pods 002",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7b Ugli 1 transom before pods 002.jpg"
+  },
+  {
+    "alt": "7c Ugli 1 pod 001",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7c Ugli 1 pod 001.jpg"
+  },
+  {
+    "alt": "7d Ugli 1 transom before pods",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7d Ugli 1 transom before pods.jpg"
+  },
+  {
+    "alt": "7e Ugli 1 floatpods",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7e Ugli 1 floatpods.jpg"
+  },
+  {
+    "alt": "7f Ugli 1 pod pic",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7f Ugli 1 pod pic.jpg"
+  },
+  {
+    "alt": "7g Ugli 1 pods 115",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7g Ugli 1 pods 115.jpg"
+  },
+  {
+    "alt": "7h Ugli 1 boat new trailer 001",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7h Ugli 1 boat new trailer 001.jpg"
+  },
+  {
+    "alt": "8 Ugli 1 Consoles",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/8 Ugli 1 Consoles.jpg"
+  },
+  {
+    "alt": "9 Ugli 1 new 150",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9 Ugli 1 new 150.jpg"
+  },
+  {
+    "alt": "9a Ugli 1 new 150",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9a Ugli 1 new 150.jpg"
+  },
+  {
+    "alt": "9b Ugli 1 Complete floorview 003",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9b Ugli 1 Complete floorview 003.jpg"
+  },
+  {
+    "alt": "9c Ugli 1 Complete floorview 002",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9c Ugli 1 Complete floorview 002.jpg"
+  },
+  {
+    "alt": "foamed boat",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/foamed boat.jpg"
+  }
+]
+},
+{
+  name: "Ugli 2 Build",
+  images: [
+  {
+    "alt": "1 UGLI CANOPY",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI CANOPY.jpg"
+  },
+  {
+    "alt": "1 UGLI HAMMOCK",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI HAMMOCK.jpg"
+  },
+  {
+    "alt": "1 Ugli 3 inch draft",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli 3 inch draft.jpg"
+  },
+  {
+    "alt": "1 Ugli Rod Rail1",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Rod Rail1.jpg"
+  },
+  {
+    "alt": "1 Ugli Yamaha90",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Yamaha90.jpg"
+  },
+  {
+    "alt": "1 Ugli at Dock",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli at Dock.jpg"
+  },
+  {
+    "alt": "1 Ugli name",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli name.jpg"
+  },
+  {
+    "alt": "1 Ugli2 purchase pic",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli2 purchase pic.jpg"
+  },
+  {
+    "alt": "10 JOHN D boat floor",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/10 JOHN D boat floor.jpg"
+  },
+  {
+    "alt": "1a  Ugli2 upsidedown",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1a  Ugli2 upsidedown.jpg"
+  },
+  {
+    "alt": "2a taped",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/2a taped.jpg"
+  },
+  {
+    "alt": "3 first coat",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3 first coat.jpg"
+  },
+  {
+    "alt": "3a fillchannels 2 ",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3a fillchannels 2 .jpg"
+  },
+  {
+    "alt": "3c bubbles 001",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3c bubbles 001.jpg"
+  },
+  {
+    "alt": "3d bubbles 002",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3d bubbles 002.jpg"
+  },
+  {
+    "alt": "4a  first coat bubbles 005",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/4a  first coat bubbles 005.jpg"
+  },
+  {
+    "alt": "4b first coat bubbles 003",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/4b first coat bubbles 003.jpg"
+  },
+  {
+    "alt": "5 second coating",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/5 second coating.jpg"
+  },
+  {
+    "alt": "5-1 second coating",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/5-1 second coating.jpg"
+  },
+  {
+    "alt": "5a second coating",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/5a second coating.jpg"
+  },
+  {
+    "alt": "7 UgliCustomTrailer1",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/7 UgliCustomTrailer1.jpg"
+  },
+  {
+    "alt": "7a Uglicustomtrailer 003",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/7a Uglicustomtrailer 003.jpg"
+  },
+  {
+    "alt": "8 porta bracket",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8 porta bracket.jpg"
+  },
+  {
+    "alt": "8a bracket test fitting 002",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8a bracket test fitting 002.jpg"
+  },
+  {
+    "alt": "8a1 portabracket 001",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8a1 portabracket 001.jpg"
+  },
+  {
+    "alt": "8b Porta Bracket plate fitting 003",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8b Porta Bracket plate fitting 003.jpg"
+  },
+  {
+    "alt": "8e plate fitting 004",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8e plate fitting 004.jpg"
+  },
+  {
+    "alt": "8f plate fitting 005",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8f plate fitting 005.jpg"
+  },
+  {
+    "alt": "8g portabracket final mounting ",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8g portabracket final mounting .jpg"
+  },
+  {
+    "alt": "8h portabracket triangles ",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8h portabracket triangles .jpg"
+  },
+  {
+    "alt": "8i portabracket final mounting ",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8i portabracket final mounting .jpg"
+  },
+  {
+    "alt": "9 drain plug installation",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/9 drain plug installation.jpg"
+  },
+  {
+    "alt": "UGLI CHARGERS",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/UGLI CHARGERS.jpg"
+  },
+  {
+    "alt": "box cut outs",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/box cut outs.jpg"
+  },
+  {
+    "alt": "deck with boxes fitted",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/deck with boxes fitted.jpg"
+  },
+  {
+    "alt": "pump cover",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/pump cover.jpg"
+  },
+  {
+    "alt": "ugli 2 front pic 001",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 front pic 001.jpg"
+  },
+  {
+    "alt": "ugli 2 with top down",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg"
+  },
+  {
+    "alt": "ugli2 with top down shallow",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli2 with top down shallow.jpg"
+  }
+]
+},
+{
+  name: "Warren Beseler Build",
+  images: [
+  {
+    "alt": "WarrenBeseler1",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler1.jpg"
+  },
+  {
+    "alt": "WarrenBeseler2",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler2.jpg"
+  },
+  {
+    "alt": "WarrenBeseler2018",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler2018.jpg"
+  },
+  {
+    "alt": "WarrenBeseler3",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler3.jpg"
+  },
+  {
+    "alt": "WarrenBeseler4",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler4.jpg"
+  },
+  {
+    "alt": "WarrenBeseler5",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler5.jpg"
+  },
+  {
+    "alt": "WarrenBeseler6",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler6.jpg"
+  },
+  {
+    "alt": "WarrenBeseler7",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler7.jpg"
+  },
+  {
+    "alt": "WarrenBeseler8",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler8.jpg"
+  },
+  {
+    "alt": "WarrenBeseler9",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler9.jpg"
+  },
+  {
+    "alt": "WarrenBeselerTexas1",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeselerTexas1.jpg"
+  }
+]
+},
+{
+  name: "William Shelton Build",
+  images: [
+  {
+    "alt": "shelton1",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton1.jpg"
+  },
+  {
+    "alt": "shelton10",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton10.jpg"
+  },
+  {
+    "alt": "shelton11",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton11.jpg"
+  },
+  {
+    "alt": "shelton2",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton2.jpg"
+  },
+  {
+    "alt": "shelton3",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton3.jpg"
+  },
+  {
+    "alt": "shelton4",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton4.jpg"
+  },
+  {
+    "alt": "shelton5",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton5.jpg"
+  },
+  {
+    "alt": "shelton6",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton6.jpg"
+  },
+  {
+    "alt": "shelton7",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton7.jpg"
+  },
+  {
+    "alt": "shelton8",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton8.jpg"
+  },
+  {
+    "alt": "shelton9",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/WilliamSheltonBuild/shelton9.jpg"
+  }
+]
+},
   ],
 }
 
