@@ -1,9 +1,18 @@
 const data: { 
-  builds: { name: string, images: { alt: string, caption: string, url: string }[] }[] 
+  builds: { 
+    name: string, 
+    buildName: string, 
+    header: string, 
+    introText: string, 
+    images: { alt: string, caption: string, url: string }[] 
+  }[] 
 } = {
   builds: [
     {
       name: "Aaron Quitberg",
+      buildName: "Aaron Quitberg",
+      header: "Aaron Quitberg Build",
+      introText: "Intro text for Aaron Quitberg.",
       images: [
         {
           alt: "AQ Both panels removed",
@@ -104,6 +113,9 @@ const data: {
     },
     {
       name: "Allen Stutheit",
+      buildName: "Allen Stutheit",
+      header: "Allen Stutheit Build",
+      introText: "Intro text for Allen Stutheit.",
       images: [
         {
           alt: "allen stutheit 3",
@@ -139,6 +151,9 @@ const data: {
     },
     {
       name: "Brent Mitchell",
+      buildName: "Brent Mitchell",
+      header: "Brent Mitchell Build",
+      introText: "Intro text for Brent Mitchell.",
       images: [
         {
           alt: "Brent Mitchell Build 01",
@@ -189,6 +204,9 @@ const data: {
     },
     {
       name: "Chris Castellano",
+      buildName: "Chris Castellano",
+      header: "Chris Castellano Build",
+      introText: "Intro text for Chris Castellano.",
       images: [
         {
           alt: "Chris Castellano Build 01",
@@ -289,6 +307,9 @@ const data: {
     },
     {
       name: "Dan Barker ",
+      buildName: "Dan Barker ",
+      header: "Dan Barker  Build",
+      introText: "Intro text for Dan Barker .",
       images: [
         {
           alt: "Dan Barker boat front 1",
@@ -475,6 +496,9 @@ const data: {
     },
     {
       name: "David Baker Build - Duck Boat",
+  buildName: "David Baker Build - Duck Boat",
+  header: "David Baker Build - Duck Boat Build",
+  introText: "Intro text for David Baker Build - Duck Boat.",
       images: [
         {
           alt: "David Baker 1",
@@ -515,6 +539,9 @@ const data: {
     },
     {
       name: "George Abell",
+  buildName: "George Abell",
+  header: "George Abell Build",
+  introText: "Intro text for George Abell.",
       images: [
         {
           alt: "George Abell 1",
@@ -586,6 +613,9 @@ const data: {
     },
     {
       name: "John Marks",
+  buildName: "John Marks",
+  header: "John Marks Build",
+  introText: "Intro text for John Marks.",
       images: [
         {
           alt: "John Marks 1",
@@ -631,6 +661,9 @@ const data: {
     },
     {
       name: "Kevin Nagy",
+  buildName: "Kevin Nagy",
+  header: "Kevin Nagy Build",
+  introText: "Intro text for Kevin Nagy.",
       images: [
         {
           alt: "Kevin Nagy 1",
@@ -671,6 +704,9 @@ const data: {
     },
     {
       name: "Kirk Hansel",
+  buildName: "Kirk Hansel",
+  header: "Kirk Hansel Build",
+  introText: "Intro text for Kirk Hansel.",
       images: [
         {
           alt: "Kirk Hansel 1",
@@ -746,6 +782,9 @@ const data: {
     },
     {
       name: "Larry Hart",
+  buildName: "Larry Hart",
+  header: "Larry Hart Build",
+  introText: "Intro text for Larry Hart.",
       images: [
         {
           alt: "Larry Hart 1",
@@ -771,6 +810,9 @@ const data: {
     },
     {
       name: "Mark Smith",
+  buildName: "Mark Smith",
+  header: "Mark Smith Build",
+  introText: "Intro text for Mark Smith.",
       images: [
         {
           alt: "Mark Smith 1",
@@ -816,6 +858,9 @@ const data: {
     },
     {
       name: "Mathew Goodrich",
+  buildName: "Mathew Goodrich",
+  header: "Mathew Goodrich Build",
+  introText: "Intro text for Mathew Goodrich.",
       images: [
         {
           alt: "mathew goodrich 1",
@@ -872,6 +917,9 @@ const data: {
     },
     {
       name: "Mat Kessler",
+  buildName: "Mat Kessler",
+  header: "Mat Kessler Build",
+  introText: "Intro text for Mat Kessler.",
       images: [
         {
           alt: "Mat Kessler 1",
@@ -1007,6 +1055,9 @@ const data: {
     },
     {
       name: "Matt Pieper",
+  buildName: "Matt Pieper",
+  header: "Matt Pieper Build",
+  introText: "Intro text for Matt Pieper.",
       images: [
         {
           alt: "Matt Pieper 1",
@@ -1122,6 +1173,9 @@ const data: {
     },
     {
       name: "Patrick Anon",
+  buildName: "Patrick Anon",
+  header: "Patrick Anon Build",
+  introText: "Intro text for Patrick Anon.",
       images: [
         {
           alt: "Patrick Anon 1",
@@ -1148,6 +1202,9 @@ const data: {
     },
     {
       name: "Paul Meyer",
+  buildName: "Paul Meyer",
+  header: "Paul Meyer Build",
+  introText: "Intro text for Paul Meyer.",
       images: [
         {
           alt: "Paul Meyer 1",
@@ -1219,6 +1276,9 @@ const data: {
     },
     {
       name: "Robert Dorch",
+  buildName: "Robert Dorch",
+  header: "Robert Dorch Build",
+  introText: "Intro text for Robert Dorch.",
       images: [
         {
           alt: "Robert Dorch 1",
@@ -1269,6 +1329,9 @@ const data: {
     },
     {
       name: "Robert Byers",
+  buildName: "Robert Byers",
+  header: "Robert Byers Build",
+  introText: "Intro text for Robert Byers.",
       images: [
         {
           alt: "Robert Byers 1",
@@ -1294,6 +1357,9 @@ const data: {
     },
     {
       name: "Ronald Zscherneck",
+  buildName: "Ronald Zscherneck",
+  header: "Ronald Zscherneck Build",
+  introText: "Intro text for Ronald Zscherneck.",
       images: [
         {
           alt: "Ronald Zscherneck 1",
@@ -1374,6 +1440,9 @@ const data: {
     },
     {
       name: "Sean Clark",
+  buildName: "Sean Clark",
+  header: "Sean Clark Build",
+  introText: "Intro text for Sean Clark.",
       images: [
         {
           alt: "Sean-build-1",
@@ -1434,6 +1503,9 @@ const data: {
     },
     {
       name: "Tom Anderson",
+  buildName: "Tom Anderson",
+  header: "Tom Anderson Build",
+  introText: "Intro text for Tom Anderson.",
       images: [
         {
           alt: "Tom Anderson build 1",
@@ -1479,6 +1551,9 @@ const data: {
     },
     {
   name: "Ugli 1 Build",
+  buildName: "Ugli 1 Build",
+  header: "Ugli 1 Build Build",
+  introText: "Intro text for Ugli 1 Build.",
   images: [
   {
     "alt": "1 Ugli 1 boat tag",
@@ -1674,6 +1749,9 @@ const data: {
 },
 {
   name: "Ugli 2 Build",
+  buildName: "The Green Lantern",
+  header: "The Keeper",
+  introText: 'I suppose that the "Green Lantern" will be a continuous fabrication process. But now that she is "on-the-water" and fishable, it is time to post some pictures.   I am calling her the Green Lantern because I fish at night a lot with green lights, and with the color scheme I ended up with, it seems appropriate.<br /> I have spent over three years gathering the unique and expensive items that I wanted to be a part of this build.   The only other thing I wish I could afford now is a freefall drum anchor winch.<br /> Here are a few pictures of the completed boat, then following are some of the build pictures start to finish. I will add pictures at the end as I add new things.',
   images: [
   {
     "alt": "1 UGLI CANOPY",
@@ -1867,13 +1945,16 @@ const data: {
   },
   {
     "alt": "ugli2 with top down shallow",
-    "caption": "",
+    "caption": "Windshields can fold down flat or can be removed completely.",
     "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli2 with top down shallow.jpg"
   }
 ]
 },
 {
   name: "Warren Beseler Build",
+  buildName: "Warren Beseler Build",
+  header: "Warren Beseler Build Build",
+  introText: "Intro text for Warren Beseler Build.",
   images: [
   {
     "alt": "WarrenBeseler1",
@@ -1934,6 +2015,9 @@ const data: {
 },
 {
   name: "William Shelton Build",
+  buildName: "William Shelton Build",
+  header: "William Shelton Build Build",
+  introText: "Intro text for William Shelton Build.",
   images: [
   {
     "alt": "shelton1",

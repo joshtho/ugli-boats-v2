@@ -37,7 +37,9 @@ function BoatPage() {
 
   return (
     <div className="mx-auto max-w-4xl p-6">
-      <h1 className="text-3xl font-bold mb-10 text-center">{build.name}</h1>
+      <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
+      <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
+      <p className="text-lg mb-6 text-center text-gray-700">{build.introText}</p>
       <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
         {build.images.map((img, idx) => {
           const isVideo = getMediaType(img.url) === 'video'
@@ -108,7 +110,7 @@ function BoatPage() {
                 {build.images.map((img, idx) => {
                   const type = getMediaType(img.url)
                   return (
-                    <CarouselItem key={idx} className="flex justify-center">
+                    <CarouselItem key={idx} className="flex flex-col items-center justify-center">
                       {type === 'image' ? (
                         <img
                           src={img.url}
@@ -122,6 +124,7 @@ function BoatPage() {
                             transition-all
                           "
                         />
+                        
                       ) : (
                         <video
                           src={img.url}
@@ -139,6 +142,22 @@ function BoatPage() {
                           "
                         />
                       )}
+                      <p
+                        className="
+                          mt-4
+                          mx-auto
+                          px-4
+                          py-2
+                          max-w-xl
+                          text-center
+                          text-base
+                          text-gray-700
+                          bg-white/80
+                          
+                        "
+                      >
+                        {img.caption}
+                      </p>
                     </CarouselItem>
                   )
                 })}

@@ -18,7 +18,7 @@ let buildsStr = match[1];
 // Add new fields to each build object
 // This regex finds each build object in the array
 buildsStr = buildsStr.replace(
-  /{([^{}]*name:\s*["'][^"']+["'][^{}]*images:\s*\[[\s\S]*?\])}/g,
+  /{[\s\S]*?name:\s*["'][^"']+["'][\s\S]*?images:\s*\[[\s\S]*?\][\s\S]*?},?/g,
   (build) => {
     // Only add if not already present
     if (
@@ -31,11 +31,9 @@ buildsStr = buildsStr.replace(
     // Extract the name for buildName and header
     const nameMatch = build.match(/name:\s*["']([^"']+)["']/);
     const name = nameMatch ? nameMatch[1] : '';
-    return (
-      build.replace(
-        /(name:\s*["'][^"']+["']\s*,)/,
-        `$1\n  buildName: "${name}",\n  header: "${name} Build",\n  introText: "Intro text for ${name}.",`
-      )
+    return build.replace(
+      /(name:\s*["'][^"']+["']\s*,)/,
+      `$1\n  buildName: "${name}",\n  header: "${name} Build",\n  introText: "Intro text for ${name}.",`
     );
   }
 );
