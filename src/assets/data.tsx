@@ -1751,7 +1751,7 @@ const data: {
   name: "Ugli 2 Build",
   buildName: "The Green Lantern",
   header: "The Keeper",
-  introText: 'I suppose that the "Green Lantern" will be a continuous fabrication process. But now that she is "on-the-water" and fishable, it is time to post some pictures.   I am calling her the Green Lantern because I fish at night a lot with green lights, and with the color scheme I ended up with, it seems appropriate.<br /> I have spent over three years gathering the unique and expensive items that I wanted to be a part of this build.   The only other thing I wish I could afford now is a freefall drum anchor winch.<br /> Here are a few pictures of the completed boat, then following are some of the build pictures start to finish. I will add pictures at the end as I add new things.',
+  introText: 'I suppose that the "Green Lantern" will be a continuous fabrication process. But now that she is "on-the-water" and fishable, it is time to post some pictures.\n I am calling her the Green Lantern because I fish at night a lot with green lights, and with the color scheme I ended up with, it seems appropriate. I have spent over three years gathering the unique and expensive items that I wanted to be a part of this build.\n  The only other thing I wish I could afford now is a freefall drum anchor winch. Here are a few pictures of the completed boat, then following are some of the build pictures start to finish. I will add pictures at the end as I add new things.',
   images: [
   {
     "alt": "1 UGLI CANOPY",
@@ -1765,7 +1765,7 @@ const data: {
   },
   {
     "alt": "1 Ugli 3 inch draft",
-    "caption": "",
+    "caption": "Three inch draft",
     "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli 3 inch draft.jpg"
   },
   {

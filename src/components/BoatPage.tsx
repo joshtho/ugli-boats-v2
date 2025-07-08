@@ -39,46 +39,62 @@ function BoatPage() {
     <div className="mx-auto max-w-4xl p-6">
       <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
       <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
-      <p className="text-lg mb-6 text-center text-gray-700">{build.introText}</p>
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-        {build.images.map((img, idx) => {
-          const isVideo = getMediaType(img.url) === 'video'
-          return isVideo ? (
-            <div
-              key={idx}
-              className="relative w-full h-40 bg-black rounded cursor-pointer overflow-hidden"
-              onClick={() => {
-                setStartIndex(idx)
-                setOpen(true)
-              }}
-            >
-              <video
-                src={img.url}
-                className="w-full h-full object-cover"
-                muted
-                playsInline
-                preload="metadata"
-              />
-              {/* Play icon overlay */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                  <polygon points="9.5,7.5 16.5,12 9.5,16.5" />
-                </svg>
-              </div>
-            </div>
-          ) : (
-            <img
-              key={idx}
-              src={img.url}
-              alt={img.alt}
-              className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
-              onClick={() => {
-                setStartIndex(idx)
-                setOpen(true)
-              }}
-            />
-          )
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Thumbnails */}
+        <div className="md:col-span-2">
+          <div className="grid gap-8 sm:grid-cols-2">
+            {build.images.map((img, idx) => {
+              const isVideo = getMediaType(img.url) === 'video'
+              return isVideo ? (
+                <div
+                  key={idx}
+                  className="relative w-full h-40 bg-black rounded cursor-pointer overflow-hidden"
+                  onClick={() => {
+                    setStartIndex(idx)
+                    setOpen(true)
+                  }}
+                >
+                  <video
+                    src={img.url}
+                    className="w-full h-full object-cover"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                      <polygon points="9.5,7.5 16.5,12 9.5,16.5" />
+                    </svg>
+                  </div>
+                </div>
+              ) : (
+                <img
+                  key={idx}
+                  src={img.url}
+                  alt={img.alt}
+                  className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
+                  onClick={() => {
+                    setStartIndex(idx)
+                    setOpen(true)
+                  }}
+                />
+              )
+            })}
+          </div>
+        </div>
+        {/* Intro Text */}
+        {build.introText && (
+          <div className="md:col-span-1 flex flex-col justify-start">
+            <p className="text-lg mb-6 text-center md:text-left text-gray-700 bg-white/80 rounded p-4 shadow">
+              {build.introText.split('\n').map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+            </p>
+          </div>
+        )}
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
@@ -156,7 +172,12 @@ function BoatPage() {
                           
                         "
                       >
-                        {img.caption}
+                        {img.caption.split('\n').map((line, i) => (
+                          <span key={i}>
+                            {line}
+                            <br />
+                          </span>
+                        ))}
                       </p>
                     </CarouselItem>
                   )
