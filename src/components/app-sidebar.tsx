@@ -61,6 +61,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/for-sale">
               <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
             </Link>
+            <Link to="/interesting">
+              <SidebarMenuButton onClick={handleSidebarToggle}>Interesting</SidebarMenuButton>
+            </Link>
             {/* {data.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>

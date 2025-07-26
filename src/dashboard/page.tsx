@@ -21,6 +21,7 @@ import HistoryPage from "@/components/HistoryPage"
 import AboutPage from "@/components/AboutPage"
 import HomePage from "@/components/HomePage"
 import BoatPage from "@/components/BoatPage"
+import InterestingPage from "@/components/InterestingPage"
 
 
 
@@ -32,6 +33,12 @@ export default function Page() {
   // Helper to build the URL for each breadcrumb
   const buildPath = (idx: number) =>
     "/" + pathnames.slice(0, idx + 1).join("/")
+
+  // Add Light and dark mode support
+  // Add all builds page
+  // Add interesting page 
+  // photos tab in old site add somewhere
+  // Add a search bar
 
   return (
     <SidebarProvider>
@@ -94,6 +101,7 @@ export default function Page() {
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/for-sale" element={<ForSalePage />} />
               <Route path='/about' element={<AboutPage />} />
+              <Route path='/interesting' element={<InterestingPage />} />
               <Route path="/builds/:name" element={<BoatPage />} />
               {/* Add more routes as needed */}
             </Routes>

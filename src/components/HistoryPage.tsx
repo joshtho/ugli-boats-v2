@@ -352,6 +352,50 @@ function HistoryPage() {
             <CarouselNext />
           </Carousel>
         </div>
+        <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
+          <h1 className="text-2xl font-bold p-4">History of Old Non-Military Aluminum Boats</h1>
+          <h1 className="text-xl text-left p-4">These boats have potential for being a great project canvass for fishing or hunting boats</h1>
+          <p className="p-4">
+            For a boat to make honorable mention on this page, it must meet or exceed the specifications of the ponton bridge boat.
+            <br />
+            <br />
+
+            At least 18' 6" long, and 5' 8" wide at the floor.
+            Light enough to draft pretty shallow.
+            Low enough in the water to be more of a fishing or hunting boat, than a ski boat.
+            Must be "Ugli", which means we are looking for that completely subjective "UG" factor.
+          </p>
+          <h1 className="text-xl text-left p-4">
+            1954 - 1959 Cruiser Craft - Phil Dill - Sunbeam Family of Boats
+          </h1>
+          <p className="p-4">
+            Without the topper, and with a little creativity, this boat may be a fishing machine!
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpage Cruisercraftlogo1954.jpg" />
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpage phil dil cruisercraft1.jpg" />
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpagephildil cruisercraft2.jpg" />
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpage 1959 phil dil boat 001.jpg" />
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpage 1959 phil dil boat 002.jpg" />
+          <img className="w-full rounded shadow" src="/ugli-boats-v2/IMAGES/OAHpage 1959 phil dil boat 003.jpg" />
+          </div>
+
+          <p className="p-4">
+            This boat was manufactured by Phil Dill of General Manufacturing Company. Phil Dill Boats is still in business today as a retailer of various brands of boats, although they stopped being a manufacturer many years ago.
+            <br/>
+            <br/>
+            General Manufacturing Co. started as a sheet metal fabricator manufacturer serving the drive-in theatre concession industry in the early 50's.
+            <br/>
+            <br/>
+            In 1954 Phil Dill was commissioned to develop a line of aluminum boats called the Cruiser Craft. This line consisted of 11 models, one of which was called the Sunbeam Family Cabin Cruiser.
+            <br/>
+            <br/>
+            The company built a range of flat-bottom aluminum cruiser models throughout the 1950s. In addition to Cruiser Craft, some models were marketed as Sunbeam Boats.
+            <br/>
+            <br/>
+            The one in the bottom pictures is a project I picked up but sold. All I have left of it is a cool little aluminum steering wheel shaped like the big ones on ships.
+          </p>
+        </div>
     </div>
   )
 }
