@@ -131,12 +131,12 @@ function HistoryPage() {
         <h1 className="text-xl text-left p-4">HISTORY AND MILITARY DETAILS</h1>
         <p className='p-4'>
         The following is directly from the field manual for these Light tactical rafts (LTRs) and bridges :
+        </p>
         <h3 className="text-xl text-left p-4">Chapter 7 Half-Ponton:</h3>
         <img src='/ugli-boats-v2/IMAGES/PHpage pic.jpg' />
         The aluminum alloy half-ponton has an effective length of 18 feet 6 inches, is 6 feet 8.5 inches wide, and 2 feet 10 inches high. The bow of each half-ponton is raised approximately 7 inches higher than the stem to prevent the ponton from swamping when rafting in swift currents. The half-ponton weighs approximately 650 pounds and has a displacement of 6.25 tons. Two half-pontons are joined stem to stem to form a whole ponton which supports the light floating bridge or raft.
 
         
-        </p>
         <hr />
         <p className='p-4'>Entire Field manual links: </p>
         <h1 className="text-xl text-left p-4 text-decoration-line: underline">Military Float Bridging Equipment</h1>
