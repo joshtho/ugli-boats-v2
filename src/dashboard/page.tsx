@@ -22,6 +22,7 @@ import AboutPage from "@/components/AboutPage"
 import HomePage from "@/components/HomePage"
 import BoatPage from "@/components/BoatPage"
 import InterestingPage from "@/components/InterestingPage"
+import PhotosPage from "@/components/PhotosPage"
 
 
 
@@ -102,6 +103,7 @@ export default function Page() {
               <Route path="/for-sale" element={<ForSalePage />} />
               <Route path='/about' element={<AboutPage />} />
               <Route path='/interesting' element={<InterestingPage />} />
+              <Route path='/photos' element={<PhotosPage />} />
               <Route path="/builds/:name" element={<BoatPage />} />
               {/* Add more routes as needed */}
             </Routes>
