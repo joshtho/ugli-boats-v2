@@ -1,16 +1,423 @@
 // filepath: /server/index.js
 const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();
+
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads')); // Serve uploaded files
+
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Create data directory and files for JSON storage
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
+const photosFile = path.join(dataDir, 'photos.json');
+const buildsFile = path.join(dataDir, 'builds.json');
+const submissionsFile = path.join(dataDir, 'submissions.json');
+
+// Initialize JSON files if they don't exist
+if (!fs.existsSync(photosFile)) {
+  fs.writeFileSync(photosFile, JSON.stringify([], null, 2));
+}
+if (!fs.existsSync(buildsFile)) {
+  fs.writeFileSync(buildsFile, JSON.stringify([], null, 2));
+}
+if (!fs.existsSync(submissionsFile)) {
+  fs.writeFileSync(submissionsFile, JSON.stringify([], null, 2));
+}
+
+// Helper functions for JSON file operations
+const readPhotos = () => {
+  try {
+    const data = fs.readFileSync(photosFile, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading photos:', error);
+    return [];
+  }
+};
+
+const writePhotos = (photos) => {
+  try {
+    fs.writeFileSync(photosFile, JSON.stringify(photos, null, 2));
+  } catch (error) {
+    console.error('Error writing photos:', error);
+  }
+};
+
+const readBuilds = () => {
+  try {
+    const data = fs.readFileSync(buildsFile, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading builds:', error);
+    return [];
+  }
+};
+
+const writeBuilds = (builds) => {
+  try {
+    fs.writeFileSync(buildsFile, JSON.stringify(builds, null, 2));
+  } catch (error) {
+    console.error('Error writing builds:', error);
+  }
+};
+
+const readSubmissions = () => {
+  try {
+    const data = fs.readFileSync(submissionsFile, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading submissions:', error);
+    return [];
+  }
+};
+
+const writeSubmissions = (submissions) => {
+  try {
+    fs.writeFileSync(submissionsFile, JSON.stringify(submissions, null, 2));
+  } catch (error) {
+    console.error('Error writing submissions:', error);
+  }
+};
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${uuidv4()}-${file.originalname}`;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    // Accept only image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'), false);
+    }
+  }
+});
+
+// Initialize JSON storage
+console.log('Using JSON file storage for data persistence');
+
+// Routes
+
+// Basic health check
 app.get('/', (req, res) => {
-  res.send('Hello from Node.js backend!');
+  res.json({ message: 'UGLI Boats API Server is running!' });
 });
 
-app.get('/api/greet', (req, res) => {
-  res.json({ message: 'Hello from /api/greet!' });
+// Upload photos
+app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
+  try {
+    const { category } = req.body;
+    
+    if (!category) {
+      return res.status(400).json({ error: 'Category is required' });
+    }
+    
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
+    }
+    
+    // Read existing photos
+    const photos = readPhotos();
+    
+    // Add new photos
+    const uploadedFiles = req.files.map(file => {
+      const newPhoto = {
+        id: uuidv4(),
+        filename: file.filename,
+        originalName: file.originalname,
+        category: category,
+        caption: '',
+        uploadDate: new Date().toISOString(),
+        url: `/uploads/${file.filename}`
+      };
+      photos.push(newPhoto);
+      return newPhoto;
+    });
+    
+    // Save updated photos
+    writePhotos(photos);
+    
+    res.json({
+      message: `Successfully uploaded ${uploadedFiles.length} photos`,
+      files: uploadedFiles
+    });
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({ error: 'Upload failed' });
+  }
 });
 
+// Get all photos by category
+app.get('/api/photos/:category', (req, res) => {
+  try {
+    const { category } = req.params;
+    const photos = readPhotos();
+    
+    const filteredPhotos = photos
+      .filter(photo => photo.category === category)
+      .sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+    
+    res.json(filteredPhotos);
+  } catch (error) {
+    console.error('Error getting photos:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// Get all photos
+app.get('/api/photos', (req, res) => {
+  try {
+    const photos = readPhotos();
+    const sortedPhotos = photos.sort((a, b) => {
+      // Sort by category first, then by upload date
+      if (a.category === b.category) {
+        return new Date(b.uploadDate) - new Date(a.uploadDate);
+      }
+      return a.category.localeCompare(b.category);
+    });
+    
+    res.json(sortedPhotos);
+  } catch (error) {
+    console.error('Error getting photos:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// Add a new build
+app.post('/api/builds', upload.array('images', 20), (req, res) => {
+  try {
+    const { name, description } = req.body;
+    
+    if (!name) {
+      return res.status(400).json({ error: 'Build name is required' });
+    }
+    
+    // Read existing builds
+    const builds = readBuilds();
+    
+    // Create new build
+    const newBuild = {
+      id: uuidv4(),
+      name,
+      description: description || '',
+      createdDate: new Date().toISOString(),
+      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : []
+    };
+    
+    // Add to builds array
+    builds.push(newBuild);
+    
+    // Save updated builds
+    writeBuilds(builds);
+    
+    res.json({
+      message: 'Build added successfully',
+      build: newBuild
+    });
+    
+  } catch (error) {
+    console.error('Build creation error:', error);
+    res.status(500).json({ error: 'Failed to create build' });
+  }
+});
+
+// Get all builds
+app.get('/api/builds', (req, res) => {
+  try {
+    const builds = readBuilds();
+    const sortedBuilds = builds.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+    
+    res.json(sortedBuilds);
+  } catch (error) {
+    console.error('Error getting builds:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// === SUBMISSION ENDPOINTS ===
+
+// Submit a new build for review
+app.post('/api/submissions', upload.array('images', 10), (req, res) => {
+  try {
+    const { ownerName, email, buildName, description } = req.body;
+    
+    if (!ownerName || !email || !buildName) {
+      return res.status(400).json({ error: 'Owner name, email, and build name are required' });
+    }
+    
+    // Read existing submissions
+    const submissions = readSubmissions();
+    
+    // Create new submission
+    const newSubmission = {
+      id: uuidv4(),
+      ownerName,
+      email,
+      buildName,
+      description: description || '',
+      status: 'pending',
+      createdDate: new Date().toISOString(),
+      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : []
+    };
+    
+    // Add to submissions array
+    submissions.push(newSubmission);
+    
+    // Save updated submissions
+    writeSubmissions(submissions);
+    
+    res.json({
+      message: 'Submission received successfully',
+      submission: {
+        id: newSubmission.id,
+        buildName: newSubmission.buildName,
+        status: newSubmission.status
+      }
+    });
+    
+  } catch (error) {
+    console.error('Submission creation error:', error);
+    res.status(500).json({ error: 'Failed to process submission' });
+  }
+});
+
+// Get all pending submissions (admin only)
+app.get('/api/submissions', (req, res) => {
+  try {
+    const submissions = readSubmissions();
+    const pendingSubmissions = submissions
+      .filter(s => s.status === 'pending')
+      .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+    
+    res.json(pendingSubmissions);
+  } catch (error) {
+    console.error('Error getting submissions:', error);
+    res.status(500).json({ error: 'Failed to get submissions' });
+  }
+});
+
+// Approve a submission (convert to build)
+app.post('/api/submissions/:id/approve', (req, res) => {
+  try {
+    const submissionId = req.params.id;
+    
+    // Read submissions
+    const submissions = readSubmissions();
+    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
+    
+    if (submissionIndex === -1) {
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+    
+    const submission = submissions[submissionIndex];
+    
+    // Create build from submission
+    const builds = readBuilds();
+    const newBuild = {
+      id: uuidv4(),
+      name: submission.buildName,
+      description: submission.description,
+      ownerName: submission.ownerName,
+      createdDate: new Date().toISOString(),
+      images: submission.images
+    };
+    
+    builds.push(newBuild);
+    writeBuilds(builds);
+    
+    // Update submission status
+    submissions[submissionIndex].status = 'approved';
+    submissions[submissionIndex].approvedDate = new Date().toISOString();
+    writeSubmissions(submissions);
+    
+    res.json({
+      message: 'Submission approved and converted to build',
+      build: newBuild
+    });
+    
+  } catch (error) {
+    console.error('Error approving submission:', error);
+    res.status(500).json({ error: 'Failed to approve submission' });
+  }
+});
+
+// Reject a submission
+app.post('/api/submissions/:id/reject', (req, res) => {
+  try {
+    const submissionId = req.params.id;
+    
+    // Read submissions
+    const submissions = readSubmissions();
+    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
+    
+    if (submissionIndex === -1) {
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+    
+    // Update submission status
+    submissions[submissionIndex].status = 'rejected';
+    submissions[submissionIndex].rejectedDate = new Date().toISOString();
+    writeSubmissions(submissions);
+    
+    res.json({
+      message: 'Submission rejected'
+    });
+    
+  } catch (error) {
+    console.error('Error rejecting submission:', error);
+    res.status(500).json({ error: 'Failed to reject submission' });
+  }
+});
+
+// Error handling middleware
+app.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'File too large' });
+    }
+  }
+  res.status(500).json({ error: error.message });
+});
+
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+  console.log('\nShutting down server...');
+  console.log('Server shut down gracefully.');
+  process.exit(0);
 });

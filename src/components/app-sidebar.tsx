@@ -52,6 +52,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/builds">
             <SidebarMenuButton onClick={handleSidebarToggle}>Builds</SidebarMenuButton>
             </Link>
+            <Link to="/submit-build">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-blue-600 hover:text-blue-700">
+                Submit Your Build
+              </SidebarMenuButton>
+            </Link>
             <Link to="/about">
               <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
             </Link>
@@ -67,26 +72,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/interesting">
               <SidebarMenuButton onClick={handleSidebarToggle}>Interesting</SidebarMenuButton>
             </Link>
-            {/* {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
-                  <a href={item.url} className="font-medium">
-                    {item.title}
-                  </a>
-                </SidebarMenuButton>
-                {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null}
-              </SidebarMenuItem>
-            ))} */}
+          </SidebarMenu>
+        </SidebarGroup>
+        
+        {/* Admin Section */}
+        <SidebarGroup>
+          <SidebarMenu>
+            <Link to="/admin">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-orange-600 hover:text-orange-700">
+                Admin
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

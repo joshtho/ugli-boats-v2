@@ -7,11 +7,59 @@ import { Grid, List, FileText } from 'lucide-react'
 
 type ViewMode = 'thumbnail' | 'list' | 'all'
 
+// Backend build interface
+interface BackendBuild {
+  id: string
+  name: string
+  description: string
+  ownerName?: string
+  createdDate: string
+  images: string[]
+}
+
 function BuildPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [viewMode, setViewMode] = useState<ViewMode>('thumbnail')
+  const [backendBuilds, setBackendBuilds] = useState<BackendBuild[]>([])
+  const [loading, setLoading] = useState(true)
   const scrollPositionRef = useRef<number>(0)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Fetch builds from backend
+  useEffect(() => {
+    const fetchBuilds = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/builds')
+        if (response.ok) {
+          const builds = await response.json()
+          setBackendBuilds(builds)
+        }
+      } catch (error) {
+        console.error('Error fetching builds:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchBuilds()
+  }, [])
+
+  // Combine static builds with backend builds
+  const allBuilds = [
+    ...data.builds,
+    ...backendBuilds.map(build => ({
+      name: build.name,
+      buildName: build.name,
+      header: `${build.name} Build`,
+      introText: build.description || 'User submitted build',
+      ownerName: build.ownerName,
+      images: build.images.map(img => ({
+        alt: build.name,
+        caption: '',
+        url: `http://localhost:3001${img}`
+      }))
+    }))
+  ]
 
   // Initialize view mode from URL params
   useEffect(() => {
@@ -113,7 +161,7 @@ function BuildPage() {
   // Thumbnail View (current default view)
   const ThumbnailView = () => (
     <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-      {data.builds.map((build, idx) => {
+      {allBuilds.map((build, idx) => {
         const firstImage = build.images[0]
         return (
           <StatefulLink
@@ -143,7 +191,7 @@ function BuildPage() {
   // List View (Craigslist-style)
   const ListView = () => (
     <div className="space-y-4">
-      {data.builds.map((build, idx) => {
+      {allBuilds.map((build, idx) => {
         const firstImage = build.images[0]
         return (
           <StatefulLink
@@ -183,7 +231,7 @@ function BuildPage() {
   // All Builds View (show all boat pages on one page)
   const AllBuildsView = () => (
     <div className="space-y-16">
-      {data.builds.map((build, buildIdx) => (
+      {allBuilds.map((build, buildIdx) => (
         <div key={buildIdx} className="border-b pb-12 last:border-b-0">
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-2">{build.name} - {build.buildName}</h2>
@@ -281,9 +329,17 @@ function BuildPage() {
       </div>
 
       {/* Render current view */}
-      {viewMode === 'thumbnail' && <ThumbnailView />}
-      {viewMode === 'list' && <ListView />}
-      {viewMode === 'all' && <AllBuildsView />}
+      {loading ? (
+        <div className="text-center py-8">
+          <p>Loading builds...</p>
+        </div>
+      ) : (
+        <>
+          {viewMode === 'thumbnail' && <ThumbnailView />}
+          {viewMode === 'list' && <ListView />}
+          {viewMode === 'all' && <AllBuildsView />}
+        </>
+      )}
     </div>
   )
 }

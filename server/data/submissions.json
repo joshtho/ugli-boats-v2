@@ -1,0 +1,27 @@
+[
+  {
+    "id": "e14e7a51-953f-4bfb-980b-0424f7811e61",
+    "ownerName": "josh",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Jordans Ponton",
+    "description": "Testing to see if the build submit works",
+    "status": "approved",
+    "createdDate": "2025-08-04T22:29:05.309Z",
+    "images": [
+      "/uploads/9add5c81-4e83-4dee-a877-f0385dc3b0c0-IMG_4961.JPG"
+    ],
+    "approvedDate": "2025-08-04T22:30:01.133Z"
+  },
+  {
+    "id": "f26e702b-7728-4f24-89c4-c56604bcae39",
+    "ownerName": "joshua",
+    "email": "joshua@joshua.com",
+    "buildName": "Josh's Ponton",
+    "description": "Second attempt test",
+    "status": "pending",
+    "createdDate": "2025-08-04T23:45:20.247Z",
+    "images": [
+      "/uploads/972c4be5-8d8d-49d4-a252-c6628ac5057c-IMG_2530.JPG"
+    ]
+  }
+]

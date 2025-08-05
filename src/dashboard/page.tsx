@@ -23,6 +23,8 @@ import HomePage from "@/components/HomePage"
 import BoatPage from "@/components/BoatPage"
 import InterestingPage from "@/components/InterestingPage"
 import PhotosPage from "@/components/PhotosPage"
+import AdminPage from "@/components/AdminPage"
+import SubmitBuild from "@/components/SubmitBuild"
 
 
 
@@ -104,6 +106,8 @@ export default function Page() {
               <Route path='/about' element={<AboutPage />} />
               <Route path='/interesting' element={<InterestingPage />} />
               <Route path='/photos' element={<PhotosPage />} />
+              <Route path='/admin' element={<AdminPage />} />
+              <Route path='/submit-build' element={<SubmitBuild />} />
               <Route path="/builds/:name" element={<BoatPage />} />
               {/* Add more routes as needed */}
             </Routes>

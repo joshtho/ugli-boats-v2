@@ -6,7 +6,7 @@ const galleryData = {
   "Historical Ponton": {
     description: "Historical military ponton boats and bridge sections",
     images: Array.from({ length: 28 }, (_, i) => ({
-      url: `/ugli-boats-v2/gallery/gallery1-${i + 1}.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery1-${i + 1}.jpg`,
       alt: `Historical Ponton ${i + 1}`,
       caption: `Historical ponton boat image ${i + 1}`
     }))
@@ -14,11 +14,11 @@ const galleryData = {
   "Customized Ponton": {
     description: "Customized and modified ponton boats by enthusiasts",
     images: Array.from({ length: 57 }, (_, i) => ({
-      url: `/ugli-boats-v2/gallery/gallery2-${i + 1}.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery2-${i + 1}.jpg`,
       alt: `Customized Ponton ${i + 1}`,
       caption: `Customized ponton boat ${i + 1}`
     })).concat([{
-      url: `/ugli-boats-v2/gallery/gallery2-18a.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery2-18a.jpg`,
       alt: `Customized Ponton 18a`,
       caption: `Customized ponton boat 18a`
     }])
@@ -26,15 +26,15 @@ const galleryData = {
   "Other Military Boats": {
     description: "Various military boats and watercraft",
     images: Array.from({ length: 18 }, (_, i) => ({
-      url: `/ugli-boats-v2/gallery/gallery3-${i + 1}.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery3-${i + 1}.jpg`,
       alt: `Military Boat ${i + 1}`,
       caption: `Military boat ${i + 1}`
-    })).filter(img => !img.url.includes('gallery3-7.jpg')) // Skip missing gallery3-7
+    })).filter(img => !img.url.includes('Fgallery3-7.jpg')) // Skip missing Fgallery3-7
   },
   "Old Aluminum Boats": {
     description: "Vintage aluminum boats and restorations",
     images: Array.from({ length: 4 }, (_, i) => ({
-      url: `/ugli-boats-v2/gallery/gallery4-${i + 1}.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery4-${i + 1}.jpg`,
       alt: `Old Aluminum Boat ${i + 1}`,
       caption: `Vintage aluminum boat ${i + 1}`
     }))
@@ -42,7 +42,7 @@ const galleryData = {
   "Custom Aluminum Boats": {
     description: "Custom-built aluminum boats and projects",
     images: [{
-      url: `/ugli-boats-v2/gallery/gallery5-1.jpg`,
+      url: `/ugli-boats-v2/gallery/Fgallery5-1.jpg`,
       alt: `Custom Aluminum Boat 1`,
       caption: `Custom aluminum boat project`
     }]
