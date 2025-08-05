@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Upload, Plus, Save, Settings, Eye, Check, X, Clock } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
+import { useBuilds } from '@/contexts/BuildsContext'
 
 // Admin authentication (simple password check for now)
 function AdminLogin({ onLogin }: { onLogin: () => void }) {
@@ -176,6 +177,9 @@ function BuildManagement() {
     images: [] as string[]
   })
   const [submitting, setSubmitting] = useState(false)
+  
+  // Get refetch function from builds context
+  const { refetchBuilds } = useBuilds()
 
   const handleAddBuild = async () => {
     if (!newBuild.name) {
@@ -213,6 +217,7 @@ function BuildManagement() {
       
       alert('Build added successfully!')
       setNewBuild({ name: '', description: '', images: [] })
+      refetchBuilds() // Refresh the builds cache globally!
       
       // Reset the file input
       if (fileInput) fileInput.value = ''
@@ -279,6 +284,9 @@ function SubmissionReview() {
   const [submissions, setSubmissions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState<string | null>(null)
+  
+  // Get refetch function from builds context
+  const { refetchBuilds } = useBuilds()
 
   const fetchSubmissions = async () => {
     try {
@@ -307,7 +315,8 @@ function SubmissionReview() {
       
       if (response.ok) {
         alert('Submission approved and converted to build!')
-        fetchSubmissions() // Refresh the list
+        fetchSubmissions() // Refresh the submissions list
+        refetchBuilds() // Refresh the builds cache globally!
       } else {
         throw new Error('Failed to approve submission')
       }

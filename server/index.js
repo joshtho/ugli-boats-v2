@@ -1,11 +1,19 @@
 // filepath: /server/index.js
-const express = require('express');
-const multer = require('multer');
-const cors = require('cors');
-const path = require('path');
-const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
-require('dotenv').config();
+import express from 'express';
+import multer from 'multer';
+import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+// Configure dotenv
+dotenv.config();
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -217,22 +225,24 @@ app.get('/api/photos', (req, res) => {
 // Add a new build
 app.post('/api/builds', upload.array('images', 20), (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, buildName, header, introText } = req.body;
     
-    if (!name) {
+    if (!buildName) {
       return res.status(400).json({ error: 'Build name is required' });
     }
     
     // Read existing builds
     const builds = readBuilds();
     
-    // Create new build
+    // Create new build (matching data.tsx structure)
     const newBuild = {
       id: uuidv4(),
-      name,
-      description: description || '',
-      createdDate: new Date().toISOString(),
-      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : []
+      name: name || '',
+      buildName,
+      header: header || buildName,
+      introText: introText || '',
+      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : [],
+      createdDate: new Date().toISOString()
     };
     
     // Add to builds array
@@ -342,15 +352,16 @@ app.post('/api/submissions/:id/approve', (req, res) => {
     
     const submission = submissions[submissionIndex];
     
-    // Create build from submission
+    // Create build from submission (matching data.tsx structure)
     const builds = readBuilds();
     const newBuild = {
       id: uuidv4(),
-      name: submission.buildName,
-      description: submission.description,
-      ownerName: submission.ownerName,
-      createdDate: new Date().toISOString(),
-      images: submission.images
+      name: submission.ownerName,
+      buildName: submission.buildName,
+      header: `${submission.buildName} by ${submission.ownerName}`,
+      introText: submission.description || '',
+      images: submission.images,
+      createdDate: new Date().toISOString()
     };
     
     builds.push(newBuild);

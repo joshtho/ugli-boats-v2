@@ -1,63 +1,32 @@
 import data from '@/assets/data'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { Grid, List, FileText } from 'lucide-react'
+import { useBuilds } from '@/contexts/BuildsContext'
 
 type ViewMode = 'thumbnail' | 'list' | 'all'
-
-// Backend build interface
-interface BackendBuild {
-  id: string
-  name: string
-  description: string
-  ownerName?: string
-  createdDate: string
-  images: string[]
-}
 
 function BuildPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [viewMode, setViewMode] = useState<ViewMode>('thumbnail')
-  const [backendBuilds, setBackendBuilds] = useState<BackendBuild[]>([])
-  const [loading, setLoading] = useState(true)
   const scrollPositionRef = useRef<number>(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  
+  // Use the builds context instead of local state
+  const { backendBuilds, loading, error } = useBuilds()
 
-  // Fetch builds from backend
-  useEffect(() => {
-    const fetchBuilds = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/builds')
-        if (response.ok) {
-          const builds = await response.json()
-          setBackendBuilds(builds)
-        }
-      } catch (error) {
-        console.error('Error fetching builds:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchBuilds()
-  }, [])
-
-  // Combine static builds with backend builds
+  // Combine static builds with backend builds (now both have same structure!)
   const allBuilds = [
     ...data.builds,
     ...backendBuilds.map(build => ({
       name: build.name,
-      buildName: build.name,
-      header: `${build.name} Build`,
-      introText: build.description || 'User submitted build',
-      ownerName: build.ownerName,
-      images: build.images.map(img => ({
-        alt: build.name,
-        caption: '',
-        url: `http://localhost:3001${img}`
-      }))
+      buildName: build.buildName,
+      header: build.header,
+      introText: build.introText,
+      images: build.images // Already in correct format from backend
     }))
   ]
 
@@ -157,6 +126,21 @@ function BuildPage() {
       </Link>
     )
   }
+
+  // Simple universal loading component
+  const LoadingBuilds = () => (
+    <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <Card key={idx} className="flex flex-col h-full shadow-md border border-gray-200 bg-white">
+          <Skeleton className="w-full h-40 rounded-t" />
+          <CardHeader className="flex-1 flex items-center justify-center">
+            <Skeleton className="h-6 w-3/4" />
+          </CardHeader>
+          <CardContent />
+        </Card>
+      ))}
+    </div>
+  )
 
   // Thumbnail View (current default view)
   const ThumbnailView = () => (
@@ -330,8 +314,13 @@ function BuildPage() {
 
       {/* Render current view */}
       {loading ? (
+        <LoadingBuilds />
+      ) : error ? (
         <div className="text-center py-8">
-          <p>Loading builds...</p>
+          <p className="text-red-600 mb-4">Error loading builds: {error}</p>
+          <Button onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
         </div>
       ) : (
         <>
