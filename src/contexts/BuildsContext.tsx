@@ -47,8 +47,10 @@ export const BuildsProvider: React.FC<BuildsProviderProps> = ({ children }) => {
     try {
       setLoading(true)
       setError(null)
-      console.log('Fetching builds from:', 'http://localhost:3001/api/builds')
-      const response = await fetch('http://localhost:3001/api/builds')
+      
+      const url = 'http://localhost:3001/api/builds'
+      console.log('Fetching builds from:', url)
+      const response = await fetch(url)
       console.log('Response status:', response.status)
       
       if (response.ok) {

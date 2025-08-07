@@ -52,11 +52,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/builds">
             <SidebarMenuButton onClick={handleSidebarToggle}>Builds</SidebarMenuButton>
             </Link>
-            <Link to="/submit-build">
-              <SidebarMenuButton onClick={handleSidebarToggle} className="text-blue-600 hover:text-blue-700">
-                Submit Your Build
-              </SidebarMenuButton>
-            </Link>
             <Link to="/about">
               <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
             </Link>
@@ -76,7 +71,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
         
         {/* Admin Section */}
-        <SidebarGroup>
+        <SidebarGroup className="absolute inset-x-0 bottom-0 mb-4">
+            <Link to="/submit-build">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-blue-600 hover:text-blue-700">
+                Submit Your Build
+              </SidebarMenuButton>
+            </Link>
           <SidebarMenu>
             <Link to="/admin">
               <SidebarMenuButton onClick={handleSidebarToggle} className="text-orange-600 hover:text-orange-700">

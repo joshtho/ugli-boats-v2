@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom'
-import data from '@/assets/data'
 import { useEffect, useRef, useState } from 'react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
@@ -9,27 +8,42 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-
-// type Media = { url: string; alt: string; type: 'image' | 'video' }
+import { useBuilds } from '@/contexts/BuildsContext'
 
 function BoatPage() {
   const { name } = useParams()
-  const [build, setBuild] = useState<typeof data.builds[0] | null>(null)
+  const [build, setBuild] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [startIndex, setStartIndex] = useState(0)
   const [carouselIndex, setCarouselIndex] = useState(0)
   const carouselRef = useRef<any>(null)
+  
+  // Use builds context instead of static data
+  const { backendBuilds, loading: buildsLoading } = useBuilds()
 
   useEffect(() => {
     setLoading(true)
-    const found = data.builds.find(b => b.name === name)
+    // Look for build by name (which is actually the owner name in our structure)
+    const found = backendBuilds.find(b => b.name === name)
     setBuild(found || null)
-    setLoading(false)
-  }, [name])
+    setLoading(buildsLoading)
+  }, [name, backendBuilds, buildsLoading])
 
   if (loading) return <div>Loading...</div>
   if (!build) return <div>Boat not found</div>
+
+  // Helper to get proper image URL - same as other components
+  const getImageUrl = (url: string): string => {
+    if (url.startsWith('http')) {
+      return url
+    }
+    // For local development, use backend server
+    if (url.startsWith('/uploads/') || url.includes('/uploads/')) {
+      return `http://localhost:3001${url}`
+    }
+    return url.startsWith('/') ? url : `/${url}`
+  }
 
   // Helper to get media type
   const getMediaType = (url: string): 'image' | 'video' =>
@@ -38,24 +52,110 @@ function BoatPage() {
   return (
     <div className="mx-auto max-w-4xl p-6">
       <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
-      <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      {/* Mobile: Show intro text first, Desktop: Use grid layout */}
+      <div className="block md:hidden mb-8">
+        {/* Intro Text - Mobile Only (shows first) */}
+        {build.introText && (
+          <div className="mb-6">
+            <p className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
+            <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
+              {build.introText.split('\n').map((line: string, i: number) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+            </p>
+          </div>
+        )}
+        
+        {/* Images - Mobile Only (shows after intro) */}
+        <div className="grid gap-8 sm:grid-cols-2">
+          {build.images.map((img: any, idx: number) => {
+            // Handle both old format (string) and new format (object)
+            let imageUrl = ''
+            let imageAlt = `Image ${idx + 1}`
+            
+            if (typeof img === 'string') {
+              imageUrl = img
+            } else if (img && typeof img === 'object' && img.url) {
+              imageUrl = img.url
+              imageAlt = img.alt || imageAlt
+            }
+            
+            const fullImageUrl = getImageUrl(imageUrl)
+            const isVideo = getMediaType(fullImageUrl) === 'video'
+            
+            return isVideo ? (
+              <div
+              key={idx}
+              className="relative w-full h-40 bg-black rounded cursor-pointer overflow-hidden"
+              onClick={() => {
+                setStartIndex(idx)
+                setOpen(true)
+              }}
+              >
+                <video
+                  src={fullImageUrl}
+                  className="w-full h-full object-cover"
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                    <polygon points="9.5,7.5 16.5,12 9.5,16.5" />
+                  </svg>
+                </div>
+              </div>
+            ) : (
+              <img
+              key={idx}
+              src={fullImageUrl}
+              alt={imageAlt}
+              className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
+              onClick={() => {
+                setStartIndex(idx)
+                setOpen(true)
+              }}
+              />
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Desktop: Grid layout (intro text on right side) */}
+      <div className="hidden md:grid grid-cols-3 gap-8">
         {/* Thumbnails */}
-        <div className="md:col-span-2">
+        <div className="col-span-2">
           <div className="grid gap-8 sm:grid-cols-2">
-            {build.images.map((img, idx) => {
-              const isVideo = getMediaType(img.url) === 'video'
+            {build.images.map((img: any, idx: number) => {
+              // Handle both old format (string) and new format (object)
+              let imageUrl = ''
+              let imageAlt = `Image ${idx + 1}`
+              
+              if (typeof img === 'string') {
+                imageUrl = img
+              } else if (img && typeof img === 'object' && img.url) {
+                imageUrl = img.url
+                imageAlt = img.alt || imageAlt
+              }
+              
+              const fullImageUrl = getImageUrl(imageUrl)
+              const isVideo = getMediaType(fullImageUrl) === 'video'
+              
               return isVideo ? (
                 <div
-                  key={idx}
-                  className="relative w-full h-40 bg-black rounded cursor-pointer overflow-hidden"
-                  onClick={() => {
-                    setStartIndex(idx)
-                    setOpen(true)
-                  }}
+                key={idx}
+                className="relative w-full h-40 bg-black rounded cursor-pointer overflow-hidden"
+                onClick={() => {
+                  setStartIndex(idx)
+                  setOpen(true)
+                }}
                 >
                   <video
-                    src={img.url}
+                    src={fullImageUrl}
                     className="w-full h-full object-cover"
                     muted
                     playsInline
@@ -69,24 +169,25 @@ function BoatPage() {
                 </div>
               ) : (
                 <img
-                  key={idx}
-                  src={img.url}
-                  alt={img.alt}
-                  className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
-                  onClick={() => {
-                    setStartIndex(idx)
-                    setOpen(true)
-                  }}
+                key={idx}
+                src={fullImageUrl}
+                alt={imageAlt}
+                className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
+                onClick={() => {
+                  setStartIndex(idx)
+                  setOpen(true)
+                }}
                 />
               )
             })}
           </div>
         </div>
-        {/* Intro Text */}
+        {/* Intro Text - Desktop */}
         {build.introText && (
-          <div className="md:col-span-1 flex flex-col justify-start">
-            <p className="text-lg mb-6 text-center md:text-left text-gray-700 bg-white/80 rounded p-4 shadow">
-              {build.introText.split('\n').map((line, i) => (
+          <div className="col-span-1 flex flex-col justify-start">
+            <p className="text-lg text-left text-gray-700 bg-white/80 rounded p-4 shadow">
+            <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
+              {build.introText.split('\n').map((line: string, i: number) => (
                 <span key={i}>
                   {line}
                   <br />
@@ -123,14 +224,29 @@ function BoatPage() {
               }}
             >
               <CarouselContent>
-                {build.images.map((img, idx) => {
-                  const type = getMediaType(img.url)
+                {build.images.map((img: any, idx: number) => {
+                  // Handle both old format (string) and new format (object)
+                  let imageUrl = ''
+                  let imageAlt = `Image ${idx + 1}`
+                  let imageCaption = ''
+                  
+                  if (typeof img === 'string') {
+                    imageUrl = img
+                  } else if (img && typeof img === 'object' && img.url) {
+                    imageUrl = img.url
+                    imageAlt = img.alt || imageAlt
+                    imageCaption = img.caption || ''
+                  }
+                  
+                  const fullImageUrl = getImageUrl(imageUrl)
+                  const type = getMediaType(fullImageUrl)
+                  
                   return (
                     <CarouselItem key={idx} className="flex flex-col items-center justify-center">
                       {type === 'image' ? (
                         <img
-                          src={img.url}
-                          alt={img.alt}
+                          src={fullImageUrl}
+                          alt={imageAlt}
                           className="
                             w-full
                             max-w-full
@@ -143,7 +259,7 @@ function BoatPage() {
                         
                       ) : (
                         <video
-                          src={img.url}
+                          src={fullImageUrl}
                           controls={carouselIndex === idx}
                           autoPlay={carouselIndex === idx}
                           muted={carouselIndex !== idx}
@@ -158,27 +274,29 @@ function BoatPage() {
                           "
                         />
                       )}
-                      <p
-                        className="
-                          mt-4
-                          mx-auto
-                          px-4
-                          py-2
-                          max-w-xl
-                          text-center
-                          text-base
-                          text-gray-700
-                          bg-white/80
-                          
-                        "
-                      >
-                        {img.caption.split('\n').map((line, i) => (
-                          <span key={i}>
-                            {line}
-                            <br />
-                          </span>
-                        ))}
-                      </p>
+                      {imageCaption && (
+                        <p
+                          className="
+                            mt-4
+                            mx-auto
+                            px-4
+                            py-2
+                            max-w-xl
+                            text-center
+                            text-base
+                            text-gray-700
+                            bg-white/80
+                            
+                          "
+                        >
+                          {imageCaption.split('\n').map((line: string, i: number) => (
+                            <span key={i}>
+                              {line}
+                              <br />
+                            </span>
+                          ))}
+                        </p>
+                      )}
                     </CarouselItem>
                   )
                 })}

@@ -11,5 +11,77 @@
       "/uploads/ad9ff7a9-cfaa-4afc-823b-430ee9627c08-IMG_0240.JPG"
     ],
     "approvedDate": "2025-08-05T23:45:27.230Z"
+  },
+  {
+    "id": "5be48c1e-7226-4d05-8b3b-07398ebdbb77",
+    "ownerName": "jordan ",
+    "email": "jordan@jordan.com",
+    "buildName": "Jordans Ponton",
+    "description": "tika made this with her own paws",
+    "status": "approved",
+    "createdDate": "2025-08-06T13:52:31.249Z",
+    "images": [
+      {
+        "alt": "IMG_0240",
+        "caption": "This is actually a cat",
+        "url": "/ugli-boats-v2/uploads/30f5d6cc-db57-4613-bdc7-faeb4070c4cc-IMG_0240.JPG"
+      }
+    ],
+    "approvedDate": "2025-08-06T15:23:18.696Z"
+  },
+  {
+    "id": "c0e3fec6-132a-40dc-af9a-f67660abe13b",
+    "ownerName": "Joshua Keane Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Tikas Ponton",
+    "description": "This boat was built by a dog",
+    "status": "approved",
+    "createdDate": "2025-08-06T14:06:43.567Z",
+    "images": [
+      {
+        "alt": "IMG_4961",
+        "caption": "this is actually a capybara not a boat",
+        "url": "/ugli-boats-v2/uploads/a1b700b7-5240-4467-bda7-19534e4258ce-IMG_4961.JPG"
+      }
+    ],
+    "approvedDate": "2025-08-06T15:16:53.836Z"
+  },
+  {
+    "id": "c4587395-01b1-403c-bd4a-d3aa048920ed",
+    "ownerName": "jordan jordan",
+    "email": "anemail@anemail.com",
+    "buildName": "coffee ponton",
+    "description": "I built this so damn good",
+    "status": "approved",
+    "createdDate": "2025-08-06T14:12:05.912Z",
+    "images": [
+      {
+        "alt": "IMG_4717",
+        "caption": "me in red shorts",
+        "url": "/ugli-boats-v2/uploads/8093078a-3324-493c-a7d7-2a8268323ec9-IMG_4717.JPG"
+      },
+      {
+        "alt": "IMG_4549",
+        "caption": "a japanese castle",
+        "url": "/ugli-boats-v2/uploads/202a8f7a-76c6-45ea-bf70-c953856435fa-IMG_4549.PNG"
+      }
+    ],
+    "approvedDate": "2025-08-06T15:04:32.515Z"
+  },
+  {
+    "id": "ded85ec6-ee04-4275-a52e-632b119b4d24",
+    "ownerName": "Joshua Keane Thompson",
+    "email": "email@email.com",
+    "buildName": "Tikas Ponton",
+    "description": "A dog made this boat, for real im not kidding",
+    "status": "pending",
+    "createdDate": "2025-08-07T00:21:09.669Z",
+    "images": [
+      {
+        "alt": "IMG_4961",
+        "caption": "this is actually a capybara not a boat",
+        "url": "/uploads/caf9fcfd-a6b5-4d54-82f1-3cbd4bf04cf3-IMG_4961.JPG"
+      }
+    ]
   }
 ]

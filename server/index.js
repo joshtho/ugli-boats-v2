@@ -22,6 +22,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
+app.use('/ugli-boats-v2/uploads', express.static('uploads')); // Serve uploaded files for GitHub Pages
+app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -166,7 +168,7 @@ app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
         category: category,
         caption: '',
         uploadDate: new Date().toISOString(),
-        url: `/uploads/${file.filename}`
+        url: `/ugli-boats-v2/uploads/${file.filename}`
       };
       photos.push(newPhoto);
       return newPhoto;
@@ -241,7 +243,11 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
       buildName,
       header: header || buildName,
       introText: introText || '',
-      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : [],
+      images: req.files ? req.files.map(f => ({
+        alt: f.originalname.replace(/\.[^/.]+$/, ""), // Remove file extension for alt text
+        caption: '',
+        url: `/uploads/${f.filename}` // Use consistent format for local development
+      })) : [],
       createdDate: new Date().toISOString()
     };
     
@@ -275,12 +281,50 @@ app.get('/api/builds', (req, res) => {
   }
 });
 
+// Delete a build
+app.delete('/api/builds/:id', (req, res) => {
+  try {
+    const buildId = req.params.id;
+    console.log('Delete request for build ID:', buildId);
+    
+    // Read existing builds
+    const builds = readBuilds();
+    console.log('Total builds:', builds.length);
+    console.log('Build IDs:', builds.map(b => b.id));
+    
+    // Find the build index
+    const buildIndex = builds.findIndex(build => build.id === buildId);
+    console.log('Found build at index:', buildIndex);
+    
+    if (buildIndex === -1) {
+      console.log('Build not found with ID:', buildId);
+      return res.status(404).json({ error: 'Build not found' });
+    }
+    
+    // Remove the build from the array
+    const deletedBuild = builds.splice(buildIndex, 1)[0];
+    console.log('Deleted build:', deletedBuild.buildName);
+    
+    // Save updated builds
+    writeBuilds(builds);
+    
+    res.json({
+      message: 'Build deleted successfully',
+      deletedBuild: deletedBuild
+    });
+    
+  } catch (error) {
+    console.error('Error deleting build:', error);
+    res.status(500).json({ error: 'Failed to delete build' });
+  }
+});
+
 // === SUBMISSION ENDPOINTS ===
 
 // Submit a new build for review
 app.post('/api/submissions', upload.array('images', 10), (req, res) => {
   try {
-    const { ownerName, email, buildName, description } = req.body;
+    const { ownerName, email, buildName, description, imageCaptions } = req.body;
     
     if (!ownerName || !email || !buildName) {
       return res.status(400).json({ error: 'Owner name, email, and build name are required' });
@@ -289,7 +333,17 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
     // Read existing submissions
     const submissions = readSubmissions();
     
-    // Create new submission
+    // Parse captions if provided (should be JSON array)
+    let captions = [];
+    if (imageCaptions) {
+      try {
+        captions = JSON.parse(imageCaptions);
+      } catch (e) {
+        console.log('Invalid caption format, using empty captions');
+      }
+    }
+    
+    // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
       ownerName,
@@ -298,7 +352,11 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       description: description || '',
       status: 'pending',
       createdDate: new Date().toISOString(),
-      images: req.files ? req.files.map(f => `/uploads/${f.filename}`) : []
+      images: req.files ? req.files.map((f, index) => ({
+        alt: f.originalname.replace(/\.[^/.]+$/, ""),
+        caption: captions[index] || '',
+        url: `/uploads/${f.filename}` // Use consistent format for local development
+      })) : []
     };
     
     // Add to submissions array
@@ -360,7 +418,7 @@ app.post('/api/submissions/:id/approve', (req, res) => {
       buildName: submission.buildName,
       header: `${submission.buildName} by ${submission.ownerName}`,
       introText: submission.description || '',
-      images: submission.images,
+      images: submission.images || [], // Already in correct format
       createdDate: new Date().toISOString()
     };
     
