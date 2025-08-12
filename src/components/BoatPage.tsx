@@ -50,7 +50,7 @@ function BoatPage() {
     url.toLowerCase().endsWith('.mp4') ? 'video' : 'image'
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
+    <div className="mx-auto max-w-full p-6">
       <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
       
       {/* Mobile: Show intro text first, Desktop: Use grid layout */}
@@ -126,10 +126,10 @@ function BoatPage() {
       </div>
 
       {/* Desktop: Grid layout (intro text on right side) */}
-      <div className="hidden md:grid grid-cols-3 gap-8">
+      <div className={`hidden md:grid ${build.introText?.trim() ? 'grid-cols-2' : 'grid-cols-1'} gap-8`}>
         {/* Thumbnails */}
-        <div className="col-span-2">
-          <div className="grid gap-8 sm:grid-cols-2">
+        <div className="col-span-1">
+          <div className={`grid gap-8 ${build.introText?.trim() ? 'sm:grid-cols-2' : 'sm:grid-cols-2 md:grid-cols-3'}`}>
             {build.images.map((img: any, idx: number) => {
               // Handle both old format (string) and new format (object)
               let imageUrl = ''
@@ -183,10 +183,10 @@ function BoatPage() {
           </div>
         </div>
         {/* Intro Text - Desktop */}
-        {build.introText && (
+        {build.introText?.trim() && (
           <div className="col-span-1 flex flex-col justify-start">
             <p className="text-lg text-left text-gray-700 bg-white/80 rounded p-4 shadow">
-            <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
+              <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
               {build.introText.split('\n').map((line: string, i: number) => (
                 <span key={i}>
                   {line}
@@ -202,27 +202,35 @@ function BoatPage() {
           className="
             flex flex-col items-center
             w-full
-            max-w-full
+            max-w-[95vw]
+            max-h-[95vh]
             sm:max-w-2xl
-            md:max-w-3xl
+            md:max-w-4xl
             lg:max-w-5xl
             xl:max-w-6xl
             p-4
-            pt-10
+            pt-12
+            overflow-hidden
           "
         >
           {build.images.length > 0 && (
-            <Carousel
-              opts={{ startIndex }}
-              className="w-full"
-              setApi={api => {
-                if (api) {
-                  carouselRef.current = api
-                  api.on('select', () => setCarouselIndex(api.selectedScrollSnap()))
-                  setCarouselIndex(api.selectedScrollSnap())
-                }
-              }}
-            >
+            <div className="relative w-full">
+              {/* Picture Counter */}
+              <div className="absolute top-4 right-4 z-10 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {carouselIndex + 1} of {build.images.length}
+              </div>
+              
+              <Carousel
+                opts={{ startIndex }}
+                className="w-full"
+                setApi={api => {
+                  if (api) {
+                    carouselRef.current = api
+                    api.on('select', () => setCarouselIndex(api.selectedScrollSnap()))
+                    setCarouselIndex(api.selectedScrollSnap())
+                  }
+                }}
+              >
               <CarouselContent>
                 {build.images.map((img: any, idx: number) => {
                   // Handle both old format (string) and new format (object)
@@ -250,7 +258,7 @@ function BoatPage() {
                           className="
                             w-full
                             max-w-full
-                            max-h-[80vh]
+                            max-h-[55vh]
                             object-contain
                             rounded
                             transition-all
@@ -266,7 +274,7 @@ function BoatPage() {
                           className="
                             w-full
                             max-w-full
-                            max-h-[80vh]
+                            max-h-[55vh]
                             object-contain
                             rounded
                             transition-all
@@ -304,6 +312,7 @@ function BoatPage() {
               <CarouselPrevious />
               <CarouselNext />
             </Carousel>
+            </div>
           )}
         </DialogContent>
       </Dialog>

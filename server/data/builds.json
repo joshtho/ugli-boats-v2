@@ -4,7 +4,7 @@
     "name": "Aaron Quitberg",
     "buildName": "",
     "header": "",
-    "introText": "",
+    "introText": "This is the most amazing repair and transformation I have seen to date. We will add more pictures and details as Aaron provides them.",
     "images": [
       {
         "alt": "AQ Both panels removed",
@@ -149,9 +149,9 @@
   {
     "id": "e2b0d625-4dff-466e-92ab-8a858d30b9e8",
     "name": "Brent Mitchell",
-    "buildName": "",
-    "header": "",
-    "introText": "",
+    "buildName": "Inboard Jet Ugliboats",
+    "header": "Brent's \"Junkyard boats\" were blazing new frontiers long before we even called them Ugliboats!",
+    "introText": "Here is an explanation of his boats and their value: We have 2 of these boats we affectionately refer to as ‘junkyard” boats. They are jet driven with 408 small blocks and Berkeley jets. They are totally self contained for running and camping on the Green River here in Utah. They link together via ball hitches and have remote controlled trolling motors for times when the River current is slow. They both make into queen beds and have on board porta potties and engine heated showers. I have two other traditional glass boats that are not half the boat that these jewels are. I have pictures if any one is interested in what these hulls can be transformed into. Would not take any amount of $ for mine best boat I own.",
     "images": [
       {
         "alt": "Brent Mitchell Build 01",
@@ -204,49 +204,49 @@
   },
   {
     "id": "7230301b-0e05-41cf-a350-ab49b5d3bdc1",
-    "name": "Chris Castellano",
-    "buildName": "",
+    "name": "Chris C",
+    "buildName": "JET DRIVE",
     "header": "",
-    "introText": "",
+    "introText": "This first picture is how Chris set up the boat originally after starting with a bare hull. It had a cool fiberglass console and was powered by a 50 horsepower Evinrude. The next two pictures are of the fabrication and installation of the pump. If you scroll through the pictures you will see a caption that explains what part of the process was being done. The final 3 photos are Chris's completed build on the water.",
     "images": [
       {
         "alt": "Chris Castellano Build 01",
-        "caption": "",
+        "caption": "This first picture is how Chris set up the boat originally after starting with a bare hull. It had a cool fiberglass console and was powered by a 50 horsepower Evinrude. After the intial testing, it was clear they needed a slight modification to the hull for improved water flow to the pump, and prevent cavitation from the rivets",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc1.jpg"
       },
       {
         "alt": "Chris Castellano Build 02",
-        "caption": "",
+        "caption": " Fabrication and installation of the pump.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc2.JPG"
       },
       {
         "alt": "Chris Castellano Build 03",
-        "caption": "",
+        "caption": "Fabrication and installation of the pump.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc3.JPG"
       },
       {
         "alt": "Chris Castellano Build 04",
-        "caption": "",
+        "caption": "Mock up with a block.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc4.JPG"
       },
       {
         "alt": "Chris Castellano Build 05",
-        "caption": "",
+        "caption": "This is how Chris had to modify the transom to fit the pump transom plate.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc5.jpg"
       },
       {
         "alt": "Chris Castellano Build 06",
-        "caption": "",
+        "caption": "This is the stock Berkeley PackaJet, that they tested, and to find improvements before the tear down.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc6.jpg"
       },
       {
         "alt": "Chris Castellano Build 07",
-        "caption": "",
+        "caption": "After the intial testing, it was clear they needed a slight modification to the hull for improved water flow to the pump, and prevent cavitation from the rivets.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc7.jpg"
       },
       {
         "alt": "Chris Castellano Build 08",
-        "caption": "",
+        "caption": "The following two pictures are of the new flooring, and updates to the motor.",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc8.jpg"
       },
       {
@@ -255,8 +255,23 @@
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/cc9.jpg"
       },
       {
-        "alt": "Chris Castellano completed build 1",
+        "alt": "Chris Castellano deck build 1",
+        "caption": "The construction of the deck and console done - looks great Chris!",
+        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-1.jpg"
+      },
+      {
+        "alt": "Chris Castellano deck build 2",
         "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-2.jpg"
+      },
+      {
+        "alt": "Chris Castellano deck build 4",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-4.jpg"
+      },
+      {
+        "alt": "Chris Castellano completed build 1",
+        "caption": "Completed Build on the trailer",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/CCastellano done1.jpg"
       },
       {
@@ -275,34 +290,19 @@
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/CCastellano done4.jpg"
       },
       {
-        "alt": "Chris Castellano deck build 1",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-1.jpg"
+        "alt": "Chris Castellano build on water1",
+        "caption": "Completed Build on the water.",
+        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-5.jpg"
       },
       {
-        "alt": "Chris Castellano deck build 2",
+        "alt": "Chris Castellano build on water2",
         "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-2.jpg"
+        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-6.jpg"
       },
       {
-        "alt": "Chris Castellano deck build 3",
+        "alt": "Chris Castellano build on water3",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-3.jpg"
-      },
-      {
-        "alt": "Chris Castellano deck build 4",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-4.jpg"
-      },
-      {
-        "alt": "Chris Castellano deck build 5",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-1.jpg"
-      },
-      {
-        "alt": "Chris Castellano deck build 6",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/ChrisCastellanoBuildPics/ChrisC-deck-build-1.jpg"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
@@ -310,39 +310,24 @@
   },
   {
     "id": "eefa8e8b-f368-4211-8ad4-af991d8ea69e",
-    "name": "Dan Barker ",
-    "buildName": "",
+    "name": "Dan Barker",
+    "buildName": "Stryker",
     "header": "",
-    "introText": "",
+    "introText": "Well I have been looking for a long time for a large Jon boat for fishing and bow-fishing. Large versions are very expensive and hard to find used. This boat came from Kentucky where they used it primarily for duck hunting. Well I don't duck hunt - so the first order of business was to get this boat converted for our use. Here are some pics showing our progress. Click on images and read captions to find out more.",
     "images": [
       {
-        "alt": "Dan Barker boat front 1",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front2[2].jpg"
-      },
-      {
-        "alt": "Dan Barker boat front 2",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front3[1].jpg"
-      },
-      {
-        "alt": "Dan Barker boat front 3",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front10[2].jpg"
-      },
-      {
-        "alt": "Dan Barker boat front 4",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front11[1].jpg"
+        "alt": "Dan Barker boat Dsc23",
+        "caption": "Ridin' high in the water.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/launch4[2].jpg"
       },
       {
         "alt": "Dan Barker boat front and back",
-        "caption": "",
+        "caption": "The Boat as we bought it - complete with duck blind.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat1_720[1].jpg"
       },
       {
         "alt": "Dan Barker new platform 1",
-        "caption": "",
+        "caption": "Platform on the original boat build as we bought it",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/DBnewplatform.jpg"
       },
       {
@@ -357,143 +342,158 @@
       },
       {
         "alt": "Dan Barker boat Dsc1",
-        "caption": "",
+        "caption": "With Duck Blind removed",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00809[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc2",
-        "caption": "",
+        "caption": "Starting to remove deck and wiring",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00811[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc3",
-        "caption": "",
+        "caption": "Old front hatch",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00813[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc4",
-        "caption": "",
+        "caption": "Side View Duck Blind Removed",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00827[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc5",
-        "caption": "",
+        "caption": "We filled the boat with water to check for leaks. We found a couple and repaired.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00867[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc6",
-        "caption": "",
+        "caption": "We then began to replace the decking with treated 3/4 plywood.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00869[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc7",
-        "caption": "",
+        "caption": "We carpeted the main deck first (in 35mph wind) but hey you work when you can.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00875[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc8",
-        "caption": "",
+        "caption": "We then made side panels to finish up the look and to provide a place to hide wiring and plumbing for pumps.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00877[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc9",
-        "caption": "",
+        "caption": "We gutted all the old wiring and replaced with new.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00893[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc10",
-        "caption": "",
+        "caption": "New wiring coming into the dash.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00900[1].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc11",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00902[1].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc12",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00908[2].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc13",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dsc00970_350[1].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc14",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dsc00972_350[2].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc15",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dscn7627_350[1].jpg"
-      },
-      {
         "alt": "Dan Barker boat Dsc16",
-        "caption": "",
+        "caption": "More welding and cutting.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00032-20110416-1042_350[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc17",
-        "caption": "",
+        "caption": "Jon is so fast - I could barely keep up cutting the pieces.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00035-20110416-1043_350[1].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc18",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00073-20110523-1256_350[1].jpg"
+        "alt": "Dan Barker boat Dsc11",
+        "caption": "So we began building the structure for the decks and hatches.  Don't have much experience doing this - so it ought to be fun.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00902[1].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc19",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00081-20110529-08432_350[1].jpg"
+        "alt": "Dan Barker boat Dsc12",
+        "caption": "Rear deck where we are started to cover the structure and build hatches.  Man - this is time consuming work.  But am enjoying it - and can't wait to launch it.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/Dsc00908[2].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc20",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00086-20110529-1919_350[1].jpg"
+        "alt": "Dan Barker boat front 1",
+        "caption": "Another Saturday at Jon's shop to get the front deck structure built.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front2[2].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc21",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00105-20110611-0044_350[1].jpg"
+        "alt": "Dan Barker boat front 2",
+        "caption": "Lewis decided to come along and help today also.  Appreciate all the help I can get.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front3[1].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc22",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00106-20110611-0044_350[1].jpg"
+        "alt": "Dan Barker boat front 3",
+        "caption": "Completed front deck structure",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front10[2].jpg"
       },
       {
-        "alt": "Dan Barker boat Dsc23",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00110-20110611-0122_350[1].jpg"
+        "alt": "Dan Barker boat front 4",
+        "caption": "Front three frames get bolted through the boat.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/boat-front11[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc13",
+        "caption": "Seats mounted, hatches in place.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dsc00970_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc14",
+        "caption": "Front Half Decked",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dsc00972_350[2].jpg"
       },
       {
         "alt": "Dan Barker boat launch1",
-        "caption": "",
+        "caption": "Trolling motor reaches (whew)",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/launch1[2].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc23",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/launch3[1].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc23",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/launch4[2].jpg"
-      },
-      {
-        "alt": "Dan Barker boat Dsc23",
-        "caption": "",
+        "caption": "High degree of fishibility.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/mayfish1_350[1].jpg"
       },
       {
         "alt": "Dan Barker boat Dsc23",
-        "caption": "",
+        "caption": "Starting to feel like home on the water.",
         "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/mayfish2_350[2].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc15",
+        "caption": "Getting bait... shad gods be kind to us.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/dscn7627_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc18",
+        "caption": "Rusty and I got out a caught our limit.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00073-20110523-1256_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc19",
+        "caption": "Not the catfish we were looking for...",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00081-20110529-08432_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc20",
+        "caption": "Had to get the welder out on the boat with us.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00086-20110529-1919_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc21",
+        "caption": "Our lighted livewell stuffed with blue cats.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00105-20110611-0044_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc22",
+        "caption": "First big cat to come in the boat.  About 22 Lbs.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00106-20110611-0044_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc23",
+        "caption": "Four of the biggest of 24 we caught that night.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/img00110-20110611-0122_350[1].jpg"
+      },
+      {
+        "alt": "Dan Barker boat Dsc23",
+        "caption": "Finally - it's great to be on the water.",
+        "url": "/ugli-boats-v2/IMAGES/Dan Barker Build Pics/launch3[1].jpg"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
@@ -1604,53 +1604,33 @@
   {
     "id": "dda6c0e0-3b2d-4822-9eec-d06d77868aa0",
     "name": "Ugli 1 Build",
-    "buildName": "",
-    "header": "",
-    "introText": "",
+    "buildName": "The Fabrication Process",
+    "header": "The Beginning of the Insanity",
+    "introText": "We wanted to post the entire fabrication process for several reasons. First is to show that there is a lot that goes into taking a bare Ponton Bridge Half-Section and making it into a usable fishing boat. Secondly, you may hopefully get some ideas for your own project. And thirdly, it may provide future fabricators with information so they don't make the same mistakes as we did.\n\n The second picture is how it looked the day it was purchased. The third is the tag from the hull. This particular hull was manufactured by Higgins Boat Works the same year I was - 1959. Over 50 YEARS OLD, still holding up to whatever is thrown it's way... just like me :) \n\n Higgins Industries was a company owned by Andrew Higgins based in New Orleans. Before World War Two, Higgins got its big start with the design and production of small shallow draft boats that were designed to operated in the shallow marsh areas common to Louisiana. These small but fast boats were called Eureka Boats and Spoonbills and could impact partially submerged logs and not suffer damage. The tag on these Spoon Bow High Chin Ponton Bridge Half-Sections is located on the inside corner of the transom.\n\n Since we were rebuilding this beast from the ground up, the first thing we did was to remove the old Johnson motor, center console, and rotted floor boards. The next step was to determine if the hull was leak proof. This was simply a matter of filling her with water and looking for leaks. Since Ugli1 was sound in the leak department, the decision was made to repaint the outer hull with the original Olive Drab Green color. It was reasoned that if it ever needed cammo, OD Green would be a good base color. \n\n The guy I bought this UgliBoat from had told me that there was foam in the floor. I actually believed him because there was foam showing on a couple of the seams between the side of the boat and the plywood. After taking the old rotted boards up, we discovered that the only foam in this boat were the few squirts originally showing from the top side. \n\n For some reason I felt it necessary for this boat to float even if it had machine gun holes in the floor. It took about 200lbs of marine foam to completely fill every cavity below the floorboards. We simply screwed down the outside decking, then tilted the boat and poured foam down each channel. What we have learned about pour foam is that it can be extremely messy. An important point to pass along, is that if you decide to put foam in your UgliBoat, it may not be a bad idea to do it inside of plastic bags. That way, if you or a future owner ever wants to pull up the floor boards, it wont be a nightmare.  For Ugli #1 that foam is now part of the boat! \n\n After installing the floor, it was coated with a PolyUrea product that I had on-hand. I knew it would be a bit of an ugly color, but very durable. The next step was to start working on the interior and transom. I am lucky to live near a large aluminum scrap yard. Not only are the materials a lot cheaper... but it is actually quite a bit of fun scrounging for materials that may work. \n\n Since there was so much weight in the back, and I was wanting to upgrade to a bigger motor, we decided to add floatation pods. Pictures 23-25 of how it looked before. We also realized we could get rid of the jack plate. To save time and money, it was decided to just add 3 sided boxes and fill them with pourable foam. One of the troubling issues of adding pods to this boat was that you cannot really weld them flush with the bottom of the boat because of the rivets and seam material. That means that the fish finder has to hang off of the back of the pod which is an inch or so higher than the actual bottom of the boat. We eventually installed a pricey brass through-hull transducer. \n\n One of the best investments I made for this boat, and one of the few items bought directly from the store, were a some very comfortable extra wide boat seats. When you go crappie light fishing at night, and are going to be sitting for as long as 8 hours, a good seat is a solid investment. I put the driver's seat on a Swivel-Ease base, so I could swivel away from the console to fish. The passenger seat was mounted on a movable base. I like having the flexibility of moving chairs around or loading extra chairs in the boat if needed. You can see these on Pictures 29-30. \n\n The final four pictures are of the boat out on the water. You can see how it drafts at trolling speed and how it looks at top speed. With the Suzuki 150 it goes over 40mph. \n\n I unfortunately had to sell this boat for financial reasons, but luckily had found another bare hull prior to selling it. Ugli-One was purchased on Memorial Day 2010 by Kevin Nagy of central Oklahoma. I am sure he will be adding more customizations that we can roll into a separate build page.",
     "images": [
       {
-        "alt": "1 Ugli 1 boat tag",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli 1 boat tag.jpg"
-      },
-      {
-        "alt": "1 Ugli1 purchase day",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli1 purchase day.jpg"
-      },
-      {
-        "alt": "10 Ugli 1 shallow",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10 Ugli 1 shallow.jpg"
-      },
-      {
-        "alt": "10a Ugli 1 trollspeed",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10a Ugli 1 trollspeed.jpg"
-      },
-      {
-        "alt": "10b Ugli 1speed2",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10b Ugli 1speed2.jpg"
-      },
-      {
-        "alt": "10c Ugli 1mike",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10c Ugli 1mike.jpg"
-      },
-      {
         "alt": "11 Ugli 1 g n m n m",
-        "caption": "",
+        "caption": "Us in the shallow water with Ugli 1. This is the first time we had it out on the water after the rebuild.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/11 Ugli 1 g n m n m.jpg"
       },
       {
+        "alt": "1 Ugli1 purchase day",
+        "caption": " This picture is how it looked the day it was purchased",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli1 purchase day.jpg"
+      },
+      {
+        "alt": "1 Ugli 1 boat tag",
+        "caption": "This is the tag from the hull.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1 Ugli 1 boat tag.jpg"
+      },
+      {
         "alt": "1b Ugli 1 Painting",
-        "caption": "",
+        "caption": "Good help is really hard to find for projects like this, but I got real lucky. Nathan (aka. Picasso) volunteered unsolicited and did a great job of getting a new monolithic coating on the hull.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1b Ugli 1 Painting.jpg"
       },
       {
         "alt": "1c Ugli 1 start project",
-        "caption": "",
+        "caption": "The inside of the hull was pretty dirty from years of buildup. It seemed like a good idea to put a coating on the inside of the boat as well. This picture is just the start of the wire brushing prior to adding the coatings.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/1c Ugli 1 start project.jpg"
       },
       {
@@ -1660,37 +1640,37 @@
       },
       {
         "alt": "2a Ugli 1 project fill foam",
-        "caption": "",
+        "caption": "For some reason I felt it necessary for this boat to float even if it had machine gun holes in the floor. It took about 200lbs of marine foam to completely fill every cavity below the floorboards. We simply screwed down the outside decking, then tilted the boat and poured foam down each channel.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/2a Ugli 1 project fill foam.jpg"
       },
       {
-        "alt": "2b Ugli 1 project 008",
-        "caption": "",
+        "alt": "2b Ugli 1 project Mike",
+        "caption": "This photo is my fishing buddy Mike, the father of \"Picasso\".  He  is screwing down the marine plywood onto the foam above the last middle channel pieces. What we have learned about pour foam is that it can be extremely messy.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/2b Ugli 1 project 008.jpg"
       },
       {
+        "alt": "5a Ugli 1 Build console",
+        "caption": "This picture is the mock up of the aluminum consoles, and also shows how the front deck was constructed from aluminum scaffold planking. The deck is 4.5 feet long by the width of the boat.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5a Ugli 1 Build console.jpg"
+      },
+      {
         "alt": "4 Ugli 1 transom removal",
-        "caption": "",
+        "caption": "This picture shows what a beauty of a transom this boat had. Whoever built it, built it stout. The downside was that it was as heavy as hell, and \"ugly\" in the real ugly sort of way. I didn't like the fact that the back transom was cut down, although most people that fabricate these boats do cut into the transom. This is because only an EXTRA-LONG shaft motor will fit, and even then, since it has a 90 degree transom there has to be some offset to get the 12 degree pitch needed. Our plan was to try to restore the hull as close to original before building a new back deck and transom out of aluminum.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/4 Ugli 1 transom removal.jpg"
       },
       {
         "alt": "5 Ugli 1 transom mockup",
-        "caption": "",
+        "caption": "This picture is a mock-up and prep for the back deck and transom. The deck was actually constructed from the top of a semi-truck headache rack. The joists are aluminum I-beams, and I believe that the rectangle tubing is from some scrapped scaffolds.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5 Ugli 1 transom mockup.jpg"
       },
       {
-        "alt": "5a Ugli 1 Build console",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5a Ugli 1 Build console.jpg"
-      },
-      {
         "alt": "5aa Ugli 1 gas tank",
-        "caption": "",
+        "caption": "This is the mock up of the 20 gallon aluminum fuel cell, battery compartments, and substantial bracing for the back deck. With hindsight, it may have been too much weight distribution toward the back of the boat.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5aa Ugli 1 gas tank.jpg"
       },
       {
-        "alt": "5b Ugli 1 transom welding",
-        "caption": "",
+        "alt": "5b Ugli 1 transom welding seller",
+        "caption": "This is a guy I paid to weld up the transom, bracing and consoles. I was told that it was a bargain at $700, but since then have recently bought my own aluminum welding rig for future projects.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/5b Ugli 1 transom welding.jpg"
       },
       {
@@ -1700,8 +1680,13 @@
       },
       {
         "alt": "6 Ugli 1 Interior 006",
-        "caption": "",
+        "caption": "This is a pretty good look at the interior. You can see the binnacle control in the process of being fitted. Check out the plastic downspout pipe used for the steering cable and throttle lines. There was also room to put in house style outlets so that I could just plug the crappie lights in.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6 Ugli 1 Interior 006.jpg"
+      },
+      {
+        "alt": "6b Ugli 1 boatdeck 008",
+        "caption": "This is a picture of the front deck. PolyUrea was used, then broadcast with vinyl chips and sealed with a clear acrylic coating.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6b Ugli 1 boatdeck 008.jpg"
       },
       {
         "alt": "6a Ugli 1 boatdeck 004",
@@ -1709,18 +1694,18 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6a Ugli 1 boatdeck 004.jpg"
       },
       {
-        "alt": "6b Ugli 1 boatdeck 008",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6b Ugli 1 boatdeck 008.jpg"
-      },
-      {
         "alt": "6c Ugli 1 front deck mike chair",
-        "caption": "",
+        "caption": "The following is a picture of the front deck with a bass boat seat my buddy mounted while I was gone one day. I still think it looks like shit, and clutters the space. I was a bit miffed, but cooled off when he found a cool tandem axle galvanized trailer and ranger wheels at a great price.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/6c Ugli 1 front deck mike chair.jpg"
       },
       {
+        "alt": "7h Ugli 1 boat new trailer 001",
+        "caption": "Tandem axle galvanized trailer and ranger wheels",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7h Ugli 1 boat new trailer 001.jpg"
+      },
+      {
         "alt": "7a Ugli 1 115 n trailer",
-        "caption": "",
+        "caption": "These pictures show the original dilapidated single axle trailer and the Suzuki 115 motor on the boat. This picture was taken prior to installing floatation pods.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7a Ugli 1 115 n trailer.jpg"
       },
       {
@@ -1735,7 +1720,7 @@
       },
       {
         "alt": "7b Ugli 1 transom before pods 002",
-        "caption": "",
+        "caption": "Since there was so much weight in the back, and I was wanting to upgrade to a bigger motor, we decided to add floatation pods. This picture and the next is of how it looked before. We also realized we could get rid of the jack plate.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7b Ugli 1 transom before pods 002.jpg"
       },
       {
@@ -1755,7 +1740,7 @@
       },
       {
         "alt": "7f Ugli 1 pod pic",
-        "caption": "",
+        "caption": "We eventually installed a pricey brass through-hull transducer",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7f Ugli 1 pod pic.jpg"
       },
       {
@@ -1764,23 +1749,18 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7g Ugli 1 pods 115.jpg"
       },
       {
-        "alt": "7h Ugli 1 boat new trailer 001",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/7h Ugli 1 boat new trailer 001.jpg"
-      },
-      {
         "alt": "8 Ugli 1 Consoles",
-        "caption": "",
+        "caption": "One of the best investments I made for this boat, and one of the few items bought directly from the store, were a some very comfortable extra wide boat seats. When you go crappie light fishing at night, and are going to be sitting for as long as 8 hours, a good seat is a solid investment. I put the driver's seat on a Swivel-Ease base, so I could swivel away from the console to fish. The passenger seat was mounted on a movable base. I like having the flexibility of moving chairs around or loading extra chairs in the boat if needed.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/8 Ugli 1 Consoles.jpg"
       },
       {
-        "alt": "9 Ugli 1 new 150",
+        "alt": "9 Ugli 1 new seats",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9 Ugli 1 new 150.jpg"
       },
       {
         "alt": "9a Ugli 1 new 150",
-        "caption": "",
+        "caption": "Here is a view of the wide roomy floor plan. You can also see how the rear storage compartment was inexpensively upholstered in matching OD green canvass.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/9a Ugli 1 new 150.jpg"
       },
       {
@@ -1797,42 +1777,47 @@
         "alt": "foamed boat",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/foamed boat.jpg"
+      },
+      {
+    "alt": "10 Ugli 1 shallow",
+    "caption": "",
+    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10 Ugli 1 shallow.jpg"
+      },
+      {
+        "alt": "10a Ugli 1 trollspeed",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10a Ugli 1 trollspeed.jpg"
+      },
+      {
+        "alt": "10b Ugli 1speed2",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10b Ugli 1speed2.jpg"
+      },
+      {
+        "alt": "10c Ugli 1mike",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10c Ugli 1mike.jpg"
       }
     ],
-    "createdDate": "2025-08-06T00:42:43.585Z",
+    "createdDate": "2025-08-06T00:42:44.585Z",
     "isLegacy": true
   },
   {
     "id": "ec181510-0930-41ad-95c0-30e808a5bd37",
     "name": "Ugli 2 Build",
-    "buildName": "",
-    "header": "",
-    "introText": "I suppose that the \"Green Lantern\" will be a continuous fabrication process. But now that she is \"on-the-water\" and fishable, it is time to post some pictures.\n I am calling her the Green Lantern because I fish at night a lot with green lights, and with the color scheme I ended up with, it seems appropriate. I have spent over three years gathering the unique and expensive items that I wanted to be a part of this build.\n  The only other thing I wish I could afford now is a freefall drum anchor winch. Here are a few pictures of the completed boat, then following are some of the build pictures start to finish. I will add pictures at the end as I add new things.",
+    "buildName": "The Green Lantern",
+    "header": "The Keeper",
+    "introText": "I suppose that the \"Green Lantern\" will be a continuous fabrication process. But now that she is \"on-the-water\" and fishable, it is time to post some pictures.\n \n I am calling her the Green Lantern because I fish at night a lot with green lights, and with the color scheme I ended up with, it seems appropriate. I have spent over three years gathering the unique and expensive items that I wanted to be a part of this build.\n  The only other thing I wish I could afford now is a freefall drum anchor winch. Here are a few pictures of the completed boat, then following are some of the build pictures start to finish. \n\n The story of how I came to acquire this boat is common. The owner had bought it with every intention of fixing it up. In his case, he wanted a deluxe paddlefish boat for fishing beneath the spillway at Lake Texoma. It had sat in his backyard for about 5 years before his wife put her foot down and said to get it out of the yard. \n\n By the way, I have noticed a couple things about these boats. One is that guys love them. You will get stopped at every boat ramp by guys asking questions about your UgliBoat. They are usually wondering why they spent $50k on their bass boat and don't have any room for anything. On the other hand, I have yet to meet an UgliBoat owner that says his wife likes it. This phenomenon surprises me because these boats are safer and roomier than the other shiny vessels that seem to get women's interest. \n\n Photos 7-8 show the boat after being soda blasted. Let me warn you, if you decide to rent a soda blasting rig, make sure your neighbors don't mind EXCESIVE amounts of baking soda covering the trees and wafting throughout the neighborhood. I have an acre lot, and without using witchcraft, it was not enough of a buffer to keep Mrs. Kravitz at bay.\n\n The reason for soda blasting was the first UgliBoat seemed to lose the depth finder signal at about 10 mph. I suspected it was from the bubbles created by the rivet heads. The plan was to fill at least two corresponding channels up above the rivet heads. It was also hard to mount the fish finder far enough down because of the rivet heads on the bottom of the transom. My solution was to fabricate some hardwood blocks that were mounted flush with the bottom edge of the boat. I had to route out the depth of the rivets on about 1/2 of the underside of the board. I mounted them with stainless steel bolts and marine sealant. In the following steps the wood will be coated over with a durable monolithic coating. I suppose there are many options available for filling the channels and coating the hull. \n\n I thought about using fiberglass resin for the channels, and epoxy for the hull. But ended up getting stuck on the idea of using PolyUrea. One of the major problems with PolyUrea is that it is not really hand mixable and paintable and it takes very expensive spray equipment to apply it. I didn't have a spray rig to apply it, so I called some applicators to get some prices - they were VERY EXPENSIVE. After a lot of looking around I found a company that claimed their PolyUrea was hand paintable with plenty of pot-life.  It seemed to have all the characteristics I was looking for. It had to have good adhesion, at least 200% elongation, good tensile strength and hardness, high shine and glossiness, and be UV stable. I felt I had found my answer in DYNA-PUR 9051BL from Creative Materials Technology. I ordered a light tan color with enough materials to fill two of the channels above the rivets, and coat the bottom of the boat. \n\n After blasting and rinsing, I wiped the boat down with acetone according to advice from the manufacturer, before taping and coating. Filling the channels were pretty easy but the boat had to be tilted so each channel was completely level before pouring. We also got our first hint of the BUBBLE NIGHTMARE. At first we thought the bubbles may be from improper mixing, but found out too late that it was something completely different. Evidently the soda blasting changed the aluminum's pH enough that the coating wouldn't adhere. \n\n You can see from picture number 11 that I was considering just cutting out the bubbles, but decided instead to peel EVERYTHING off and start fresh. That actually was a pretty easy task because except for the two thick channels, it peeled off like shelf paper. The leveling channels were left because they appeared to be adhered well and had consumed so much material anyway. At this point I considered that it may have been wiser to pay a few more bucks to let a professional spray it and warranty it. It was fortunate that the manufacturer stood behind his instructive mistake, and was willing to replace an amount that was enough to recoat the entire boat. He said that the solution was to scrub the boat with TSP to neutralize the PH in the aluminum, then the product would adhere just fine. Since I was going to have to re-do it, I also decided to go with another color. I was thinking a polo green that wouldn't clash with camouflage... but the pictures in photos 14-16 reveal what the DynaPur Green actually resembles. I immediately thought it was exactly like John Deere green although my brother in law would root for the color of Green Bay Packers. \n\n The second coating bonded great, but there were some issues. What I learned about hand applied PolyUrea is that it is a very thick material. PolyUrea cures with a thermosetting reaction - and it will run on vertical surfaces! I tried thinning it first with an approved thinner, but found that I couldn't get it thin enough not to run on the vertical surfaces. I also learned to work with very small mix batches. This is because even when you thin it, within a few minutes it will start thickening back up again. The bottom line is that I believe this coating will prove to be very durable. If I had it to do over again, I would have it spray applied because they could get it to thermoset immediately and keep it from running. My UgliBoat now has a pretty unsightly coating, that is a bit bumpy on the vertical side and bow surfaces. On the underside it is fairly smooth. I don't think that this mottled paint job will cause much drag in the water because the bumps don't stick out any more than the rivets did. Also, as you can see in the pictures, the bottom of the boat is pretty darn smooth. Especially in the channel that coincides with the fish finder, and it's twin on the other side. Also, rather than get unhappy about the DynaPur green, I decided to embrace it and make this boat an UgliJohn...Deere. Nothing runs like an UgliJohn. \n\n The next little project was to build a customized trailer for UgliJohn. With hindsight, I believe should have converted the galvanized one and re-galvanizing the welds. Instead I ended up selling it for cash, and customized an old steel one one I had. I opted for making the running boards into wide hinged single boards. As you can see the John Deere Green spray paint I used is a pretty close color match to the DynaPur green. \n\n In planning for Ugli2, a Porta-Bracket was definitely at the top of my wish list. These are pretty cool because they only weigh about 80 lbs, and have about 12 inches of lift, and more importantly - they have an 18\" setback. This was important for me because I didn't want to cut down the transom to accommodate the tilt of the motor. The only problem with the Porta-Bracket for me was that they are very costly and I have a limited budget for UgliJohn. After a year of googling I did find a guy in Louisiana with a used Porta-Bracket for sale. Actually he didn't even have the words Porta-Bracket in his advertisement, just hydraulic jack plate. The first thing to do was to test fit it. On a normal boat with a 12 degree slanted transom, the top bracket would be even with the red line in the picture. With a 90 degree transom, I had to put the bracket down much lower.  I actually had to cut out some of my previous wood, and mount the bottom plate a tiny bit above the drain hole. With this set-up will also allow more travel than if I would have mounted some type of 12 degree adapter plate between the bracket and transom. I will put wedges between the motor and bracket to get the pitch I need. The next issue was what to do about the protruding rivet heads that interfered with the bracket. There were four that actually were so close to the bolt holes, they were able to be drilled out and used for the bolts. I felt the others needed to stay. so I made an adapter plate that was the thickness of the rivet heads. I had bolted it through a 1/2\" aluminum plate on the inside of the boat. The problem is that the plate I found at the scrap yard was almost 1\" too narrow. This meant that the plate edge ended at about mid point on the angle iron on one side. I didn't think it would create a problem, but it did. You can see in the OOPS picture how it actually started to split the aluminum angle when I tightened it down.The solution was to take it all back apart, add a bunch of 1 1/2\" square aluminum inside the entire transom plate area, grind off all the marine sealant, and do it all over again. What an Ugli time I had. \n\n  The plan is to add more bracing that is welded to the aluminum plate. I am open to any good ideas of ho to do this without eating up any floor space. The two final mounting pictures are shown on pictures 32-33. One side has the triangle covers on it and one side doesn't. Since these cost $16 each, I am trying to figure out a more affordable option. I also decided to re-coat over the middle transom area - including over the bracket as well. Even though I used marine sealant, I worried that since the bolts did not have washers and nuts flush against the actual hull, I wanted to build in some reassurance that the bolt holes were well sealed. The next step in finishing the bracket, will be to re-attach the hydraulic piston. A new seal kit is installed and now needs to be bled. \n\n Important things I learned on this build - WEIGHT DISTRIBUTION. It seems like every time I build one of these I learn new lessons on how best to accomplish the end result. Primarily I learned to pay attention to the balance / weight distribution. On this boat I failed to account for putting a lightweight 90 hp on instead of a 150 hp. With 20 gallons of gas up front, a large deck and windshield system, and 3 large batteries....it ended up a little too front heavy and therefore wants to plow through the water when not on plane at medium speed. I have decided to NOT use the front tank unless I go on a very long trip that requires it. I bought a 20 gallon aluminum tank ( 5' long x 7\" tall) to go across the back. I will decide after testing that out whether I also need to move the batteries to the back. I am sure it will affect my shallow 3 inch draft in the water, but I suspect not more than a few inches.I suppose I will also do away with the hydraulic pump box and build an enclosure / seating across the back to hide the new gas tank.  ",
     "images": [
       {
-        "alt": "1 UGLI CANOPY",
+        "alt": "ugli 2 with top down",
         "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI CANOPY.jpg"
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg"
       },
       {
-        "alt": "1 UGLI HAMMOCK",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI HAMMOCK.jpg"
-      },
-      {
-        "alt": "1 Ugli 3 inch draft",
-        "caption": "Three inch draft",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli 3 inch draft.jpg"
-      },
-      {
-        "alt": "1 Ugli Rod Rail1",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Rod Rail1.jpg"
-      },
-      {
-        "alt": "1 Ugli Yamaha90",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Yamaha90.jpg"
+        "alt": "ugli2 with top down shallow",
+        "caption": "Windshields can fold down flat or can be removed completely.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli2 with top down shallow.jpg"
       },
       {
         "alt": "1 Ugli at Dock",
@@ -1840,23 +1825,18 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli at Dock.jpg"
       },
       {
-        "alt": "1 Ugli name",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli name.jpg"
+        "alt": "1 Ugli 3 inch draft",
+        "caption": "Three inch draft",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli 3 inch draft.jpg"
       },
       {
         "alt": "1 Ugli2 purchase pic",
-        "caption": "",
+        "caption": "Here is a picture of how Ugli2 looked when I drug her home from Oklahoma.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli2 purchase pic.jpg"
       },
       {
-        "alt": "10 JOHN D boat floor",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/10 JOHN D boat floor.jpg"
-      },
-      {
         "alt": "1a  Ugli2 upsidedown",
-        "caption": "",
+        "caption": "The new trailer I put her upside down on to start the fabrication process.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1a  Ugli2 upsidedown.jpg"
       },
       {
@@ -1865,14 +1845,14 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/2a taped.jpg"
       },
       {
-        "alt": "3 first coat",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3 first coat.jpg"
-      },
-      {
         "alt": "3a fillchannels 2 ",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3a fillchannels 2 .jpg"
+      },
+      {
+        "alt": "3 first coat",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/3 first coat.jpg"
       },
       {
         "alt": "3c bubbles 001",
@@ -1910,6 +1890,36 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/5a second coating.jpg"
       },
       {
+        "alt": "1 UGLI CANOPY",
+        "caption": "Sewed up a canopy on home sewing machine... I will post pictures of the clear vinyl enclosure later. I am going to have to invest in some twist fasteners for the top canopy because the snaps do not hold at speed. Notice that the canopy framing can be folded down and out of the way, only requiring the storage of the rear detachable tube on the back of the canopy. It will nest in the same cradle as my net holder.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI CANOPY.jpg"
+      },
+      {
+        "alt": "1 UGLI HAMMOCK",
+        "caption": "Detachable Hammock",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 UGLI HAMMOCK.jpg"
+      },
+      {
+        "alt": "1 Ugli Rod Rail1",
+        "caption": "Collapsible rod rail / holder. I do a lot of night fishing with lights and this way we wont have to lay poles on coolers ... hope it works ok. Notice the flush mount plugs on the panel below the lure tray and cable run. I use standard 110 plugs and sockets on my 12 volt stuff because I hate dealing with those cigarette lighter plugs and battery clamp plugs.  When I get out on the water some night I will get a picture of the 12 volt system in action. I actually am running those sockets off of my 24 volt batteries, using a step down regulator.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Rod Rail1.jpg"
+      },
+      {
+        "alt": "1 Ugli Yamaha90",
+        "caption": "Yamaha 90. Going for fuel efficiency this time, goes 34 mph in rough water and two big guys in it.",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli Yamaha90.jpg"
+      },
+      {
+        "alt": "1 Ugli name",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/1 Ugli name.jpg"
+      },
+      {
+        "alt": "10 JOHN D boat floor",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/10 JOHN D boat floor.jpg"
+      },
+      {
         "alt": "7 UgliCustomTrailer1",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/7 UgliCustomTrailer1.jpg"
@@ -1945,13 +1955,13 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8e plate fitting 004.jpg"
       },
       {
-        "alt": "8f plate fitting 005",
-        "caption": "",
+        "alt": "OOPS",
+        "caption": "OOPS",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8f plate fitting 005.jpg"
       },
       {
         "alt": "8g portabracket final mounting ",
-        "caption": "",
+        "caption": "Here is a picture of the inside of the transom after it was repaired. The plan is to add more bracing that is welded to the aluminum plate. I am open to any good ideas of ho to do this without eating up any floor space.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8g portabracket final mounting .jpg"
       },
       {
@@ -1961,7 +1971,7 @@
       },
       {
         "alt": "8i portabracket final mounting ",
-        "caption": "",
+        "caption": "final mounting of the Porta-Bracket. One side has the triangle covers on it and one side doesn't.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/8i portabracket final mounting .jpg"
       },
       {
@@ -1971,41 +1981,31 @@
       },
       {
         "alt": "UGLI CHARGERS",
-        "caption": "",
+        "caption": "All three batteries are in the bow, and the on board chargers have a flush mount plug-in on the outside of the console.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/UGLI CHARGERS.jpg"
       },
       {
         "alt": "box cut outs",
-        "caption": "",
+        "caption": "Fabricating the aluminum Deck - Box cut outs",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/box cut outs.jpg"
       },
       {
         "alt": "deck with boxes fitted",
-        "caption": "",
+        "caption": "Boxes fitted",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/deck with boxes fitted.jpg"
       },
       {
         "alt": "pump cover",
-        "caption": "",
+        "caption": "Jack Plate Pump Cover Housing. Since I decided to mount the hydraulic pump where it is easily accessible, I did away with the rear bench seat and framing. There i no reinforcement of the transom, but I am pretty sure I wont need it with a 90 hp. I may change my mind about that later.",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/pump cover.jpg"
       },
       {
         "alt": "ugli 2 front pic 001",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 front pic 001.jpg"
-      },
-      {
-        "alt": "ugli 2 with top down",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg"
-      },
-      {
-        "alt": "ugli2 with top down shallow",
-        "caption": "Windshields can fold down flat or can be removed completely.",
-        "url": "/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli2 with top down shallow.jpg"
       }
     ],
-    "createdDate": "2025-08-06T00:42:43.585Z",
+    "createdDate": "2025-08-06T00:42:45.585Z",
     "isLegacy": true
   },
   {
