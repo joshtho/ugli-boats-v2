@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Ship } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -34,13 +33,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link to="/">
             <SidebarMenuButton onClick={handleSidebarToggle} size="lg" >
                 <div className=" text-sidebar-primary-foreground flex aspect-square size-15 items-center justify-center">
-                  {/* <Ship className="size-4" /> */}
                   <img src="/ugli-boats-v2/IMAGES/leftsidebarpic-2.jpg" />
                 </div>
-                {/* <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">UGLI Boats</span>
-                </div> */}
-             
             </SidebarMenuButton>
               </Link>
           </SidebarMenuItem>

@@ -47,7 +47,18 @@ function BoatPage() {
 
   // Helper to get media type
   const getMediaType = (url: string): 'image' | 'video' =>
-    url.toLowerCase().endsWith('.mp4') ? 'video' : 'image'
+    url.toLowerCase().endsWith('.mp4') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('youtube.com') ? 'video' : 'image'
+
+  // Helper to extract YouTube video ID
+  const getYoutubeId = (url: string): string | null => {
+    if (url.includes('youtu.be/')) {
+      return url.split('youtu.be/')[1].split('?')[0]
+    }
+    if (url.includes('youtube.com/watch?v=')) {
+      return url.split('v=')[1].split('&')[0]
+    }
+    return null
+  }
 
   return (
     <div className="mx-auto max-w-full p-6">
@@ -77,8 +88,8 @@ function BoatPage() {
         )}
         {build.introText && (
           <div className="mb-6">
-            <p className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
             <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
+            <p className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
               {build.introText.split('\n').map((line: string, i: number) => (
                 <span key={i}>
                   {line}
@@ -92,19 +103,9 @@ function BoatPage() {
         {/* Images - Mobile & Medium (shows after intro) */}
         <div id="thumbnail-section" className="grid gap-8 sm:grid-cols-2">
           {build.images.map((img: any, idx: number) => {
-            // Handle both old format (string) and new format (object)
-            let imageUrl = ''
-            let imageAlt = `Image ${idx + 1}`
-            
-            if (typeof img === 'string') {
-              imageUrl = img
-            } else if (img && typeof img === 'object' && img.url) {
-              imageUrl = img.url
-              imageAlt = img.alt || imageAlt
-            }
-            
-            const fullImageUrl = getImageUrl(imageUrl)
+            const fullImageUrl = getImageUrl(img.url)
             const isVideo = getMediaType(fullImageUrl) === 'video'
+            const youtubeId = getYoutubeId(img.url)
             
             return isVideo ? (
               <div
@@ -115,13 +116,21 @@ function BoatPage() {
                 setOpen(true)
               }}
               >
-                <video
-                  src={fullImageUrl}
-                  className="w-full h-full object-cover"
-                  muted
-                  playsInline
-                  preload="metadata"
-                />
+                {youtubeId ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeId}`}
+                    className="w-full h-full"
+                    allowFullScreen
+                  />
+                ) : (
+                  <video
+                    src={fullImageUrl}
+                    className="w-full h-full object-cover"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
                     <polygon points="9.5,7.5 16.5,12 9.5,16.5" />
@@ -132,7 +141,7 @@ function BoatPage() {
               <img
               key={idx}
               src={fullImageUrl}
-              alt={imageAlt}
+              alt={img.alt}
               className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
               onClick={() => {
                 setStartIndex(idx)
@@ -150,19 +159,9 @@ function BoatPage() {
         <div className="col-span-1">
           <div className={`grid gap-8 ${build.introText?.trim() ? 'sm:grid-cols-2' : 'sm:grid-cols-2 md:grid-cols-3'}`}>
             {build.images.map((img: any, idx: number) => {
-              // Handle both old format (string) and new format (object)
-              let imageUrl = ''
-              let imageAlt = `Image ${idx + 1}`
-              
-              if (typeof img === 'string') {
-                imageUrl = img
-              } else if (img && typeof img === 'object' && img.url) {
-                imageUrl = img.url
-                imageAlt = img.alt || imageAlt
-              }
-              
-              const fullImageUrl = getImageUrl(imageUrl)
+              const fullImageUrl = getImageUrl(img.url)
               const isVideo = getMediaType(fullImageUrl) === 'video'
+              const youtubeId = getYoutubeId(img.url)
               
               return isVideo ? (
                 <div
@@ -173,13 +172,21 @@ function BoatPage() {
                   setOpen(true)
                 }}
                 >
-                  <video
-                    src={fullImageUrl}
-                    className="w-full h-full object-cover"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  />
+                  {youtubeId ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${youtubeId}`}
+                      className="w-full h-full"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <video
+                      src={fullImageUrl}
+                      className="w-full h-full object-cover"
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  )}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 24 24">
                       <polygon points="9.5,7.5 16.5,12 9.5,16.5" />
@@ -190,7 +197,7 @@ function BoatPage() {
                 <img
                 key={idx}
                 src={fullImageUrl}
-                alt={imageAlt}
+                alt={img.alt}
                 className="w-full h-40 object-cover rounded cursor-pointer transition-transform hover:scale-105"
                 onClick={() => {
                   setStartIndex(idx)
@@ -204,8 +211,8 @@ function BoatPage() {
         {/* Intro Text - Desktop */}
         {build.introText?.trim() && (
           <div className="col-span-1 flex flex-col justify-start">
+            <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
             <p className="text-lg text-left text-gray-700 bg-white/80 rounded p-4 shadow">
-              <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
               {build.introText.split('\n').map((line: string, i: number) => (
                 <span key={i}>
                   {line}
@@ -267,6 +274,7 @@ function BoatPage() {
                   
                   const fullImageUrl = getImageUrl(imageUrl)
                   const type = getMediaType(fullImageUrl)
+                  const youtubeId = getYoutubeId(imageUrl)
                   
                   return (
                     <CarouselItem key={idx} className="flex flex-col items-center justify-center">
@@ -283,7 +291,19 @@ function BoatPage() {
                             transition-all
                           "
                         />
-                        
+                      ) : youtubeId ? (
+                        <iframe
+                          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=${carouselIndex === idx ? 1 : 0}`}
+                          className="
+                            w-full
+                            max-w-full
+                            max-h-[55vh]
+                            aspect-video
+                            rounded
+                          "
+                          allowFullScreen
+                          allow="autoplay; encrypted-media"
+                        />
                       ) : (
                         <video
                           src={fullImageUrl}

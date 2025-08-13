@@ -946,8 +946,8 @@
     "id": "f4206e61-87d3-4219-a31f-4a43f6b4db6c",
     "name": "Mat Kessler",
     "buildName": "",
-    "header": "",
-    "introText": "",
+    "header": "This has to be the most comprehensive and professional build to date.",
+    "introText": "This boat build has more attention to detail than any I have seen before.  Matt is an aluminum welder by trade and it can definitely be seen in his UgliBoat. I wish I would have had the skill to put gas tanks in the floor as well. Stay tuned to his build as he may want to add some lessons learned verbiage to this page.",
     "images": [
       {
         "alt": "Mat Kessler 1",
@@ -1086,7 +1086,7 @@
   {
     "id": "5e7504a9-8351-4f0a-ba68-d2c244863ad5",
     "name": "Matt Pieper",
-    "buildName": "",
+    "buildName": "Custom Floating Duck Blind",
     "header": "",
     "introText": "",
     "images": [
@@ -1206,7 +1206,7 @@
   },
   {
     "id": "2431c263-ffdc-4787-a45e-e50f7db6fe16",
-    "name": "Patrick Anon",
+    "name": "Patrick Slattery",
     "buildName": "",
     "header": "",
     "introText": "",
@@ -1229,7 +1229,7 @@
       {
         "alt": "Patrick Anon 4",
         "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/MikeMcGowanBuildPics/PatrickAnon4.jpg"
+        "url": "/ugli-boats-v2/IMAGES/PatrickAnonBuildPics/PatrickAnon4.jpg"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
@@ -1238,7 +1238,7 @@
   {
     "id": "7c0c5a29-3d9a-4b76-9608-3d24a6c92d70",
     "name": "Paul Meyer",
-    "buildName": "",
+    "buildName": "Silver Bullet",
     "header": "",
     "introText": "",
     "images": [
@@ -1315,7 +1315,7 @@
     "id": "9ee2a447-e06c-4975-8655-e3850889113d",
     "name": "Robert Dorch",
     "buildName": "",
-    "header": "",
+    "header": "Robert has one spectacular setup with this Ugliboat he has named Beetle Bailey...and matching 1956 Chevrolet 3500 dually!",
     "introText": "",
     "images": [
       {
@@ -1362,6 +1362,11 @@
         "alt": "Robert Dorch 9",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/RobertDorchBuild/RobertDorch9.jpg"
+      },
+      {
+        "alt": "Robert Dorch youtube emb",
+        "caption": "",
+        "url": "https://youtu.be/_EtYtVIh4o4"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
