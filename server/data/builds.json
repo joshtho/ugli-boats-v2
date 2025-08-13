@@ -1314,7 +1314,7 @@
   {
     "id": "9ee2a447-e06c-4975-8655-e3850889113d",
     "name": "Robert Dorch",
-    "buildName": "",
+    "buildName": "Beetle Bailey",
     "header": "Robert has one spectacular setup with this Ugliboat he has named Beetle Bailey...and matching 1956 Chevrolet 3500 dually!",
     "introText": "",
     "images": [
@@ -1407,8 +1407,8 @@
     "id": "0d5904d5-12af-436e-8c74-0dac2fc75dcb",
     "name": "Ronald Zscherneck",
     "buildName": "",
-    "header": "",
-    "introText": "",
+    "header": "Another Extreme Ugliboat",
+    "introText": "This is truly a floating castle. It is amazing how many skillful man hours went into this monster.",
     "images": [
       {
         "alt": "Ronald Zscherneck 1",
@@ -1492,7 +1492,7 @@
   {
     "id": "609e2733-4a4b-4133-9804-31d92e5808b6",
     "name": "Sean Clark",
-    "buildName": "",
+    "buildName": "The Superdeck",
     "header": "",
     "introText": "",
     "images": [
@@ -1558,8 +1558,8 @@
   {
     "id": "f0eab3f7-edd7-43ed-a513-805fa263932d",
     "name": "Tom Anderson",
-    "buildName": "",
-    "header": "",
+    "buildName": "The Pig",
+    "header": "A wonderful Pig of a boat by anyone's standards.",
     "introText": "",
     "images": [
       {
@@ -2015,11 +2015,16 @@
   },
   {
     "id": "75912a23-7dc0-4916-8a3f-1f06b32786b0",
-    "name": "Warren Beseler Build",
-    "buildName": "",
-    "header": "",
-    "introText": "",
+    "name": "Warren Beseler",
+    "buildName": "The Behemoth",
+    "header": "In search of the perfect UgliBoat.",
+    "introText": "Warren started his UgliBoat journey by traveling from Michigan to Texas. Since I found his Ugliboat in Montana, I am assuming it is the longest road traveled boat in all of America.",
     "images": [
+      {
+        "alt": "WarrenBeseler2018",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler2018.jpg"
+      },
       {
         "alt": "WarrenBeseler1",
         "caption": "",
@@ -2029,11 +2034,6 @@
         "alt": "WarrenBeseler2",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler2.jpg"
-      },
-      {
-        "alt": "WarrenBeseler2018",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeseler2018.jpg"
       },
       {
         "alt": "WarrenBeseler3",
@@ -2072,7 +2072,7 @@
       },
       {
         "alt": "WarrenBeselerTexas1",
-        "caption": "",
+        "caption": "Here he is in my yard getting ready to set off on his journey back home.",
         "url": "/ugli-boats-v2/IMAGES/WarrenBeselerBuildPIcs/WarrenBeselerTexas1.jpg"
       }
     ],
@@ -2081,9 +2081,9 @@
   },
   {
     "id": "d80e1093-256c-4e92-85a2-7c6dd714abc1",
-    "name": "William Shelton Build",
+    "name": "William Shelton",
     "buildName": "",
-    "header": "",
+    "header": "Check out William's UgliBoat !! Quality, Quality, Quality. Very well done.",
     "introText": "",
     "images": [
       {

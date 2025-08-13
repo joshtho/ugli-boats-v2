@@ -10,25 +10,38 @@ import {
 } from '@/components/ui/carousel'
 import { useBuilds } from '@/contexts/BuildsContext'
 
-function BoatPage() {
+interface BoatPageProps {
+  buildData?: any // Optional prop for when used as component
+}
+
+function BoatPage({ buildData }: BoatPageProps) {
   const { name } = useParams()
   const [build, setBuild] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [startIndex, setStartIndex] = useState(0)
   const [carouselIndex, setCarouselIndex] = useState(0)
+  const [showFullText, setShowFullText] = useState(false)
   const carouselRef = useRef<any>(null)
   
   // Use builds context instead of static data
   const { backendBuilds, loading: buildsLoading } = useBuilds()
 
   useEffect(() => {
+    // If buildData is provided as prop, use it directly
+    if (buildData) {
+      setBuild(buildData)
+      setLoading(false)
+      return
+    }
+    
+    // Otherwise, fetch from context using URL param
     setLoading(true)
     // Look for build by name (which is actually the owner name in our structure)
     const found = backendBuilds.find(b => b.name === name)
     setBuild(found || null)
     setLoading(buildsLoading)
-  }, [name, backendBuilds, buildsLoading])
+  }, [name, backendBuilds, buildsLoading, buildData])
 
   if (loading) return <div>Loading...</div>
   if (!build) return <div>Boat not found</div>
@@ -72,31 +85,36 @@ function BoatPage() {
       {/* Mobile & Medium: Show intro text first, Large+: Use grid layout */}
       <div className="block lg:hidden mb-8">
         {/* Intro Text - Mobile & Medium (shows first) */}
-        {/* Jump to Images button for long text */}
-        {build.introText.length > 1000 && (
-          <div className="text-center mt-4 mb-6">
-            <button
-              onClick={() => {
-                const thumbnailSection = document.getElementById('thumbnail-section')
-                thumbnailSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }}
-              className="bg-green-700 hover:bg-green-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-            >
-              Jump to Images ↓
-            </button>
-          </div>
-        )}
         {build.introText && (
           <div className="mb-6">
             <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
-            <p className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
-              {build.introText.split('\n').map((line: string, i: number) => (
-                <span key={i}>
-                  {line}
-                  <br />
-                </span>
-              ))}
-            </p>
+            <div className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
+              {(() => {
+                const shouldTruncate = build.introText.length > 1000 && !showFullText
+                const displayText = shouldTruncate 
+                  ? build.introText.substring(0, 1000) + '...'
+                  : build.introText
+                
+                return (
+                  <>
+                    {displayText.split('\n').map((line: string, i: number) => (
+                      <span key={i}>
+                        {line}
+                        <br />
+                      </span>
+                    ))}
+                    {build.introText.length > 1000 && (
+                      <button
+                        onClick={() => setShowFullText(!showFullText)}
+                        className="mt-2 text-blue-600 hover:text-blue-800 font-medium underline cursor-pointer"
+                      >
+                        {showFullText ? 'Read less' : 'Read more'}
+                      </button>
+                    )}
+                  </>
+                )
+              })()}
+            </div>
           </div>
         )}
         
