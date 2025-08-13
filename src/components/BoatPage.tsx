@@ -53,9 +53,28 @@ function BoatPage() {
     <div className="mx-auto max-w-full p-6">
       <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
       
-      {/* Mobile: Show intro text first, Desktop: Use grid layout */}
-      <div className="block md:hidden mb-8">
-        {/* Intro Text - Mobile Only (shows first) */}
+      {/* Show header when no introText - positioned after main title */}
+      {!build.introText?.trim() && build.header && (
+        <h2 className="italic text-xl mb-8 text-center text-gray-600">{build.header}</h2>
+      )}
+      
+      {/* Mobile & Medium: Show intro text first, Large+: Use grid layout */}
+      <div className="block lg:hidden mb-8">
+        {/* Intro Text - Mobile & Medium (shows first) */}
+        {/* Jump to Images button for long text */}
+        {build.introText.length > 1000 && (
+          <div className="text-center mt-4 mb-6">
+            <button
+              onClick={() => {
+                const thumbnailSection = document.getElementById('thumbnail-section')
+                thumbnailSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
+              className="bg-green-700 hover:bg-green-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Jump to Images ↓
+            </button>
+          </div>
+        )}
         {build.introText && (
           <div className="mb-6">
             <p className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
@@ -70,8 +89,8 @@ function BoatPage() {
           </div>
         )}
         
-        {/* Images - Mobile Only (shows after intro) */}
-        <div className="grid gap-8 sm:grid-cols-2">
+        {/* Images - Mobile & Medium (shows after intro) */}
+        <div id="thumbnail-section" className="grid gap-8 sm:grid-cols-2">
           {build.images.map((img: any, idx: number) => {
             // Handle both old format (string) and new format (object)
             let imageUrl = ''
@@ -125,8 +144,8 @@ function BoatPage() {
         </div>
       </div>
 
-      {/* Desktop: Grid layout (intro text on right side) */}
-      <div className={`hidden md:grid ${build.introText?.trim() ? 'grid-cols-2' : 'grid-cols-1'} gap-8`}>
+      {/* Large Desktop: Grid layout (intro text on right side) */}
+      <div className={`hidden lg:grid ${build.introText?.trim() ? 'grid-cols-2' : 'grid-cols-1'} gap-8`}>
         {/* Thumbnails */}
         <div className="col-span-1">
           <div className={`grid gap-8 ${build.introText?.trim() ? 'sm:grid-cols-2' : 'sm:grid-cols-2 md:grid-cols-3'}`}>

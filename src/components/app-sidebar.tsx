@@ -33,13 +33,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
               <Link to="/">
             <SidebarMenuButton onClick={handleSidebarToggle} size="lg" >
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Ship className="size-4" />
-                  
+                <div className=" text-sidebar-primary-foreground flex aspect-square size-15 items-center justify-center">
+                  {/* <Ship className="size-4" /> */}
+                  <img src="/ugli-boats-v2/IMAGES/leftsidebarpic-2.jpg" />
                 </div>
-                <div className="flex flex-col gap-0.5 leading-none">
+                {/* <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-medium">UGLI Boats</span>
-                </div>
+                </div> */}
              
             </SidebarMenuButton>
               </Link>

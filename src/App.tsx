@@ -42,10 +42,10 @@ export default function App() {
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b">
           
-          <div className="flex items-center gap-2 px-3">
+          <div className="flex items-center gap-2 px-3 flex-1">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
+            <Breadcrumb className="flex-1">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <Link to="/">UGLI Home</Link>
@@ -82,14 +82,27 @@ export default function App() {
                 ))}
               </BreadcrumbList>
             </Breadcrumb>
+            
+            {/* Banner in header on large screens */}
+            <div className="hidden lg:block ml-auto">
+              <img
+                src="/ugli-boats-v2/IMAGES/Ugli-banner.png"
+                alt="ugliboats.com banner"
+                className="h-12 object-contain"
+              />
+            </div>
           </div>
         </header>
-        <img
-          src="/ugli-boats-v2/IMAGES/Ugli-banner.png"
-          alt="ugliboats.com banner"
-          className="object-contain lg:h-50"
-          style={{ maxWidth: '100%' }}
-        />
+        
+        {/* Banner below header on mobile/medium screens */}
+        <div className="lg:hidden">
+          <img
+            src="/ugli-boats-v2/IMAGES/Ugli-banner.png"
+            alt="ugliboats.com banner"
+            className="object-contain lg:h-50 w-full"
+            style={{ maxWidth: '100%' }}
+          />
+        </div>
         <div className="flex flex-1 flex-col gap-4 p-4">
             <Routes>
               <Route path="/" element={<HomePage />} />

@@ -7,6 +7,11 @@
     "introText": "This is the most amazing repair and transformation I have seen to date. We will add more pictures and details as Aaron provides them.",
     "images": [
       {
+        "alt": "quitberg-build-2.jpg",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/AaronQuitbergPics/quitberg-build-2.jpg"
+      },
+      {
         "alt": "AQ Both panels removed",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/AaronQuitbergPics/AQ Both damaged panels removed.jpg"
@@ -92,11 +97,6 @@
         "url": "/ugli-boats-v2/IMAGES/AaronQuitbergPics/quitberg-build-1.jpg"
       },
       {
-        "alt": "quitberg-build-2.jpg",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/AaronQuitbergPics/quitberg-build-2.jpg"
-      },
-      {
         "alt": "quitberg-build-3.jpg",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/AaronQuitbergPics/quitberg-build-3.jpg"
@@ -154,6 +154,11 @@
     "introText": "Here is an explanation of his boats and their value: We have 2 of these boats we affectionately refer to as ‘junkyard” boats. They are jet driven with 408 small blocks and Berkeley jets. They are totally self contained for running and camping on the Green River here in Utah. They link together via ball hitches and have remote controlled trolling motors for times when the River current is slow. They both make into queen beds and have on board porta potties and engine heated showers. I have two other traditional glass boats that are not half the boat that these jewels are. I have pictures if any one is interested in what these hulls can be transformed into. Would not take any amount of $ for mine best boat I own.",
     "images": [
       {
+        "alt": "Brent Mitchell Build 06",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/BrentMitchellBuild/BM-06.jpg"
+      },
+      {
         "alt": "Brent Mitchell Build 01",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/BrentMitchellBuild/BM-01.jpg"
@@ -177,11 +182,6 @@
         "alt": "Brent Mitchell Build 05",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/BrentMitchellBuild/BM-05.jpg"
-      },
-      {
-        "alt": "Brent Mitchell Build 06",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/BrentMitchellBuild/BM-06.jpg"
       },
       {
         "alt": "Brent Mitchell Build 07",
@@ -548,58 +548,58 @@
   {
     "id": "35951510-6834-46c3-a5cc-5b85c3d22aa6",
     "name": "George Abell",
-    "buildName": "",
-    "header": "",
-    "introText": "",
+    "buildName": "The Great Washington",
+    "header": "I'm calling this one the Great Washington Build",
+    "introText": "A good friend of mine who is a charter boat captain on the Chesapeake Bay had 2 of these boats laying around on his farm here in Southern Maryland. In the first picture you can see the condition of the boat as it was not in over all bad shape but needed some quality TLC. From my first vision of the boat, I knew it would be a lot of work with some things outside of my skill level, such as welding, but for the most part I was comfortable within my skill set that if I did enough research I could pretty much get most things done with my own hands. My concept and idea behind the boat was to keep it functional for fishing and hunting the Chesapeake Bay and the Potomac River. I'll take you through the process of the build if you swipe through the captions in the photos. \n\n We look forward to seeing this fine UgliBoat on the Potomac. We just hope he hunts and fishes instead of spending time looking for that coin George Washington supposedly skipped across that mile wide river.",
     "images": [
       {
         "alt": "George Abell 1",
-        "caption": "",
+        "caption": "This picture is how it looked the day it was purchased",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell1.jpg"
       },
       {
         "alt": "George Abell 2",
-        "caption": "",
+        "caption": "In this picture I have the boat turned over and prepping to sand down with an orbital sander using 80grit paper. This was a half day project within itself. Complete wipe down with acetone and painted using a compressor and spray gun.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell2.JPG"
       },
       {
         "alt": "George Abell 3",
-        "caption": "",
+        "caption": "I went with Parkers Bay Grey simply because it blends in the with the surroundings of the Chesapeake and we could/can hunt without the necessity of a blind installed on the boat. This is the finished result after she dried and using the loader on the farm to put her back on the trailer.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell3.JPG"
       },
       {
         "alt": "George Abell 4",
-        "caption": "",
+        "caption": "Next came time to install the floor. Like most I went with 3/4\" marine plywood. I sealed mine knowing I was not going to fiberglass overtop of it. The idea for now would be to carpet it and then this upcoming spring I'm planning on installing hydro turf.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell4.jpg"
       },
       {
         "alt": "George Abell 5",
-        "caption": "",
+        "caption": "I did not secure the floor down right away due to having still run electrical wiring for all the lights and bilge pump and depth finder.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell5.jpg"
       },
       {
         "alt": "George Abell 6",
-        "caption": "",
+        "caption": "This is the bracket that was designed to beef up the transom.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell6.jpg"
       },
       {
         "alt": "George Abell 7",
-        "caption": "",
+        "caption": "CMC 10\" setback jack plate with homemade bracket because the transom wedges that some other guys used would not work for this application.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell7.jpg"
       },
       {
         "alt": "George Abell 8",
-        "caption": "",
+        "caption": "Template for the front deck.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell8.jpg"
       },
       {
         "alt": "George Abell 9",
-        "caption": "",
+        "caption": "The next step was to start running electrical wiring for the bow lights and LED lights that I installed.. If you do this, please get 4 different color wires as to not get them all mixed up. I literally ripped them out and started from scratch a second time due to getting frustrated.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell9.jpg"
       },
       {
         "alt": "George Abell 10",
-        "caption": "",
+        "caption": "Remotes and new 18 gallon tank set up. Placed new NFB steering system on the console as well.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell10.jpg"
       },
       {
@@ -609,12 +609,12 @@
       },
       {
         "alt": "George Abell 12",
-        "caption": "",
+        "caption": "After a basic carpet installation and cutting out a storage hatch in the bow.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell12.jpg"
       },
       {
         "alt": "George Abell 13",
-        "caption": "",
+        "caption": "She's all done..timeframe around 4-5 months.",
         "url": "/ugli-boats-v2/IMAGES/GeorgeAbellBuildPics/GAbell13.jpg"
       }
     ],
@@ -675,10 +675,20 @@
   {
     "id": "41492980-60a2-4f1e-9e84-e9aec8b3a07d",
     "name": "Kevin Nagy",
-    "buildName": "",
+    "buildName": "Inboard Ugliboat",
     "header": "",
-    "introText": "",
+    "introText": "One of our first Ugliboaters with his newest creation.",
     "images": [
+      {
+        "alt": "Kevin Nagy 7",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Kevin_Nagy_ Build_PICS/nagy7.jpg"
+      },
+      {
+        "alt": "Kevin Nagy 6",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Kevin_Nagy_ Build_PICS/nagy6.jpg"
+      },
       {
         "alt": "Kevin Nagy 1",
         "caption": "",
@@ -703,16 +713,6 @@
         "alt": "Kevin Nagy 5",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/Kevin_Nagy_ Build_PICS/nagy5.jpg"
-      },
-      {
-        "alt": "Kevin Nagy 6",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Kevin_Nagy_ Build_PICS/nagy6.jpg"
-      },
-      {
-        "alt": "Kevin Nagy 7",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/Kevin_Nagy_ Build_PICS/nagy7.jpg"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
@@ -721,19 +721,29 @@
   {
     "id": "f8b9a4f3-8d9c-46ed-aacf-ed5083639f2c",
     "name": "Kirk Hansel",
-    "buildName": "",
-    "header": "",
+    "buildName": "The Nebraskan",
+    "header": "Kirk's build is very professional and well conceived. Color coordinated, roomy and dependable.",
     "introText": "",
     "images": [
       {
         "alt": "Kirk Hansel 1",
-        "caption": "",
+        "caption": "Final Product",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild1.jpg"
+      },
+      {
+        "alt": "Kirk Hansel 6",
+        "caption": "Photo of the hull primed and getting coat of paint. Boat was painted on the outside and then repeated the process for the interior.",
+        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild6.jpg"
       },
       {
         "alt": "Kirk Hansel 2",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild2.jpg"
+      },
+      {
+        "alt": "Kirk Hansel 14",
+        "caption": "Once painted, 3/4 inch marine plywood was used for floor underlayment. The seat pedestal areas were reinforced on the underside with aluminum wherein the pedestal bases could be screwed into plywood and aluminum.",
+        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild14.jpg"
       },
       {
         "alt": "Kirk Hansel 3",
@@ -746,19 +756,14 @@
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild4.jpg"
       },
       {
+        "alt": "Kirk Hansel 7",
+        "caption": "Painted an old Coleman cooler to match boat and installed 15 gallon marine fuel tank.",
+        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild7.jpg"
+      },
+      {
         "alt": "Kirk Hansel 5",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild5.jpg"
-      },
-      {
-        "alt": "Kirk Hansel 6",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild6.jpg"
-      },
-      {
-        "alt": "Kirk Hansel 7",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild7.jpg"
       },
       {
         "alt": "Kirk Hansel 8",
@@ -767,7 +772,7 @@
       },
       {
         "alt": "Kirk Hansel 9",
-        "caption": "",
+        "caption": "Rear compartment, flooring, and seats installed.",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild9.jpg"
       },
       {
@@ -782,18 +787,13 @@
       },
       {
         "alt": "Kirk Hansel 12",
-        "caption": "",
+        "caption": "Rear compartment area complete, control panel, how the motor mount was constructed, and finally the console with the stealing and gauges.",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild12.jpg"
       },
       {
         "alt": "Kirk Hansel 13",
         "caption": "",
         "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild13.jpg"
-      },
-      {
-        "alt": "Kirk Hansel 14",
-        "caption": "",
-        "url": "/ugli-boats-v2/IMAGES/KirkHanselBuildPics/KirkHanselBuild14.jpg"
       }
     ],
     "createdDate": "2025-08-06T00:42:43.585Z",
@@ -833,9 +833,9 @@
   {
     "id": "bd42e18b-1db1-447c-b409-6e112acf2832",
     "name": "Mark Smith",
-    "buildName": "",
-    "header": "",
-    "introText": "",
+    "buildName": "The Camping Mule",
+    "header": "A 50hp Honda pushes this Ugliboat 28mph!",
+    "introText": "I bought it from a school principle from Rochester NY. He had a 10hp Honda on it with square tube aluminum framed canopy and a port-a-potty. Did the Erie Canal for 2 summers and was ready to do something different. I had already bought an aluminum trailer and was looking for a big wide 18-22 SeaArk, or similar and saw this pop up on E-bay....years ago. I was like: \"WHAT THE HELL IS THAT THING\"? Kept looking at the pictures and the more I liked it. Won the auction and the guy even deliverd it to south of Philly for 100 bucks. Looked liked it had been painted seafoam blue/green with a broom over the army green. Got -zero- floatation in it. Dug out all the 2 part mix the guy I bought it from poured in. Didn't know if I was going to do the salt in the Delaware Bay or not and didn't want it soaked and tickling the aluminum. \n\n My neighbor welds ornamental lamp posts for Disney and has a blasting booth you could park 2 busses in. Went down to bare metal. Acid etched, Alodined, fluid resistant epoxy primer then polyurethane abrasion resistant white. Took 3 days of 15 hours of constant work and drank about 15 gallons of water......kicked my ass!!!. Finish is holding up well. \n\n Just use it for October and/or February trips to Hazel Creek to haul all our stuff. Got the motor from a Honda dealer in Montreal. The dealer in Delaware wanted 5400 with power tilt. Got it for 3500 and got it shipped for 40 bucks with the airline I work for. Helped the rampies unload it and rode with it to the warehouse. Loaded in my truck the next day after paperwork with customs. Let the Delaware dealer mount and rig it...to try to kind of build a warranty relationship. He fupped it ALL UP. Mounted too high, no angle on the transom. Would not go 4 knots !!! Walked into their shop and grabbed two packs of transom shims off the rack and told him I'm taking these and I am NOT stopping by your cash register. Want it right....do it yourself. ( And plug the mistake holes). \n\n Like I said before, it is plain and simple. Use 2 batteries with a dedicated auto bilge to each one. We anchor out at the mouth of the creek and might not see the boat for a week. With no floatation I sleep better through some heavy rain knowing I got 2 bilge pumps. Did buy some cheap insurance off E-bay. Bought an absolute UGLY 40hp Honda cowling. Dirt dauber nests, scratches. Looks like somebody stood on it to paint a house. Took my new cover off and snapped that old one in place. Anyone trolls by wanting to mess with my stuff probably looks at that wreck of an engine cover and figures we must be so poor we ain't got nothing worth pillaging...seems to have worked for a lot of years.",
     "images": [
       {
         "alt": "Mark Smith 1",
