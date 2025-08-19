@@ -121,14 +121,14 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit
+    fileSize: 50 * 1024 * 1024, // 50MB limit for videos
   },
   fileFilter: (req, file, cb) => {
-    // Accept only image files
-    if (file.mimetype.startsWith('image/')) {
+    // Accept images and videos
+    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files are allowed!'), false);
+      cb(new Error('Only image and video files are allowed!'), false);
     }
   }
 });
@@ -227,8 +227,8 @@ app.get('/api/photos', (req, res) => {
 // Add a new build
 app.post('/api/builds', upload.array('images', 20), (req, res) => {
   try {
-    const { name, buildName, header, introText } = req.body;
-    
+    const { name, buildName, header, introText, email } = req.body;
+
     if (!buildName) {
       return res.status(400).json({ error: 'Build name is required' });
     }
@@ -239,10 +239,11 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
     // Create new build (matching data.tsx structure)
     const newBuild = {
       id: uuidv4(),
-      name: name || '',
+      name,
       buildName,
-      header: header || buildName,
+      header: header || "",
       introText: introText || '',
+      email,
       images: req.files ? req.files.map(f => ({
         alt: f.originalname.replace(/\.[^/.]+$/, ""), // Remove file extension for alt text
         caption: '',
@@ -265,6 +266,51 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
   } catch (error) {
     console.error('Build creation error:', error);
     res.status(500).json({ error: 'Failed to create build' });
+  }
+});
+
+// Update a build
+app.put('/api/builds/:id', (req, res) => {
+  try {
+    const buildId = req.params.id;
+    const updatedData = req.body;
+    
+    console.log('PUT /api/builds/:id called');
+    console.log('Build ID:', buildId);
+    console.log('Updated data:', JSON.stringify(updatedData, null, 2));
+    
+    // Read builds
+    const builds = readBuilds();
+    console.log('Found builds count:', builds.length);
+    
+    const buildIndex = builds.findIndex(b => b.id === buildId);
+    console.log('Build index:', buildIndex);
+    
+    if (buildIndex === -1) {
+      console.log('Build not found');
+      return res.status(404).json({ error: 'Build not found' });
+    }
+    
+    // Update build with new data
+    builds[buildIndex] = {
+      ...builds[buildIndex],
+      ...updatedData,
+      updatedDate: new Date().toISOString()
+    };
+    
+    console.log('Updated build:', JSON.stringify(builds[buildIndex], null, 2));
+    
+    writeBuilds(builds);
+    console.log('Build updated successfully');
+    
+    res.json({
+      message: 'Build updated successfully',
+      build: builds[buildIndex]
+    });
+    
+  } catch (error) {
+    console.error('Error updating build:', error);
+    res.status(500).json({ error: 'Failed to update build' });
   }
 });
 
@@ -319,15 +365,39 @@ app.delete('/api/builds/:id', (req, res) => {
   }
 });
 
+// Admin file upload endpoint (for EditBuild component)
+app.post('/api/admin/upload', upload.array('images', 10), (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No files uploaded' });
+    }
+
+    const uploadedImages = req.files.map(file => ({
+      alt: file.originalname.replace(/\.[^/.]+$/, ""),
+      caption: '',
+      url: `/uploads/${file.filename}`
+    }));
+
+    res.json({
+      message: 'Files uploaded successfully',
+      images: uploadedImages
+    });
+
+  } catch (error) {
+    console.error('Admin upload error:', error);
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
 // === SUBMISSION ENDPOINTS ===
 
 // Submit a new build for review
 app.post('/api/submissions', upload.array('images', 10), (req, res) => {
   try {
-    const { ownerName, email, buildName, description, imageCaptions } = req.body;
+    const { name, email, buildName, introText, imageCaptions } = req.body;
     
-    if (!ownerName || !email || !buildName) {
-      return res.status(400).json({ error: 'Owner name, email, and build name are required' });
+    if (!name || !email || !buildName) {
+      return res.status(400).json({ error: 'Name, email, and build name are required' });
     }
     
     // Read existing submissions
@@ -346,10 +416,10 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
     // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
-      ownerName,
+      name,
       email,
       buildName,
-      description: description || '',
+      introText: introText || '',
       status: 'pending',
       createdDate: new Date().toISOString(),
       images: req.files ? req.files.map((f, index) => ({
@@ -414,11 +484,12 @@ app.post('/api/submissions/:id/approve', (req, res) => {
     const builds = readBuilds();
     const newBuild = {
       id: uuidv4(),
-      name: submission.ownerName,
+      name: submission.name,
       buildName: submission.buildName,
-      header: `${submission.buildName} by ${submission.ownerName}`,
-      introText: submission.description || '',
+      header: submission.header,
+      introText: submission.introText || '',
       images: submission.images || [], // Already in correct format
+      email: submission.email,
       createdDate: new Date().toISOString()
     };
     
@@ -438,6 +509,51 @@ app.post('/api/submissions/:id/approve', (req, res) => {
   } catch (error) {
     console.error('Error approving submission:', error);
     res.status(500).json({ error: 'Failed to approve submission' });
+  }
+});
+
+// Update a submission
+app.put('/api/submissions/:id', (req, res) => {
+  try {
+    const submissionId = req.params.id;
+    const updatedData = req.body;
+    
+    console.log('PUT /api/submissions/:id called');
+    console.log('Submission ID:', submissionId);
+    console.log('Updated data:', JSON.stringify(updatedData, null, 2));
+    
+    // Read submissions
+    const submissions = readSubmissions();
+    console.log('Found submissions count:', submissions.length);
+    
+    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
+    console.log('Submission index:', submissionIndex);
+    
+    if (submissionIndex === -1) {
+      console.log('Submission not found');
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+    
+    // Update submission with new data
+    submissions[submissionIndex] = {
+      ...submissions[submissionIndex],
+      ...updatedData,
+      updatedDate: new Date().toISOString()
+    };
+    
+    console.log('Updated submission:', JSON.stringify(submissions[submissionIndex], null, 2));
+    
+    writeSubmissions(submissions);
+    console.log('Submission updated successfully');
+    
+    res.json({
+      message: 'Submission updated successfully',
+      submission: submissions[submissionIndex]
+    });
+    
+  } catch (error) {
+    console.error('Error updating submission:', error);
+    res.status(500).json({ error: 'Failed to update submission' });
   }
 });
 

@@ -1784,9 +1784,9 @@
         "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/foamed boat.jpg"
       },
       {
-    "alt": "10 Ugli 1 shallow",
-    "caption": "",
-    "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10 Ugli 1 shallow.jpg"
+        "alt": "10 Ugli 1 shallow",
+        "caption": "",
+        "url": "/ugli-boats-v2/IMAGES/Ugli 1 Build Pics/10 Ugli 1 shallow.jpg"
       },
       {
         "alt": "10a Ugli 1 trollspeed",
@@ -2146,23 +2146,41 @@
     "isLegacy": true
   },
   {
-    "id": "37a03543-dc9e-464e-856f-0e316114a16c",
-    "name": "jordan jordan",
-    "buildName": "",
-    "header": "",
-    "introText": "I built this so damn good",
+    "id": "4a11b5a4-1156-4978-80ac-60fa08825415",
+    "name": "Joshua Keane Thompson",
+    "buildName": "coffee ponton",
+    "header": "A custom coffee-themed boat ",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin pretium erat a viverra. Phasellus molestie urna non accumsan volutpat. Curabitur felis purus, volutpat eu diam ac, mattis tristique mi. Duis condimentum nisi a nunc tempus venenatis. Sed ultrices interdum mi, eget hendrerit diam varius semper. Phasellus tellus arcu, venenatis non arcu a, luctus consequat massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In venenatis volutpat nibh, ac pulvinar enim malesuada sed. Morbi aliquet nec mi at gravida. Donec tincidunt congue ligula, quis lobortis tortor finibus mattis.\n\n",
     "images": [
       {
-        "alt": "IMG_4717",
-        "caption": "me in red shorts",
-        "url": "/ugli-boats-v2/uploads/8093078a-3324-493c-a7d7-2a8268323ec9-IMG_4717.JPG"
+        "alt": "IMG_0240",
+        "caption": "Its a dog",
+        "url": "/uploads/18c1170e-f6fb-47a8-89e5-0e8ea6262175-IMG_0240.JPG"
+      },
+      {
+        "alt": "IMG_4170",
+        "caption": "",
+        "url": "/uploads/c8c07c1f-9c8b-4acd-88d5-f2adb5dff9cb-IMG_4170.MOV"
+      },
+      {
+        "alt": "IMG_2530",
+        "caption": "",
+        "url": "/uploads/8bba428c-6551-46fb-aa10-d77b57b6cae9-IMG_2530.JPG"
+      },
+      {
+        "alt": "IMG_4961",
+        "caption": "",
+        "url": "/uploads/88082cb3-e161-4b5a-9c9b-6f99182a1591-IMG_4961.JPG"
       },
       {
         "alt": "IMG_4549",
-        "caption": "a japanese castle",
-        "url": "/ugli-boats-v2/uploads/202a8f7a-76c6-45ea-bf70-c953856435fa-IMG_4549.PNG"
+        "caption": "",
+        "url": "/uploads/bad8d5e1-7ad7-4abd-a294-0d11211f204f-IMG_4549.PNG"
       }
     ],
-    "createdDate": "2025-08-06T15:04:32.498Z"
+    "email": "joshua.thompson0010@gmail.com",
+    "createdDate": "2025-08-19T01:35:01.008Z",
+    "status": "published",
+    "updatedDate": "2025-08-19T02:00:51.295Z"
   }
 ]

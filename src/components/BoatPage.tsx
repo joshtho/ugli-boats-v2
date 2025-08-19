@@ -31,6 +31,7 @@ function BoatPage({ buildData }: BoatPageProps) {
     // If buildData is provided as prop, use it directly
     if (buildData) {
       setBuild(buildData)
+      console.log(buildData)
       setLoading(false)
       return
     }
@@ -60,7 +61,7 @@ function BoatPage({ buildData }: BoatPageProps) {
 
   // Helper to get media type
   const getMediaType = (url: string): 'image' | 'video' =>
-    url.toLowerCase().endsWith('.mp4') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('youtube.com') ? 'video' : 'image'
+    url.toLowerCase().endsWith('.mp4') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('youtube.com') || url.toLowerCase().includes('.mov') ? 'video' : 'image'
 
   // Helper to extract YouTube video ID
   const getYoutubeId = (url: string): string | null => {

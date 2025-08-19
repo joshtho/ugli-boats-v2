@@ -7,10 +7,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Send, X } from 'lucide-react'
 // make a contact info object for data so he can save emails and phone numbers
 // figure out how to handle the submission without making the page reload and without the session timeout thing copilot added
-interface ImageWithCaption {
+interface MediaWithCaption {
   file: File
   preview: string
   caption: string
+  type: 'image' | 'video'
 }
 
 function SubmitBuild() {
@@ -21,7 +22,7 @@ function SubmitBuild() {
     introText: '',
     email: ''
   })
-  const [images, setImages] = useState<ImageWithCaption[]>([])
+  const [media, setMedia] = useState<MediaWithCaption[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
@@ -57,28 +58,48 @@ function SubmitBuild() {
     if (!files) return
 
     Array.from(files).forEach(file => {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setImages(prev => [...prev, {
-            file,
-            preview: event.target!.result as string,
-            caption: ''
-          }])
+      const isVideo = file.type.startsWith('video/')
+      
+      if (isVideo) {
+        // For videos, use URL.createObjectURL for preview
+        const videoUrl = URL.createObjectURL(file)
+        setMedia(prev => [...prev, {
+          file,
+          preview: videoUrl,
+          caption: '',
+          type: 'video'
+        }])
+      } else {
+        // For images, use FileReader to create base64 preview
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          if (event.target?.result) {
+            setMedia(prev => [...prev, {
+              file,
+              preview: event.target!.result as string,
+              caption: '',
+              type: 'image'
+            }])
+          }
         }
+        reader.readAsDataURL(file)
       }
-      reader.readAsDataURL(file)
     })
   }
 
-  const updateImageCaption = (index: number, caption: string) => {
-    setImages(prev => prev.map((img, i) => 
-      i === index ? { ...img, caption } : img
+  const updateMediaCaption = (index: number, caption: string) => {
+    setMedia(prev => prev.map((item, i) => 
+      i === index ? { ...item, caption } : item
     ))
   }
 
-  const removeImage = (index: number) => {
-    setImages(prev => prev.filter((_, i) => i !== index))
+  const removeMedia = (index: number) => {
+    // Clean up URL object for videos to prevent memory leaks
+    const item = media[index]
+    if (item.type === 'video') {
+      URL.revokeObjectURL(item.preview)
+    }
+    setMedia(prev => prev.filter((_, i) => i !== index))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,16 +116,16 @@ function SubmitBuild() {
     try {
       // Create FormData for submission
       const submitData = new FormData()
-      submitData.append('ownerName', formData.name) // Map to backend field
+      submitData.append('name', formData.name)
       submitData.append('email', formData.email)
       submitData.append('buildName', formData.buildName)
-      submitData.append('description', formData.introText) // Map to backend field
+      submitData.append('introText', formData.introText)
       
       // Add images and send captions as JSON
       const captions: string[] = []
-      images.forEach((img) => {
-        submitData.append('images', img.file)
-        captions.push(img.caption)
+      media.forEach((item) => {
+        submitData.append('images', item.file)
+        captions.push(item.caption)
       })
       
       // Send captions as JSON string
@@ -155,7 +176,7 @@ function SubmitBuild() {
                 sessionStorage.removeItem('buildSubmissionTime')
                 setSubmitted(false)
                 setFormData({ name: '', buildName: '', header: '', introText: '', email: '' })
-                setImages([])
+                setMedia([])
                 const fileInput = document.getElementById('images') as HTMLInputElement
                 if (fileInput) fileInput.value = ''
               }}>
@@ -175,7 +196,7 @@ function SubmitBuild() {
       </div>
     )
   }
-
+  console.log(formData)
   return (
     <div className="mx-auto max-w-2xl p-6">
       <Card>
@@ -253,50 +274,61 @@ function SubmitBuild() {
             </div>
             
             <div>
-              <Label htmlFor="images">Build Photos</Label>
+              <Label htmlFor="images">Build Photos and Videos</Label>
               <Input
                 className='cursor-pointer'
-                id="images"
+                id="images and video"
                 type="file"
                 multiple
-                accept="image/*"
+                accept="image/*,video/*"
                 onChange={handleFileChange}
               />
               <p className="text-sm text-gray-600 mt-1">
-                Upload photos of your build (optional, but recommended!)
+                Upload photos and videos (as mp4) of your build (optional, but recommended!)
               </p>
             </div>
 
-            {/* Image Previews with Caption Input */}
-            {images.length > 0 && (
+            {/* Media Previews with Caption Input */}
+            {media.length > 0 && (
               <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Your Build Photos</h3>
+                <h3 className="font-medium text-gray-900">Your Build Media</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  {images.map((img, index) => (
+                  {media.map((item, index) => (
                     <Card key={index} className="relative">
                       <Button
                         type="button"
                         variant="destructive"
                         size="sm"
                         className="absolute top-2 right-2 z-10"
-                        onClick={() => removeImage(index)}
+                        onClick={() => removeMedia(index)}
                       >
                         <X className="h-4 w-4" />
                       </Button>
-                      <img
-                        src={img.preview}
-                        alt={`Preview ${index + 1}`}
-                        className="w-full h-32 object-cover rounded-t"
-                      />
+                      
+                      {item.type === 'video' ? (
+                        <video
+                          src={item.preview}
+                          className="w-full h-32 object-cover rounded-t"
+                          controls={false}
+                          muted
+                        />
+                      ) : (
+                        <img
+                          src={item.preview}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-32 object-cover rounded-t"
+                        />
+                      )}
+                      
                       <CardContent className="p-3">
                         <Label htmlFor={`caption-${index}`} className="text-sm">
                           Add a caption (optional)
                         </Label>
                         <Input
                           id={`caption-${index}`}
-                          value={img.caption}
-                          onChange={(e) => updateImageCaption(index, e.target.value)}
-                          placeholder="Tell us about this photo..."
+                          value={item.caption}
+                          onChange={(e) => updateMediaCaption(index, e.target.value)}
+                          placeholder={`Tell us about this ${item.type}...`}
                           className="mt-1"
                         />
                       </CardContent>

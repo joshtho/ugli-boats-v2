@@ -23,7 +23,7 @@ import HomePage from "@/components/HomePage"
 import BoatPage from "@/components/BoatPage"
 import InterestingPage from "@/components/InterestingPage"
 import PhotosPage from "@/components/PhotosPage"
-import AdminPage from "@/components/AdminPage"
+import AdminPage from "@/components/Admin/AdminPage"
 import SubmitBuild from "@/components/SubmitBuild"
 
 

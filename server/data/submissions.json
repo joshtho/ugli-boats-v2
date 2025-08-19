@@ -1,87 +1,46 @@
 [
   {
-    "id": "f7a34639-d459-428c-b2ec-bc8902bca92e",
-    "ownerName": "josh",
-    "email": "myemail@myemail.com",
-    "buildName": "Jordans Ponton",
-    "description": "Tika built this build",
-    "status": "approved",
-    "createdDate": "2025-08-05T23:44:43.845Z",
-    "images": [
-      "/uploads/ad9ff7a9-cfaa-4afc-823b-430ee9627c08-IMG_0240.JPG"
-    ],
-    "approvedDate": "2025-08-05T23:45:27.230Z"
-  },
-  {
-    "id": "5be48c1e-7226-4d05-8b3b-07398ebdbb77",
-    "ownerName": "jordan ",
-    "email": "jordan@jordan.com",
-    "buildName": "Jordans Ponton",
-    "description": "tika made this with her own paws",
-    "status": "approved",
-    "createdDate": "2025-08-06T13:52:31.249Z",
-    "images": [
-      {
-        "alt": "IMG_0240",
-        "caption": "This is actually a cat",
-        "url": "/ugli-boats-v2/uploads/30f5d6cc-db57-4613-bdc7-faeb4070c4cc-IMG_0240.JPG"
-      }
-    ],
-    "approvedDate": "2025-08-06T15:23:18.696Z"
-  },
-  {
-    "id": "c0e3fec6-132a-40dc-af9a-f67660abe13b",
-    "ownerName": "Joshua Keane Thompson",
+    "id": "c6fe3887-7431-4182-8347-c8cdf9f6d6c5",
+    "name": "Joshua Keane Thompson",
     "email": "joshua.thompson0010@gmail.com",
-    "buildName": "Tikas Ponton",
-    "description": "This boat was built by a dog",
-    "status": "approved",
-    "createdDate": "2025-08-06T14:06:43.567Z",
-    "images": [
-      {
-        "alt": "IMG_4961",
-        "caption": "this is actually a capybara not a boat",
-        "url": "/ugli-boats-v2/uploads/a1b700b7-5240-4467-bda7-19534e4258ce-IMG_4961.JPG"
-      }
-    ],
-    "approvedDate": "2025-08-06T15:16:53.836Z"
-  },
-  {
-    "id": "c4587395-01b1-403c-bd4a-d3aa048920ed",
-    "ownerName": "jordan jordan",
-    "email": "anemail@anemail.com",
     "buildName": "coffee ponton",
-    "description": "I built this so damn good",
+    "header": "A custom coffee-themed boat build",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin pretium erat a viverra. Phasellus molestie urna non accumsan volutpat. Curabitur felis purus, volutpat eu diam ac, mattis tristique mi. Duis condimentum nisi a nunc tempus venenatis. Sed ultrices interdum mi, eget hendrerit diam varius semper. Phasellus tellus arcu, venenatis non arcu a, luctus consequat massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In venenatis volutpat nibh, ac pulvinar enim malesuada sed. Morbi aliquet nec mi at gravida. Donec tincidunt congue ligula, quis lobortis tortor finibus mattis.\n\n",
     "status": "approved",
-    "createdDate": "2025-08-06T14:12:05.912Z",
+    "createdDate": "2025-08-16T22:02:31.148Z",
     "images": [
       {
-        "alt": "IMG_4717",
-        "caption": "me in red shorts",
-        "url": "/ugli-boats-v2/uploads/8093078a-3324-493c-a7d7-2a8268323ec9-IMG_4717.JPG"
+        "alt": "IMG_1105",
+        "caption": "This is actually a cat",
+        "url": "/uploads/6aca093f-636d-4d62-9b2e-f6df1666c732-IMG_1105.MOV"
       },
       {
-        "alt": "IMG_4549",
-        "caption": "a japanese castle",
-        "url": "/ugli-boats-v2/uploads/202a8f7a-76c6-45ea-bf70-c953856435fa-IMG_4549.PNG"
-      }
-    ],
-    "approvedDate": "2025-08-06T15:04:32.515Z"
-  },
-  {
-    "id": "ded85ec6-ee04-4275-a52e-632b119b4d24",
-    "ownerName": "Joshua Keane Thompson",
-    "email": "email@email.com",
-    "buildName": "Tikas Ponton",
-    "description": "A dog made this boat, for real im not kidding",
-    "status": "pending",
-    "createdDate": "2025-08-07T00:21:09.669Z",
-    "images": [
+        "alt": "IMG_4170",
+        "caption": "",
+        "url": "/uploads/6278c789-8380-43d6-9ab2-32e9f75081dc-IMG_4170.MOV"
+      },
+      {
+        "alt": "IMG_0240",
+        "caption": "Its a dog",
+        "url": "/uploads/18c1170e-f6fb-47a8-89e5-0e8ea6262175-IMG_0240.JPG"
+      },
+      {
+        "alt": "IMG_4170",
+        "caption": "",
+        "url": "/uploads/c8c07c1f-9c8b-4acd-88d5-f2adb5dff9cb-IMG_4170.MOV"
+      },
+      {
+        "alt": "IMG_2530",
+        "caption": "",
+        "url": "/uploads/8bba428c-6551-46fb-aa10-d77b57b6cae9-IMG_2530.JPG"
+      },
       {
         "alt": "IMG_4961",
-        "caption": "this is actually a capybara not a boat",
-        "url": "/uploads/caf9fcfd-a6b5-4d54-82f1-3cbd4bf04cf3-IMG_4961.JPG"
+        "caption": "",
+        "url": "/uploads/88082cb3-e161-4b5a-9c9b-6f99182a1591-IMG_4961.JPG"
       }
-    ]
+    ],
+    "updatedDate": "2025-08-19T01:33:53.494Z",
+    "approvedDate": "2025-08-19T01:35:01.018Z"
   }
 ]
