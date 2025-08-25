@@ -227,7 +227,7 @@ app.get('/api/photos', (req, res) => {
 // Add a new build
 app.post('/api/builds', upload.array('images', 20), (req, res) => {
   try {
-    const { name, buildName, header, introText, email } = req.body;
+    const { name, buildName, header, introText, email, forSale, images } = req.body;
 
     if (!buildName) {
       return res.status(400).json({ error: 'Build name is required' });
@@ -236,7 +236,18 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
     // Read existing builds
     const builds = readBuilds();
     
-    // Create new build (matching data.tsx structure)
+    // Parse forSale data if provided
+    let forSaleData = null;
+    if (forSale) {
+      try {
+        // Handle both string (from FormData) and object (from JSON) cases
+        forSaleData = typeof forSale === 'string' ? JSON.parse(forSale) : forSale;
+      } catch (e) {
+        console.log('Invalid forSale format, ignoring');
+      }
+    }
+    
+    // Create new build 
     const newBuild = {
       id: uuidv4(),
       name,
@@ -244,11 +255,12 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
       header: header || "",
       introText: introText || '',
       email,
+      forSale: forSaleData,
       images: req.files ? req.files.map(f => ({
         alt: f.originalname.replace(/\.[^/.]+$/, ""), // Remove file extension for alt text
         caption: '',
         url: `/uploads/${f.filename}` // Use consistent format for local development
-      })) : [],
+      })) : (images || []), // Use images from JSON body if no files uploaded
       createdDate: new Date().toISOString()
     };
     
@@ -394,7 +406,7 @@ app.post('/api/admin/upload', upload.array('images', 10), (req, res) => {
 // Submit a new build for review
 app.post('/api/submissions', upload.array('images', 10), (req, res) => {
   try {
-    const { name, email, buildName, introText, imageCaptions } = req.body;
+    const { name, email, buildName, introText, header, imageCaptions, forSale } = req.body;
     
     if (!name || !email || !buildName) {
       return res.status(400).json({ error: 'Name, email, and build name are required' });
@@ -413,13 +425,25 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
+    // Parse forSale data if provided
+    let forSaleData = null;
+    if (forSale) {
+      try {
+        forSaleData = JSON.parse(forSale);
+      } catch (e) {
+        console.log('Invalid forSale format, ignoring');
+      }
+    }
+    
     // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
       name,
       email,
       buildName,
+      header: header || '',
       introText: introText || '',
+      forSale: forSaleData,
       status: 'pending',
       createdDate: new Date().toISOString(),
       images: req.files ? req.files.map((f, index) => ({
@@ -488,6 +512,7 @@ app.post('/api/submissions/:id/approve', (req, res) => {
       buildName: submission.buildName,
       header: submission.header,
       introText: submission.introText || '',
+      forSale: submission.forSale, // Include forSale data from submission
       images: submission.images || [], // Already in correct format
       email: submission.email,
       createdDate: new Date().toISOString()

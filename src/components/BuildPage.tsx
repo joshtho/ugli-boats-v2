@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -28,6 +29,7 @@ function BuildPage() {
     header: build.header,
     introText: build.introText,
     createdDate: build.createdDate, // Include createdDate for sorting
+    forSale: build.forSale, // Include forSale data
     images: build.images.map(img => ({
       alt: build.buildName || 'Build image',
       caption: img.caption || '',
@@ -189,7 +191,12 @@ function BuildPage() {
             to={`/builds/${encodeURIComponent(build.name)}`}
             className="block"
           >
-            <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-200 bg-white">
+            <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-200 bg-white relative">
+              {build.forSale?.onMarket && (
+                <Badge className="absolute top-2 right-2 z-10 bg-green-600 hover:bg-green-700 text-xs">
+                  FOR SALE
+                </Badge>
+              )}
               {firstImage && (
                 <img
                   src={getImageUrl(firstImage.url)}
@@ -219,7 +226,12 @@ function BuildPage() {
             to={`/builds/${encodeURIComponent(build.name)}`}
             className="block"
           >
-            <Card className="hover:shadow-lg transition-shadow duration-200 bg-white">
+            <Card className="hover:shadow-lg transition-shadow duration-200 bg-white relative">
+              {build.forSale?.onMarket && (
+                <Badge className="absolute top-2 right-2 z-10 bg-green-600 hover:bg-green-700 text-xs">
+                  FOR SALE
+                </Badge>
+              )}
               <div className="flex p-4 gap-4">
                 {firstImage && (
                   <img

@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Save, Eye, X, Plus, Upload } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Save, Eye, X, Trash2 } from 'lucide-react'
 import BoatPage from '../BoatPage'
 
 interface MediaItem {
@@ -28,9 +28,16 @@ interface BuildData {
   header?: string
   introText: string
   email?: string
+  forSale?: {
+    onMarket: boolean
+    price: number
+    links: {
+      craigslistUrl: string
+      facebookUrl: string
+      otherUrl: string
+    }
+  }
   images: MediaItem[]
-  status?: string
-  createdDate?: string
 }
 
 interface EditBuildProps {
@@ -40,6 +47,7 @@ interface EditBuildProps {
   onCancel?: () => void
   onApprove?: () => void
   onReject?: () => void
+  onDelete?: () => void
 }
 
 function EditBuild({ 
@@ -48,7 +56,8 @@ function EditBuild({
   onSave, 
   onCancel,
   onApprove,
-  onReject 
+  onReject,
+  onDelete 
 }: EditBuildProps) {
   const [formData, setFormData] = useState<BuildData>({
     name: '',
@@ -56,12 +65,22 @@ function EditBuild({
     header: '',
     introText: '',
     email: '',
+    forSale: {
+      onMarket: false,
+      price: 0,
+      links: {
+        craigslistUrl: '',
+        facebookUrl: '',
+        otherUrl: ''
+      }
+    },
     images: []
   })
-  const [newFiles, setNewFiles] = useState<File[]>([])
+  const [_newFiles, setNewFiles] = useState<File[]>([])
   const [newMediaPreviews, setNewMediaPreviews] = useState<NewMediaPreview[]>([])
   const [previewMode, setPreviewMode] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [imagePreview, setImagePreview] = useState<{ url: string, alt: string, type: 'image' | 'video' } | null>(null)
 
   // Initialize form data when buildData changes
@@ -70,6 +89,15 @@ function EditBuild({
       setFormData({
         ...buildData,
         header: buildData.header || '',
+        forSale: buildData.forSale || {
+          onMarket: false,
+          price: 0,
+          links: {
+            craigslistUrl: '',
+            facebookUrl: '',
+            otherUrl: ''
+          }
+        },
         email: buildData.email || ''
       })
     }
@@ -77,6 +105,7 @@ function EditBuild({
 
   // Cleanup preview URLs on unmount
   useEffect(() => {
+    console.log(newMediaPreviews)
     return () => {
       newMediaPreviews.forEach(item => {
         URL.revokeObjectURL(item.preview)
@@ -125,7 +154,7 @@ function EditBuild({
     if (newMediaPreviews.length === 0) return []
 
     const formData = new FormData()
-    newMediaPreviews.forEach((preview, index) => {
+    newMediaPreviews.forEach((preview) => {
       formData.append('images', preview.file)
       formData.append(`captions`, preview.caption || preview.file.name)
     })
@@ -202,9 +231,10 @@ function EditBuild({
 
   const updateNewMediaCaption = (index: number, caption: string) => {
     setNewMediaPreviews(prev => 
-      prev.map((item, i) => 
-        i === index ? { ...item, caption } : item
-      )
+      prev.map((item, i) => {
+        console.log(item)
+        return i === index ? { ...item, caption } : item
+      })
     )
   }
 
@@ -249,9 +279,6 @@ function EditBuild({
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">
-          {isSubmission ? 'Review Submission' : 'Edit Build'}
-        </h1>
         <div className="flex gap-2">
           <Button onClick={() => setPreviewMode(true)} variant="outline">
             <Eye className="h-4 w-4 mr-2" />
@@ -266,6 +293,7 @@ function EditBuild({
               Cancel
             </Button>
           )}
+          
         </div>
       </div>
 
@@ -333,6 +361,118 @@ function EditBuild({
                   placeholder="Tell the story of this build..."
                   rows={6}
                 />
+              </div>
+
+              {/* For Sale Section */}
+              <div className="space-y-4 border-t pt-4">
+                <h3 className="text-lg font-semibold">For Sale Information</h3>
+                
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="onMarket"
+                    checked={formData.forSale?.onMarket || false}
+                    onChange={(e) => 
+                      setFormData(prev => ({
+                        ...prev,
+                        forSale: {
+                          ...prev.forSale!,
+                          onMarket: e.target.checked
+                        }
+                      }))
+                    }
+                  />
+                  <Label htmlFor="onMarket">This build is for sale</Label>
+                </div>
+
+                {formData.forSale?.onMarket && (
+                  <div className="space-y-4 ml-6 border-l-2 border-gray-200 pl-4">
+                    <div>
+                      <Label htmlFor="price">Asking Price ($)</Label>
+                      <Input
+                        id="price"
+                        type="number"
+                        value={formData.forSale.price === 0 ? '' : formData.forSale.price}
+                        onChange={(e) => 
+                          setFormData(prev => ({
+                            ...prev,
+                            forSale: {
+                              ...prev.forSale!,
+                              price: e.target.value === '' ? 0 : parseInt(e.target.value)
+                            }
+                          }))
+                        }
+                        placeholder="Enter price"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="craigslistUrl">Craigslist URL (optional)</Label>
+                      <Input
+                        id="craigslistUrl"
+                        type="url"
+                        value={formData.forSale.links.craigslistUrl}
+                        onChange={(e) => 
+                          setFormData(prev => ({
+                            ...prev,
+                            forSale: {
+                              ...prev.forSale!,
+                              links: {
+                                ...prev.forSale!.links,
+                                craigslistUrl: e.target.value
+                              }
+                            }
+                          }))
+                        }
+                        placeholder="https://craigslist.org/..."
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="facebookUrl">Facebook Marketplace URL (optional)</Label>
+                      <Input
+                        id="facebookUrl"
+                        type="url"
+                        value={formData.forSale.links.facebookUrl}
+                        onChange={(e) => 
+                          setFormData(prev => ({
+                            ...prev,
+                            forSale: {
+                              ...prev.forSale!,
+                              links: {
+                                ...prev.forSale!.links,
+                                facebookUrl: e.target.value
+                              }
+                            }
+                          }))
+                        }
+                        placeholder="https://facebook.com/marketplace/..."
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="otherUrl">Other Listing URL (optional)</Label>
+                      <Input
+                        id="otherUrl"
+                        type="url"
+                        value={formData.forSale.links.otherUrl}
+                        onChange={(e) => 
+                          setFormData(prev => ({
+                            ...prev,
+                            forSale: {
+                              ...prev.forSale!,
+                              links: {
+                                ...prev.forSale!.links,
+                                otherUrl: e.target.value
+                              }
+                            }
+                          }))
+                        }
+                        placeholder="https://..."
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -508,6 +648,12 @@ function EditBuild({
             </CardContent>
           </Card>
         </div>
+      {!isSubmission && onDelete && buildData && (
+            <Button className='justify-center' onClick={() => setShowDeleteConfirm(true)} variant="destructive">
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete Build
+            </Button>
+          )}
       </div>
 
       {isSubmission && (
@@ -524,6 +670,38 @@ function EditBuild({
           </CardContent>
         </Card>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Build</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-gray-600">
+              Are you sure you want to delete <strong>"{buildData?.buildName}"</strong>?
+            </p>
+            <p className="text-sm text-red-600 mt-2">
+              This action cannot be undone. The build and all its images will be permanently removed.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowDeleteConfirm(false)}>
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={() => {
+                setShowDeleteConfirm(false)
+                if (onDelete) onDelete()
+              }}
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete Permanently
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Image Preview Dialog */}
       <Dialog open={!!imagePreview} onOpenChange={() => setImagePreview(null)}>

@@ -95,6 +95,15 @@ function SubmissionReview() {
       header: submission.header, 
       introText: submission.introText,
       email: submission.email,
+      forSale: submission.forSale || {
+        onMarket: false,
+        price: 0,
+        links: {
+          craigslistUrl: '',
+          facebookUrl: '',
+          otherUrl: ''
+        }
+      },
       images: submission.images || [],
       status: 'pending',
       createdDate: submission.createdDate
@@ -179,7 +188,7 @@ function SubmissionReview() {
             <ArrowLeft className="h-4 w-4" />
             Back to Submissions
           </Button>
-          <h2 className="text-xl font-semibold">Preview Submission</h2>
+          <h2 className="text-xl font-semibold">Review Submission</h2>
         </div>
         
         <EditBuild
@@ -233,23 +242,25 @@ function SubmissionReview() {
                   </div>
 
                   {/* Main content grid - like BoatPage */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+                  <div className="gap-8 mb-6">
                     {/* Images - left side (2/3 width) */}
                     <h3 className="font-semibold mb-4">Build Photos - {submission.images.length}</h3>
 
 
                     {/* Description - right side (1/3 width) */}
-                    <div className={`${submission.images && submission.images.length > 0 ? 'md:col-span-1' : 'md:col-span-3'} flex flex-col justify-start`}>
+                    <div className='flex justify-start'>
                       {submission.introText && (
                         <div>
                           <h3 className="font-semibold mb-4">Build Description</h3>
                           <div className="text-base text-gray-700 bg-white/80 rounded p-4 shadow border">
-                            {submission.introText.split('\n').map((line: string, i: number) => (
+                          <h2 className='font-bold'>{submission.header}</h2>
+                            {/* {submission.introText.split('\n').map((line: string, i: number) => (
                               <span key={i}>
-                                {line.slice(0, 400)}{line.length > 400 ? '.......' : ''}
+                                {line.slice(0, 100)}{line.length > 400 ? '.......' : ''}
                                 <br />
                               </span>
-                            ))}
+                            ))} */}
+                            <p>{submission.introText.slice(0,200)}.....</p>
                           </div>
                         </div>
                       )}

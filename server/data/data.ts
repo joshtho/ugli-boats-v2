@@ -10,6 +10,15 @@ interface BuildData {
   buildName: string;
   header: string;
   introText: string;
+  forSale?: {
+    onMarket: boolean;
+    price: number;
+    links: {
+      craigslistUrl: string;
+      facebookUrl: string;
+      otherUrl: string;
+    };
+  };
   images: ImageData[];
 }
 

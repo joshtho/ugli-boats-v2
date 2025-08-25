@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Send, X } from 'lucide-react'
+
 // make a contact info object for data so he can save emails and phone numbers
 // figure out how to handle the submission without making the page reload and without the session timeout thing copilot added
 interface MediaWithCaption {
@@ -20,7 +21,16 @@ function SubmitBuild() {
     buildName: '',
     header: '',
     introText: '',
-    email: ''
+    email: '',
+    forSale: {
+      onMarket: false,
+      price: 0,
+      links: {
+        craigslistUrl: '',
+        facebookUrl: '',
+        otherUrl: ''
+      }
+    }
   })
   const [media, setMedia] = useState<MediaWithCaption[]>([])
   const [submitting, setSubmitting] = useState(false)
@@ -120,6 +130,10 @@ function SubmitBuild() {
       submitData.append('email', formData.email)
       submitData.append('buildName', formData.buildName)
       submitData.append('introText', formData.introText)
+      submitData.append('header', formData.header)
+      
+      // Add forSale data
+      submitData.append('forSale', JSON.stringify(formData.forSale))
       
       // Add images and send captions as JSON
       const captions: string[] = []
@@ -175,21 +189,37 @@ function SubmitBuild() {
                 sessionStorage.removeItem('buildSubmitted')
                 sessionStorage.removeItem('buildSubmissionTime')
                 setSubmitted(false)
-                setFormData({ name: '', buildName: '', header: '', introText: '', email: '' })
+                setFormData({ 
+                  name: '', 
+                  buildName: '', 
+                  header: '', 
+                  introText: '', 
+                  email: '',
+                  forSale: {
+                    onMarket: false,
+                    price: 0,
+                    links: {
+                      craigslistUrl: '',
+                      facebookUrl: '',
+                      otherUrl: ''
+                    }
+                  }
+                })
                 setMedia([])
                 const fileInput = document.getElementById('images') as HTMLInputElement
                 if (fileInput) fileInput.value = ''
               }}>
                 Submit Another Build
               </Button>
-              <Button variant="outline" onClick={() => {
-                // Clear persisted state
-                sessionStorage.removeItem('buildSubmitted')
-                sessionStorage.removeItem('buildSubmissionTime')
-                setSubmitted(false)
-              }}>
-                Go Back to Form
-              </Button>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg mt-8">
+              <h3 className="font-medium text-blue-900 mb-2">What happens next?</h3>
+              <ul className="text-sm text-blue-800 space-y-1">
+                <li>• We'll review your submission</li>
+                <li>• If approved, your build will be added to our gallery</li>
+                <li>• We may contact you for additional details</li>
+                <li>• Your email will not be shared publicly</li>
+              </ul>
             </div>
           </CardContent>
         </Card>
@@ -271,6 +301,137 @@ function SubmitBuild() {
                 placeholder="Tell us about your build - materials used, modifications made, how you use the boat, etc."
                 rows={6}
               />
+            </div>
+
+            {/* For Sale Section */}
+            <div className="space-y-4 border-t pt-4">
+              <h3 className="text-lg font-semibold">For Sale Information (Optional)</h3>
+              
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="onMarket"
+                  checked={formData.forSale.onMarket}
+                  onChange={(e) => 
+                    setFormData(prev => ({
+                      ...prev,
+                      forSale: {
+                        ...prev.forSale,
+                        onMarket: e.target.checked
+                      }
+                    }))
+                  }
+                />
+                <Label htmlFor="onMarket">This build is for sale</Label>
+              </div>
+
+              {formData.forSale.onMarket && (
+                <div className="space-y-4 ml-6 border-l-2 border-gray-200 pl-4">
+                  {/* <div>
+                    <Label htmlFor="price">Asking Price ($)</Label>
+                    <Input
+                      id="price"
+                      type="price"
+                      value={formData.forSale.price}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            price: parseInt(e.target.value) || 0
+                          }
+                        }))
+                      }
+                      placeholder="0"
+                    />
+                  </div> */}
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                    <Input
+                      id='price'
+                      type="number"
+                      className="pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      value={formData.forSale.price === 0 ? '' : formData.forSale.price}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            price: e.target.value === '' ? 0 : parseInt(e.target.value)
+                          }
+                        }))
+                      }
+                      placeholder='Enter price'
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="craigslistUrl">Craigslist URL (optional)</Label>
+                    <Input
+                      id="craigslistUrl"
+                      type="url"
+                      value={formData.forSale.links.craigslistUrl}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            links: {
+                              ...prev.forSale.links,
+                              craigslistUrl: e.target.value
+                            }
+                          }
+                        }))
+                      }
+                      placeholder="https://craigslist.org/..."
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="facebookUrl">Facebook Marketplace URL (optional)</Label>
+                    <Input
+                      id="facebookUrl"
+                      type="url"
+                      value={formData.forSale.links.facebookUrl}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            links: {
+                              ...prev.forSale.links,
+                              facebookUrl: e.target.value
+                            }
+                          }
+                        }))
+                      }
+                      placeholder="https://facebook.com/marketplace/..."
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="otherUrl">Other Listing URL (optional)</Label>
+                    <Input
+                      id="otherUrl"
+                      type="url"
+                      value={formData.forSale.links.otherUrl}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            links: {
+                              ...prev.forSale.links,
+                              otherUrl: e.target.value
+                            }
+                          }
+                        }))
+                      }
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+              )}
             </div>
             
             <div>

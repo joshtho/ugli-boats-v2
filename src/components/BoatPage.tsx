@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { ExternalLink, DollarSign } from 'lucide-react'
 import {
   Carousel,
   CarouselContent,
@@ -74,9 +77,74 @@ function BoatPage({ buildData }: BoatPageProps) {
     return null
   }
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
   return (
     <div className="mx-auto max-w-full p-6">
-      <h1 className="text-3xl font-bold mb-5 text-center">{build.name} - {build.buildName}</h1>
+      <div className="text-center mb-5">
+        <h1 className="text-3xl font-bold">{build.name} - {build.buildName}</h1>
+        
+        {/* For Sale Badge and Info */}
+        {build.forSale?.onMarket && (
+          <div className="mt-4 mb-6">
+            <Badge className="text-lg px-4 py-2 bg-green-600 hover:bg-green-700 mb-4">
+              🚤 FOR SALE
+            </Badge>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-w-md mx-auto">
+              <div className="flex items-center justify-center gap-2 text-xl font-bold text-green-700 mb-3">
+                <DollarSign className="h-6 w-6" />
+                {formatPrice(build.forSale.price)}
+              </div>
+              
+              {(build.forSale.links.craigslistUrl || build.forSale.links.facebookUrl || build.forSale.links.otherUrl) && (
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {build.forSale.links.craigslistUrl && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(build.forSale!.links.craigslistUrl, '_blank')}
+                      className="text-xs"
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Craigslist
+                    </Button>
+                  )}
+                  
+                  {build.forSale.links.facebookUrl && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(build.forSale!.links.facebookUrl, '_blank')}
+                      className="text-xs"
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Facebook
+                    </Button>
+                  )}
+                  
+                  {build.forSale.links.otherUrl && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(build.forSale!.links.otherUrl, '_blank')}
+                      className="text-xs"
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      View Listing
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
       
       {/* Show header when no introText - positioned after main title */}
       {!build.introText?.trim() && build.header && (
