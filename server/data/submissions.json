@@ -270,5 +270,117 @@
       }
     ],
     "approvedDate": "2025-08-25T20:22:58.790Z"
+  },
+  {
+    "id": "ac350124-9d06-463e-99b0-76fc1c0eee53",
+    "name": "Joshua Keane Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "boat",
+    "header": "This thing is black",
+    "introText": "Lost text",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "rejected",
+    "createdDate": "2025-08-25T21:48:47.836Z",
+    "images": [
+      {
+        "alt": "IMG_4170",
+        "caption": "",
+        "url": "/uploads/64c367bc-a077-41c9-8973-88b41975563b-IMG_4170.MOV"
+      },
+      {
+        "alt": "IMG_4470",
+        "caption": "",
+        "url": "/uploads/d3409cef-6b3c-46d2-a34a-e44e8c4f245d-IMG_4470.MOV"
+      }
+    ],
+    "rejectedDate": "2025-08-25T21:50:36.914Z"
+  },
+  {
+    "id": "300adae0-9e34-47bc-8cc1-5c9e5d11f086",
+    "name": "Capybara",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Josh's Ponton",
+    "header": "A custom coffee-themed boat ",
+    "introText": "hey ehy were the monkeys",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "approved",
+    "createdDate": "2025-08-25T21:51:40.768Z",
+    "images": [
+      {
+        "alt": "IMG_2530",
+        "caption": "",
+        "url": "/uploads/230479f8-ba56-4904-84ab-2abacac1ae50-IMG_2530.MOV"
+      },
+      {
+        "alt": "IMG_4170",
+        "caption": "a japanese castle",
+        "url": "/uploads/193a1707-310f-4de8-9602-d09b38198e7b-IMG_4170.MOV"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/aBxerJ8xosE",
+        "caption": "this video doh",
+        "url": "https://youtu.be/aBxerJ8xosE"
+      }
+    ],
+    "approvedDate": "2025-08-25T21:53:12.304Z"
+  },
+  {
+    "id": "6bb774aa-900a-4df6-8e1d-935fdcb33afc",
+    "name": "Joshua Keane Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Hey hey its a boat type shit",
+    "header": "A custom coffee-themed boat ",
+    "introText": "this be a build yo",
+    "forSale": {
+      "onMarket": true,
+      "price": 100000,
+      "links": {
+        "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "approved",
+    "createdDate": "2025-08-25T22:06:06.568Z",
+    "images": [
+      {
+        "alt": "IMG_4961",
+        "caption": "This is actually a cat",
+        "url": "/uploads/01712033-71d0-4ee6-b8cf-80a40f54d26c-IMG_4961.JPG"
+      },
+      {
+        "alt": "IMG_4170",
+        "caption": "sdfd",
+        "url": "/uploads/9c6b1047-81ea-48cb-b29a-6ed7fcccbb9d-IMG_4170.MOV"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/aBxerJ8xosE",
+        "caption": "this video ",
+        "url": "https://youtu.be/aBxerJ8xosE"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
+        "caption": "fireeeee",
+        "url": "https://youtu.be/cZ3saNNNN4I"
+      }
+    ],
+    "updatedDate": "2025-08-25T22:07:07.454Z",
+    "approvedDate": "2025-08-25T22:32:28.468Z"
   }
 ]

@@ -2158,14 +2158,14 @@
     "isLegacy": true
   },
   {
-    "id": "eb13374e-9d9d-4d5b-b74c-73da474d8ed5",
-    "name": "Joshua Keane ",
-    "buildName": "coffee ",
-    "header": "A  coffee-themed boat ",
-    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula et augue vel dapibus. Donec nisl sem, scelerisque tempus diam id, pellentesque ornare velit. Ut malesuada hendrerit dignissim. Aenean risus magna, tincidunt eget sagittis cursus, sollicitudin in augue. Phasellus at condimentum orci. Phasellus id gravida enim, vitae consequat ex. Sed imperdiet ante in imperdiet laoreet. Nunc sed erat tincidunt arcu facilisis blandit. Ut quam nibh, vulputate ut augue sed, tempus scelerisque mi. Morbi ullamcorper orci quis risus volutpat tempus.\n\nDonec quis volutpat augue. Quisque et p",
+    "id": "ed3fac12-af45-4d76-b098-ec8945fe37e4",
+    "name": "Joshua Keane Thompson",
+    "buildName": "Hey hey its a boat type shit",
+    "header": "A custom coffee-themed boat ",
+    "introText": "this be a build yo",
     "forSale": {
-      "onMarket": false,
-      "price": 6000,
+      "onMarket": true,
+      "price": 100000,
       "links": {
         "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
         "facebookUrl": "",
@@ -2174,49 +2174,64 @@
     },
     "images": [
       {
-        "alt": "IMG_0240",
-        "caption": "yo ho ho",
-        "url": "/uploads/9c07f26c-4355-4dde-b1e1-0947c46bbcc6-IMG_0240.JPG"
+        "alt": "IMG_4961",
+        "caption": "This is actually a cat",
+        "url": "/uploads/01712033-71d0-4ee6-b8cf-80a40f54d26c-IMG_4961.JPG"
       },
       {
-        "alt": "IMG_4717",
+        "alt": "IMG_4170",
+        "caption": "sdfd",
+        "url": "/uploads/9c6b1047-81ea-48cb-b29a-6ed7fcccbb9d-IMG_4170.MOV"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/aBxerJ8xosE",
+        "caption": "this video ",
+        "url": "https://youtu.be/aBxerJ8xosE"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
         "caption": "",
-        "url": "/uploads/528a83be-5668-4735-8a56-288068e8b861-IMG_4717.JPG"
+        "url": "https://youtu.be/cZ3saNNNN4I"
       }
     ],
     "email": "joshua.thompson0010@gmail.com",
-    "createdDate": "2025-08-25T20:22:58.786Z",
+    "createdDate": "2025-08-25T22:32:28.449Z",
     "status": "published",
-    "updatedDate": "2025-08-25T20:36:30.193Z"
+    "updatedDate": "2025-08-25T22:47:46.094Z"
   },
   {
-    "id": "f887c537-5673-4a7f-9647-3075c57326fe",
+    "id": "37784d0b-5084-47eb-bc73-d5c03e75bdea",
     "name": "Joshua Keane Thompson",
     "buildName": "coffee ponton",
     "header": "This thing is black",
-    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula et augue vel dapibus. Donec nisl sem, scelerisque tempus diam id, pellentesque ornare velit. Ut malesuada hendrerit dignissim. Aenean risus magna, tincidunt eget sagittis cursus, sollicitudin in augue. Phasellus at condimentum orci. Phasellus id gravida enim, vitae consequat ex. Sed imperdiet ante in imperdiet laoreet. Nunc sed erat tincidunt arcu facilisis blandit. Ut quam nibh, vulputate ut augue sed, tempus scelerisque mi. Morbi ullamcorper orci quis risus volutpat tempus.\n\nDonec quis volutpat augue. Quisque et pulvinar lacus, non convallis arcu. Maecenas nec massa eget turpis feugiat finibus. Sed massa massa, euismod vel dignissim non, placerat vitae tortor. Integer blandit sapien odio. Nunc mollis felis sapien, nec iaculis libero placerat in. Aenean erat diam, congue vel semper at, efficitur in lacus. Sed sit amet egestas erat, in tempus turpis. Duis eget faucibus libero, iaculis commodo mi. Suspendisse posuere orci sed nulla accumsan auctor. Duis ligula dolor, faucibus eu interdum id, congue sit amet velit. Donec quam tellus, vulputate non nibh scelerisque, facilisis viverra nibh. Nullam dignissim tincidunt placerat. Nulla elementum urna et lorem bibendum, vitae auctor erat gravida. Aliquam id tellus in nulla rutrum volutpat sit amet vitae eros. Duis ultricies massa a dui faucibus, in aliquet augue tempus.",
+    "introText": "fghjdghdf",
     "email": "",
     "forSale": {
-      "onMarket": true,
-      "price": 10000,
+      "onMarket": false,
+      "price": 0,
       "links": {
-        "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
+        "craigslistUrl": "",
         "facebookUrl": "",
         "otherUrl": ""
       }
     },
     "images": [
       {
-        "alt": "IMG_5239",
+        "alt": "IMG_4549",
         "caption": "",
-        "url": "/uploads/1c71b0a5-f8db-4126-b2ea-190807226aa1-IMG_5239.JPG"
+        "url": "/uploads/f185b53d-3e73-4d82-8fe7-68b1679f5423-IMG_4549.PNG"
       },
       {
         "alt": "IMG_4170",
         "caption": "",
-        "url": "/uploads/ae502768-b401-4246-9a60-1b991742179b-IMG_4170.MOV"
+        "url": "/uploads/6deba8fc-0666-4482-9435-233a8df7a8af-IMG_4170.MOV"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
+        "caption": "",
+        "url": "https://youtu.be/cZ3saNNNN4I"
       }
     ],
-    "createdDate": "2025-08-25T20:37:15.145Z"
+    "createdDate": "2025-08-25T22:49:03.363Z"
   }
 ]

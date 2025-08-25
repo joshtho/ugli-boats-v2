@@ -406,7 +406,7 @@ app.post('/api/admin/upload', upload.array('images', 10), (req, res) => {
 // Submit a new build for review
 app.post('/api/submissions', upload.array('images', 10), (req, res) => {
   try {
-    const { name, email, buildName, introText, header, imageCaptions, forSale } = req.body;
+    const { name, email, buildName, introText, header, imageCaptions, forSale, youtubeVideos } = req.body;
     
     if (!name || !email || !buildName) {
       return res.status(400).json({ error: 'Name, email, and build name are required' });
@@ -435,6 +435,26 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
+    // Parse YouTube videos if provided
+    let youtubeVideoData = [];
+    if (youtubeVideos) {
+      try {
+        youtubeVideoData = JSON.parse(youtubeVideos);
+      } catch (e) {
+        console.log('Invalid youtubeVideos format, ignoring');
+      }
+    }
+    
+    // Create images array from uploaded files
+    const fileImages = req.files ? req.files.map((f, index) => ({
+      alt: f.originalname.replace(/\.[^/.]+$/, ""),
+      caption: captions[index] || '',
+      url: `/uploads/${f.filename}` // Use consistent format for local development
+    })) : [];
+    
+    // Combine file images with YouTube videos
+    const allImages = [...fileImages, ...youtubeVideoData];
+    
     // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
@@ -446,11 +466,7 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       forSale: forSaleData,
       status: 'pending',
       createdDate: new Date().toISOString(),
-      images: req.files ? req.files.map((f, index) => ({
-        alt: f.originalname.replace(/\.[^/.]+$/, ""),
-        caption: captions[index] || '',
-        url: `/uploads/${f.filename}` // Use consistent format for local development
-      })) : []
+      images: allImages
     };
     
     // Add to submissions array

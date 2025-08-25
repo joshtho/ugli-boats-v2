@@ -33,6 +33,8 @@ function SubmitBuild() {
     }
   })
   const [media, setMedia] = useState<MediaWithCaption[]>([])
+  const [youtubeVideos, setYoutubeVideos] = useState<Array<{ url: string; caption: string }>>([])
+  const [youtubeUrl, setYoutubeUrl] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
@@ -54,6 +56,54 @@ function SubmitBuild() {
       }
     }
   }, [])
+
+  // Helper to validate and normalize YouTube URLs
+  const validateYoutubeUrl = (url: string): string | null => {
+    if (!url.trim()) return null
+    
+    // Check for valid YouTube URL patterns
+    const youtubePatterns = [
+      /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})(?:&.*)?/
+    ]
+    
+    for (const pattern of youtubePatterns) {
+      const match = url.match(pattern)
+      if (match) {
+        // Return normalized youtu.be format for consistency
+        return `https://youtu.be/${match[1]}`
+      }
+    }
+    
+    return null
+  }
+
+  const addYoutubeVideo = () => {
+    const normalizedUrl = validateYoutubeUrl(youtubeUrl)
+    if (!normalizedUrl) {
+      alert('Please enter a valid YouTube URL (e.g., https://youtu.be/videoId or https://youtube.com/watch?v=videoId)')
+      return
+    }
+    
+    // Check if URL already exists
+    if (youtubeVideos.some(video => video.url === normalizedUrl)) {
+      alert('This YouTube video has already been added')
+      return
+    }
+    
+    setYoutubeVideos(prev => [...prev, { url: normalizedUrl, caption: '' }])
+    setYoutubeUrl('')
+  }
+
+  const updateYoutubeCaption = (index: number, caption: string) => {
+    setYoutubeVideos(prev => prev.map((video, i) => 
+      i === index ? { ...video, caption } : video
+    ))
+  }
+
+  const removeYoutubeVideo = (index: number) => {
+    setYoutubeVideos(prev => prev.filter((_, i) => i !== index))
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -142,9 +192,22 @@ function SubmitBuild() {
         captions.push(item.caption)
       })
       
-      // Send captions as JSON string
-      if (captions.length > 0) {
-        submitData.append('imageCaptions', JSON.stringify(captions))
+      // Add YouTube videos as image objects
+      const youtubeImages = youtubeVideos.map(video => ({
+        alt: `YouTube Video: ${video.url}`,
+        caption: video.caption,
+        url: video.url
+      }))
+      
+      // Send captions as JSON string (includes both file captions and YouTube captions)
+      const allCaptions = [...captions, ...youtubeVideos.map(v => v.caption)]
+      if (allCaptions.length > 0) {
+        submitData.append('imageCaptions', JSON.stringify(allCaptions))
+      }
+      
+      // Send YouTube videos as JSON
+      if (youtubeImages.length > 0) {
+        submitData.append('youtubeVideos', JSON.stringify(youtubeImages))
       }
       
       // Send to backend API
@@ -206,6 +269,7 @@ function SubmitBuild() {
                   }
                 })
                 setMedia([])
+                setYoutubeVideos([])
                 const fileInput = document.getElementById('images') as HTMLInputElement
                 if (fileInput) fileInput.value = ''
               }}>
@@ -327,24 +391,6 @@ function SubmitBuild() {
 
               {formData.forSale.onMarket && (
                 <div className="space-y-4 ml-6 border-l-2 border-gray-200 pl-4">
-                  {/* <div>
-                    <Label htmlFor="price">Asking Price ($)</Label>
-                    <Input
-                      id="price"
-                      type="price"
-                      value={formData.forSale.price}
-                      onChange={(e) => 
-                        setFormData(prev => ({
-                          ...prev,
-                          forSale: {
-                            ...prev.forSale,
-                            price: parseInt(e.target.value) || 0
-                          }
-                        }))
-                      }
-                      placeholder="0"
-                    />
-                  </div> */}
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
                     <Input
@@ -449,6 +495,31 @@ function SubmitBuild() {
               </p>
             </div>
 
+            {/* YouTube Video Section */}
+            <div>
+              <Label htmlFor="youtubeUrl">Add YouTube Video</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="youtubeUrl"
+                  type="url"
+                  value={youtubeUrl}
+                  onChange={(e) => setYoutubeUrl(e.target.value)}
+                  placeholder="https://youtu.be/videoId or https://youtube.com/watch?v=videoId"
+                />
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={addYoutubeVideo}
+                  disabled={!youtubeUrl.trim()}
+                >
+                  Add Video
+                </Button>
+              </div>
+              <p className="text-sm text-gray-600 mt-1">
+                Add YouTube videos of your build. Supports both youtu.be and youtube.com formats.
+              </p>
+            </div>
+
             {/* Media Previews with Caption Input */}
             {media.length > 0 && (
               <div className="space-y-4">
@@ -492,6 +563,67 @@ function SubmitBuild() {
                           placeholder={`Tell us about this ${item.type}...`}
                           className="mt-1"
                         />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* YouTube Videos Preview */}
+            {youtubeVideos.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="font-medium text-gray-900">Your YouTube Videos</h3>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {youtubeVideos.map((video, index) => (
+                    <Card key={index} className="relative">
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2 z-10"
+                        onClick={() => removeYoutubeVideo(index)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                      
+                      {(() => {
+                        const getYoutubeId = (url: string): string | null => {
+                          if (url.includes('youtu.be/')) {
+                            return url.split('youtu.be/')[1].split('?')[0]
+                          }
+                          if (url.includes('youtube.com/watch?v=')) {
+                            return url.split('v=')[1].split('&')[0]
+                          }
+                          return null
+                        }
+                        
+                        const youtubeId = getYoutubeId(video.url)
+                        return youtubeId ? (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${youtubeId}`}
+                            className="w-full h-32 rounded-t"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <div className="w-full h-32 bg-gray-200 rounded-t flex items-center justify-center">
+                            <p className="text-gray-500">Invalid YouTube URL</p>
+                          </div>
+                        )
+                      })()}
+                      
+                      <CardContent className="p-3">
+                        <Label htmlFor={`youtube-caption-${index}`} className="text-sm">
+                          Add a caption (optional)
+                        </Label>
+                        <Input
+                          id={`youtube-caption-${index}`}
+                          value={video.caption}
+                          onChange={(e) => updateYoutubeCaption(index, e.target.value)}
+                          placeholder="Tell us about this video..."
+                          className="mt-1"
+                        />
+                        <p className="text-xs text-gray-500 mt-1 truncate">{video.url}</p>
                       </CardContent>
                     </Card>
                   ))}

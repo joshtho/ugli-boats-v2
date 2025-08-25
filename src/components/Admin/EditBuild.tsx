@@ -78,6 +78,8 @@ function EditBuild({
   })
   const [_newFiles, setNewFiles] = useState<File[]>([])
   const [newMediaPreviews, setNewMediaPreviews] = useState<NewMediaPreview[]>([])
+  const [youtubeVideos, setYoutubeVideos] = useState<Array<{ url: string; caption: string }>>([])
+  const [youtubeUrl, setYoutubeUrl] = useState('')
   const [previewMode, setPreviewMode] = useState(false)
   const [saving, setSaving] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -172,16 +174,71 @@ function EditBuild({
     return data.images // Should return array of {alt, url} objects
   }
 
+  // Helper to validate and normalize YouTube URLs
+  const validateYoutubeUrl = (url: string): string | null => {
+    if (!url.trim()) return null
+    
+    // Check for valid YouTube URL patterns
+    const youtubePatterns = [
+      /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})(?:&.*)?/
+    ]
+    
+    for (const pattern of youtubePatterns) {
+      const match = url.match(pattern)
+      if (match) {
+        // Return normalized youtu.be format for consistency
+        return `https://youtu.be/${match[1]}`
+      }
+    }
+    
+    return null
+  }
+
+  const addYoutubeVideo = () => {
+    const normalizedUrl = validateYoutubeUrl(youtubeUrl)
+    if (!normalizedUrl) {
+      alert('Please enter a valid YouTube URL (e.g., https://youtu.be/videoId or https://youtube.com/watch?v=videoId)')
+      return
+    }
+    
+    // Check if URL already exists
+    if (youtubeVideos.some(video => video.url === normalizedUrl)) {
+      alert('This YouTube video has already been added')
+      return
+    }
+    
+    setYoutubeVideos(prev => [...prev, { url: normalizedUrl, caption: '' }])
+    setYoutubeUrl('')
+  }
+
+  const updateYoutubeCaption = (index: number, caption: string) => {
+    setYoutubeVideos(prev => prev.map((video, i) => 
+      i === index ? { ...video, caption } : video
+    ))
+  }
+
+  const removeYoutubeVideo = (index: number) => {
+    setYoutubeVideos(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleSave = async () => {
     setSaving(true)
     try {
       // Upload new files if any
       const uploadedImages = await uploadNewFiles()
       
-      // Combine existing and new images
+      // Create YouTube video objects
+      const youtubeImages = youtubeVideos.map(video => ({
+        alt: `YouTube Video: ${video.url}`,
+        caption: video.caption,
+        url: video.url
+      }))
+      
+      // Combine existing, uploaded, and YouTube images
       const updatedBuild = {
         ...formData,
-        images: [...formData.images, ...uploadedImages]
+        images: [...formData.images, ...uploadedImages, ...youtubeImages]
       }
 
       if (onSave) {
@@ -189,6 +246,8 @@ function EditBuild({
       }
 
       setNewFiles([]) // Clear new files after save
+      setYoutubeVideos([]) // Clear YouTube videos after save
+      setYoutubeUrl('') // Clear YouTube URL input
       
       // Clean up preview URLs
       newMediaPreviews.forEach(item => {
@@ -568,6 +627,107 @@ function EditBuild({
                   </div>
                 )}
 
+                {/* YouTube Video Section */}
+                <div className="mt-6">
+                  <Label htmlFor="youtubeUrl">Add YouTube Video</Label>
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      id="youtubeUrl"
+                      type="url"
+                      value={youtubeUrl}
+                      onChange={(e) => setYoutubeUrl(e.target.value)}
+                      placeholder="https://youtu.be/videoId or https://youtube.com/watch?v=videoId"
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault()
+                          addYoutubeVideo()
+                        }
+                      }}
+                    />
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={addYoutubeVideo}
+                      disabled={!youtubeUrl.trim()}
+                    >
+                      Add Video
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Add YouTube videos of your build. Supports both youtu.be and youtube.com formats.
+                  </p>
+                </div>
+
+                {/* YouTube Videos Preview */}
+                {youtubeVideos.length > 0 && (
+                  <div className="mt-6 space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-medium text-gray-900">YouTube Videos to Add</h4>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setYoutubeVideos([])}
+                      >
+                        Clear All
+                      </Button>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {youtubeVideos.map((video, index) => (
+                        <Card key={index} className="relative">
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            className="absolute top-2 right-2 z-10"
+                            onClick={() => removeYoutubeVideo(index)}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                          
+                          {(() => {
+                            const getYoutubeId = (url: string): string | null => {
+                              if (url.includes('youtu.be/')) {
+                                return url.split('youtu.be/')[1].split('?')[0]
+                              }
+                              if (url.includes('youtube.com/watch?v=')) {
+                                return url.split('v=')[1].split('&')[0]
+                              }
+                              return null
+                            }
+                            
+                            const youtubeId = getYoutubeId(video.url)
+                            return youtubeId ? (
+                              <iframe
+                                src={`https://www.youtube.com/embed/${youtubeId}`}
+                                className="w-full h-32 rounded-t"
+                                allowFullScreen
+                              />
+                            ) : (
+                              <div className="w-full h-32 bg-gray-200 rounded-t flex items-center justify-center">
+                                <p className="text-gray-500">Invalid YouTube URL</p>
+                              </div>
+                            )
+                          })()}
+                          
+                          <CardContent className="p-3">
+                            <Label htmlFor={`youtube-caption-${index}`} className="text-sm">
+                              Add a caption (optional)
+                            </Label>
+                            <Input
+                              id={`youtube-caption-${index}`}
+                              value={video.caption}
+                              onChange={(e) => updateYoutubeCaption(index, e.target.value)}
+                              placeholder="Tell us about this video..."
+                              className="mt-1"
+                            />
+                            <p className="text-xs text-gray-500 mt-1 truncate">{video.url}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 
               </div>
             </CardContent>
@@ -588,6 +748,7 @@ function EditBuild({
                   {formData.images.map((image, index) => {
                     const imageUrl = getImageUrl(image.url)
                     const isVideo = getMediaType(image.url) === 'video'
+                    const isYoutube = image.url.includes('youtube') || image.url.includes('youtu.be') ? true : false
 
                     return (
                       <div key={index} className="border rounded-lg p-4 space-y-2">
@@ -613,7 +774,8 @@ function EditBuild({
                             )}
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium truncate">
-                                {image.alt || `${isVideo ? 'Video' : 'Image'} ${index + 1}`}
+                                {isYoutube ? 'YouTube: ' : ""}
+                                {`${isVideo ? 'Video' : 'Image'} ${index + 1}`}
                               </p>
                               <p className="text-xs text-gray-500">
                                 {isVideo ? 'Video' : 'Image'}
