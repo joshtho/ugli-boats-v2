@@ -146,7 +146,41 @@ app.get('/', (req, res) => {
 // Upload photos
 app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
   try {
-    const { category } = req.body;
+    const { category, metadata } = req.body;
+    
+    // Debug logging
+    console.log('Upload request received:');
+    console.log('Category:', category);
+    console.log('Metadata:', metadata);
+    console.log('Files count:', req.files ? req.files.length : 0);
+    console.log('All body keys:', Object.keys(req.body));
+    
+    let captions = [];
+    let alts = [];
+    
+    // Try to parse metadata JSON first
+    if (metadata) {
+      try {
+        const parsedMetadata = JSON.parse(metadata);
+        captions = parsedMetadata.captions || [];
+        alts = parsedMetadata.alts || [];
+        console.log('Parsed metadata - captions:', captions, 'alts:', alts);
+      } catch (e) {
+        console.log('Failed to parse metadata JSON:', e);
+      }
+    }
+    
+    // Fallback to individual fields
+    if (captions.length === 0 || alts.length === 0) {
+      // Look for caption_0, caption_1, etc.
+      for (let i = 0; i < (req.files ? req.files.length : 0); i++) {
+        const caption = req.body[`caption_${i}`] || '';
+        const alt = req.body[`alt_${i}`] || '';
+        captions.push(caption);
+        alts.push(alt);
+      }
+      console.log('Using individual fields - captions:', captions, 'alts:', alts);
+    }
     
     if (!category) {
       return res.status(400).json({ error: 'Category is required' });
@@ -160,15 +194,16 @@ app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
     const photos = readPhotos();
     
     // Add new photos
-    const uploadedFiles = req.files.map(file => {
+    const uploadedFiles = req.files.map((file, index) => {
       const newPhoto = {
         id: uuidv4(),
         image: `/ugli-boats-v2/uploads/${file.filename}`,
-        alt: `${category} - ${file.originalname}`,
+        alt: alts[index] || `${category} - ${file.originalname}`,
         category: category,
-        caption: '',
+        caption: captions[index] || '',
         uploadDate: new Date().toISOString()
       };
+      console.log(`Photo ${index}:`, newPhoto);
       photos.push(newPhoto);
       return newPhoto;
     });
@@ -271,6 +306,48 @@ app.delete('/api/photos/:id', (req, res) => {
   } catch (error) {
     console.error('Error deleting photo:', error);
     res.status(500).json({ error: 'Failed to delete photo' });
+  }
+});
+
+// Update a photo
+app.put('/api/photos/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const { alt, caption, category } = req.body;
+    
+    console.log('Update request for photo ID:', id);
+    console.log('Update data:', { alt, caption, category });
+    
+    const photos = readPhotos();
+    const photoIndex = photos.findIndex(photo => photo.id === id);
+    
+    if (photoIndex === -1) {
+      console.log('Photo not found with ID:', id);
+      return res.status(404).json({ error: 'Photo not found' });
+    }
+    
+    // Update the photo
+    const updatedPhoto = {
+      ...photos[photoIndex],
+      alt: alt || photos[photoIndex].alt,
+      caption: caption !== undefined ? caption : photos[photoIndex].caption,
+      category: category || photos[photoIndex].category
+    };
+    
+    photos[photoIndex] = updatedPhoto;
+    console.log('Updated photo:', updatedPhoto);
+    
+    // Save updated photos array
+    writePhotos(photos);
+    
+    res.json({
+      message: 'Photo updated successfully',
+      updatedPhoto: updatedPhoto
+    });
+    
+  } catch (error) {
+    console.error('Error updating photo:', error);
+    res.status(500).json({ error: 'Failed to update photo' });
   }
 });
 

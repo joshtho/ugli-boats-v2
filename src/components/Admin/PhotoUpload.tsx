@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Upload, Trash2, Eye } from 'lucide-react'
+import { Upload, Trash2, Eye, X, Edit } from 'lucide-react'
 
 // Photo interface
 interface Photo {
@@ -17,10 +17,22 @@ interface Photo {
   uploadDate: string
 }
 
+// Interface for photo previews before upload
+interface PhotoPreview {
+  file: File
+  preview: string
+  caption: string
+  alt: string
+}
+
 function PhotoUpload() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null)
   const [category, setCategory] = useState('')
   const [uploading, setUploading] = useState(false)
+  
+  // Photo previews before upload
+  const [photoPreviews, setPhotoPreviews] = useState<PhotoPreview[]>([])
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   
   // Photo management state
   const [photos, setPhotos] = useState<Photo[]>([])
@@ -28,6 +40,15 @@ function PhotoUpload() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [previewPhoto, setPreviewPhoto] = useState<string | null>(null)
+  
+  // Edit photo state
+  const [editPhoto, setEditPhoto] = useState<Photo | null>(null)
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [editFormData, setEditFormData] = useState<{alt: string, caption: string, category: string}>({
+    alt: '',
+    caption: '',
+    category: ''
+  })
 
   const categories = [
     'Historical Ponton',
@@ -70,11 +91,80 @@ function PhotoUpload() {
   }, [])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(e.target.files)
+    const files = e.target.files
+    if (!files) return
+
+    setSelectedFiles(files)
+
+    // Create preview objects for each file
+    const fileArray = Array.from(files)
+    const newPreviews: PhotoPreview[] = fileArray.map(file => {
+      const preview = URL.createObjectURL(file)
+      return {
+        file,
+        preview,
+        caption: '',
+        alt: `Photo - ${file.name}`
+      }
+    })
+
+    // Clean up old previews
+    photoPreviews.forEach(item => {
+      URL.revokeObjectURL(item.preview)
+    })
+
+    setPhotoPreviews(newPreviews)
+  }
+
+  // Update caption for a specific preview
+  const updatePreviewCaption = (index: number, caption: string) => {
+    setPhotoPreviews(prev => 
+      prev.map((item, i) => 
+        i === index ? { ...item, caption } : item
+      )
+    )
+  }
+
+  // Update alt text for a specific preview
+  const updatePreviewAlt = (index: number, alt: string) => {
+    setPhotoPreviews(prev => 
+      prev.map((item, i) => 
+        i === index ? { ...item, alt } : item
+      )
+    )
+  }
+
+  // Remove a preview
+  const removePreview = (index: number) => {
+    const itemToRemove = photoPreviews[index]
+    URL.revokeObjectURL(itemToRemove.preview)
+
+    setPhotoPreviews(prev => prev.filter((_, i) => i !== index))
+
+    // Update selectedFiles to match
+    if (selectedFiles) {
+      const newFiles = Array.from(selectedFiles).filter((_, i) => i !== index)
+      const dt = new DataTransfer()
+      newFiles.forEach(file => dt.items.add(file))
+      setSelectedFiles(dt.files)
+    }
+  }
+
+  // Clear all previews
+  const clearAllPreviews = () => {
+    photoPreviews.forEach(item => {
+      URL.revokeObjectURL(item.preview)
+    })
+    setPhotoPreviews([])
+    setSelectedFiles(null)
+    
+    // Reset the file input
+    const fileInput = document.getElementById('photos') as HTMLInputElement
+    if (fileInput) fileInput.value = ''
   }
 
   const handleUpload = async () => {
-    if (!selectedFiles || !category) {
+    if (!selectedFiles || !category || photoPreviews.length === 0) {
       alert('Please select files and category')
       return
     }
@@ -86,10 +176,21 @@ function PhotoUpload() {
       const formData = new FormData()
       formData.append('category', category)
       
-      // Add all selected files
-      Array.from(selectedFiles).forEach(file => {
-        formData.append('photos', file)
+      // Add files and their metadata
+      photoPreviews.forEach((preview, index) => {
+        formData.append('photos', preview.file)
+        formData.append(`caption_${index}`, preview.caption)
+        formData.append(`alt_${index}`, preview.alt)
       })
+      
+      // Also send as JSON for debugging
+      const metadata = {
+        captions: photoPreviews.map(p => p.caption),
+        alts: photoPreviews.map(p => p.alt)
+      }
+      formData.append('metadata', JSON.stringify(metadata))
+      
+      console.log('Uploading with metadata:', metadata)
       
       // Send to backend API
       const response = await fetch('http://localhost:3001/api/photos/upload', {
@@ -104,12 +205,10 @@ function PhotoUpload() {
       await response.json()
       
       alert(`Successfully uploaded ${selectedFiles.length} photos to ${category}`)
-      setSelectedFiles(null)
-      setCategory('')
       
-      // Reset the file input
-      const fileInput = document.getElementById('photos') as HTMLInputElement
-      if (fileInput) fileInput.value = ''
+      // Clean up
+      clearAllPreviews()
+      setCategory('')
       
       // Refresh photos list
       fetchPhotos()
@@ -149,6 +248,48 @@ function PhotoUpload() {
     setDeleteDialogOpen(true)
   }
 
+  // Edit photo functions
+  const openEditDialog = (photo: Photo) => {
+    setEditPhoto(photo)
+    setEditFormData({
+      alt: photo.alt,
+      caption: photo.caption,
+      category: photo.category
+    })
+    setEditDialogOpen(true)
+  }
+
+  const handleEditPhoto = async () => {
+    if (!editPhoto) return
+
+    try {
+      const response = await fetch(`http://localhost:3001/api/photos/${editPhoto.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          alt: editFormData.alt,
+          caption: editFormData.caption,
+          category: editFormData.category
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error(`Update failed: ${response.statusText}`)
+      }
+
+      alert('Photo updated successfully')
+      setEditDialogOpen(false)
+      setEditPhoto(null)
+      setEditFormData({ alt: '', caption: '', category: '' })
+      fetchPhotos() // Refresh the list
+    } catch (error) {
+      console.error('Update error:', error)
+      alert('Failed to update photo: ' + (error as Error).message)
+    }
+  }
+
   return (
     <div className="space-y-8">
       {/* Upload Section */}
@@ -183,20 +324,87 @@ function PhotoUpload() {
               multiple
               accept="image/*"
               onChange={handleFileChange}
+              className="cursor-pointer"
             />
-            {selectedFiles && (
+            {photoPreviews.length > 0 && (
               <p className="text-sm text-gray-600 mt-1">
-                {selectedFiles.length} file(s) selected
+                {photoPreviews.length} file(s) ready to upload
               </p>
             )}
           </div>
 
+          {/* Photo Previews */}
+          {photoPreviews.length > 0 && (
+            <div className="mt-4 space-y-4">
+              <div className="flex justify-between items-center">
+                <h4 className="font-medium text-gray-900">Preview Photos</h4>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={clearAllPreviews}
+                >
+                  Clear All
+                </Button>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {photoPreviews.map((item, index) => (
+                  <Card key={index} className="relative">
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute top-2 right-2 z-10"
+                      onClick={() => removePreview(index)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                    
+                    <img
+                      src={item.preview}
+                      alt={`Preview ${index + 1}`}
+                      className="w-full h-32 object-cover rounded-t cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => setImagePreview(item.preview)}
+                    />
+                    
+                    <CardContent className="p-3 space-y-2">
+                      <div>
+                        <Label htmlFor={`alt-${index}`} className="text-xs">
+                          Alt Text
+                        </Label>
+                        <Input
+                          id={`alt-${index}`}
+                          value={item.alt}
+                          onChange={(e) => updatePreviewAlt(index, e.target.value)}
+                          placeholder="Describe the photo..."
+                          className="text-xs"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor={`caption-${index}`} className="text-xs">
+                          Caption (optional)
+                        </Label>
+                        <Input
+                          id={`caption-${index}`}
+                          value={item.caption}
+                          onChange={(e) => updatePreviewCaption(index, e.target.value)}
+                          placeholder="Add a caption..."
+                          className="text-xs"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
           <Button 
             onClick={handleUpload} 
-            disabled={!selectedFiles || !category || uploading}
+            disabled={!selectedFiles || !category || uploading || photoPreviews.length === 0}
             className="w-full"
           >
-            {uploading ? 'Uploading...' : 'Upload Photos'}
+            {uploading ? 'Uploading...' : `Upload ${photoPreviews.length} Photos`}
           </Button>
         </CardContent>
       </Card>
@@ -209,7 +417,7 @@ function PhotoUpload() {
             Manage Gallery Photos
           </CardTitle>
           <CardDescription>
-            View and delete photos from the gallery ({photos.length} total photos)
+            View, edit, and delete photos from the gallery ({photos.length} total photos)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -229,11 +437,14 @@ function PhotoUpload() {
                       e.currentTarget.src = '/placeholder-image.png'
                     }}
                   />
-                  <div className="text-xs text-gray-600 mb-2">
+                  <div className="text-xs text-gray-600 mb-2 space-y-1">
                     <div className="font-medium truncate">{photo.category}</div>
                     <div className="truncate">{photo.alt}</div>
+                    {photo.caption && (
+                      <div className="text-gray-500 truncate italic">"{photo.caption}"</div>
+                    )}
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-wrap">
                     <Button
                       variant="outline"
                       size="sm"
@@ -244,9 +455,18 @@ function PhotoUpload() {
                       View
                     </Button>
                     <Button
-                      variant="destructive"
+                      variant="outline"
                       size="sm"
                       className="flex-1"
+                      onClick={() => openEditDialog(photo)}
+                    >
+                      <Edit className="h-3 w-3 mr-1" />
+                      Edit
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="w-full mt-1"
                       onClick={() => openDeleteDialog(photo)}
                     >
                       <Trash2 className="h-3 w-3 mr-1" />
@@ -259,6 +479,76 @@ function PhotoUpload() {
           )}
         </CardContent>
       </Card>
+
+      {/* Edit Photo Dialog */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Edit Photo</DialogTitle>
+            <DialogDescription>
+              Update the photo's information and caption.
+            </DialogDescription>
+          </DialogHeader>
+          {editPhoto && (
+            <div className="space-y-4">
+              <div className="flex justify-center">
+                <img
+                  src={editPhoto.image}
+                  alt={editPhoto.alt}
+                  className="max-w-64 max-h-48 object-contain rounded"
+                />
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-category">Category</Label>
+                  <Select 
+                    value={editFormData.category} 
+                    onValueChange={(value) => setEditFormData(prev => ({ ...prev, category: value }))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((cat) => (
+                        <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="edit-alt">Alt Text</Label>
+                  <Input
+                    id="edit-alt"
+                    value={editFormData.alt}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, alt: e.target.value }))}
+                    placeholder="Describe the photo..."
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="edit-caption">Caption</Label>
+                  <Input
+                    id="edit-caption"
+                    value={editFormData.caption}
+                    onChange={(e) => setEditFormData(prev => ({ ...prev, caption: e.target.value }))}
+                    placeholder="Add a caption (optional)..."
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleEditPhoto}>
+              Save Changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -286,6 +576,24 @@ function PhotoUpload() {
               Delete Photo
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Upload Preview Dialog */}
+      <Dialog open={!!imagePreview} onOpenChange={() => setImagePreview(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Photo Preview</DialogTitle>
+          </DialogHeader>
+          {imagePreview && (
+            <div className="flex justify-center">
+              <img
+                src={imagePreview}
+                alt="Upload Preview"
+                className="max-w-full max-h-[70vh] object-contain"
+              />
+            </div>
+          )}
         </DialogContent>
       </Dialog>
 
