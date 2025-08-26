@@ -163,12 +163,11 @@ app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
     const uploadedFiles = req.files.map(file => {
       const newPhoto = {
         id: uuidv4(),
-        filename: file.filename,
-        originalName: file.originalname,
+        image: `/ugli-boats-v2/uploads/${file.filename}`,
+        alt: `${category} - ${file.originalname}`,
         category: category,
         caption: '',
-        uploadDate: new Date().toISOString(),
-        url: `/ugli-boats-v2/uploads/${file.filename}`
+        uploadDate: new Date().toISOString()
       };
       photos.push(newPhoto);
       return newPhoto;
@@ -221,6 +220,57 @@ app.get('/api/photos', (req, res) => {
   } catch (error) {
     console.error('Error getting photos:', error);
     res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// Delete a photo
+app.delete('/api/photos/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('Delete request for photo ID:', id);
+    
+    const photos = readPhotos();
+    const photoIndex = photos.findIndex(photo => photo.id === id);
+    
+    if (photoIndex === -1) {
+      console.log('Photo not found with ID:', id);
+      return res.status(404).json({ error: 'Photo not found' });
+    }
+    
+    // Get the photo to delete for cleanup
+    const photoToDelete = photos[photoIndex];
+    console.log('Found photo to delete:', photoToDelete.image);
+    
+    // Remove photo from array
+    const deletedPhoto = photos.splice(photoIndex, 1)[0];
+    console.log('Deleted photo:', deletedPhoto.alt);
+    
+    // Save updated photos array
+    writePhotos(photos);
+    
+    // Optional: Delete the actual file from disk for uploaded photos
+    if (photoToDelete.image.includes('/uploads/')) {
+      const filename = photoToDelete.image.split('/').pop();
+      const filePath = path.join(__dirname, 'uploads', filename);
+      
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.log('Could not delete file from disk:', err.message);
+          // Don't fail the request if file deletion fails
+        } else {
+          console.log('Successfully deleted file from disk:', filename);
+        }
+      });
+    }
+    
+    res.json({
+      message: 'Photo deleted successfully',
+      deletedPhoto: deletedPhoto
+    });
+    
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+    res.status(500).json({ error: 'Failed to delete photo' });
   }
 });
 

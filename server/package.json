@@ -9,6 +9,7 @@
     "dev": "nodemon index.js",
     "seed": "node --loader ts-node/esm scripts/seed.ts",
     "seed:fresh": "rm -rf data/*.json && node --loader ts-node/esm scripts/seed.ts",
+    "seed:photos": "node scripts/seedPhotos.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
