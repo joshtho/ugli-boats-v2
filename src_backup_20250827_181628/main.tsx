@@ -1,0 +1,16 @@
+
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
+import { HashRouter as Router } from 'react-router-dom'
+import { BuildsProvider } from './contexts/BuildsContext'
+
+createRoot(document.getElementById('root')!).render(
+
+    <Router>
+      <BuildsProvider>
+        <App />
+      </BuildsProvider>
+    </Router>
+
+)

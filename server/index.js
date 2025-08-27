@@ -204,14 +204,12 @@ app.post('/api/auth/login', async (req, res) => {
       try {
         jwt.verify(currentValidToken, jwtSecret);
         // Token is still valid, block new login
-        console.log('Login attempt blocked - admin already logged in');
         return res.status(423).json({ 
           error: 'Admin already logged in. Please try again later or contact the current admin to logout.',
           code: 'ADMIN_ALREADY_ACTIVE'
         });
       } catch (tokenError) {
         // Existing token is expired/invalid, allow new login
-        console.log('Existing token expired, allowing new login');
         currentValidToken = null;
       }
     }
@@ -225,8 +223,6 @@ app.post('/api/auth/login', async (req, res) => {
 
     // Store as the current valid token
     currentValidToken = token;
-    console.log('New admin session created');
-    console.log('Current valid token stored:', currentValidToken?.substring(0, 20) + '...');
     
     res.json({
       message: 'Login successful',
@@ -249,25 +245,9 @@ app.post('/api/auth/verify', (req, res) => {
       return res.status(401).json({ error: 'No token provided' });
     }
 
-    // Debug info
-    const debugInfo = {
-      receivedTokenLength: token.length,
-      receivedTokenPreview: token.substring(0, 50) + '...',
-      storedTokenLength: currentValidToken?.length || 0,
-      storedTokenPreview: currentValidToken?.substring(0, 50) + '...' || 'No token',
-      tokensMatch: token === currentValidToken,
-      hasCurrentToken: currentValidToken !== null
-    };
-    
-    console.log('DEBUG Verify:', JSON.stringify(debugInfo, null, 2));
-
     // Check if this is the current valid token (single session security)
     if (currentValidToken !== null && token !== currentValidToken) {
-      console.log('Token mismatch - session invalid');
-      return res.status(401).json({ 
-        error: 'Session expired or invalid.',
-        debug: debugInfo
-      });
+      return res.status(401).json({ error: 'Session expired or invalid.' });
     }
     
     const jwtSecret = process.env.JWT_SECRET;
@@ -281,7 +261,6 @@ app.post('/api/auth/verify', (req, res) => {
       return res.status(401).json({ error: 'Invalid token' });
     }
     
-    console.log('Token verification successful');
     res.json({ 
       message: 'Token valid', 
       admin: true,
@@ -297,15 +276,10 @@ app.post('/api/auth/verify', (req, res) => {
 // Logout endpoint
 app.post('/api/auth/logout', (req, res) => {
   try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    
     // For single-admin system, clear session regardless of token match
     // This allows recovery if tokens get out of sync
     if (currentValidToken !== null) {
       currentValidToken = null;
-      console.log('Admin session cleared via logout - new logins now allowed');
-    } else {
-      console.log('Logout called but no active session found');
     }
     
     res.json({ message: 'Logout successful' });
@@ -314,15 +288,6 @@ app.post('/api/auth/logout', (req, res) => {
     console.error('Logout error:', error);
     res.status(500).json({ error: 'Logout failed' });
   }
-});
-
-// Debug endpoint to check current token status
-app.get('/api/auth/debug', (req, res) => {
-  res.json({
-    hasCurrentToken: currentValidToken !== null,
-    tokenLength: currentValidToken?.length || 0,
-    tokenPreview: currentValidToken?.substring(0, 50) + '...' || 'No token'
-  });
 });
 
 // Middleware to verify admin token for protected routes
@@ -335,11 +300,7 @@ const verifyAdminToken = (req, res, next) => {
     }
 
     // Check if this is the current valid token (single session security)
-    console.log('Middleware - Checking token:', token?.substring(0, 20) + '...');
-    console.log('Middleware - Current valid token:', currentValidToken?.substring(0, 20) + '...');
-    
     if (currentValidToken !== null && token !== currentValidToken) {
-      console.log('Middleware - Token mismatch, access denied');
       return res.status(401).json({ error: 'Access denied. Session expired or invalid.' });
     }
     

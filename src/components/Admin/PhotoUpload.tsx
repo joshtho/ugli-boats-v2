@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Upload, Trash2, Eye, X, Edit } from 'lucide-react'
-import { api } from '@/lib/auth'
+import { authenticatedFetch } from '@/lib/auth'
+import { getImageUrl } from '@/config/api'
 
 // Photo interface
 interface Photo {
@@ -68,7 +69,7 @@ function PhotoUpload() {
   const fetchPhotos = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/photos')
+      const response = await authenticatedFetch('photos')
       if (!response.ok) {
         throw new Error(`Failed to fetch photos: ${response.statusText}`)
       }
@@ -77,9 +78,7 @@ function PhotoUpload() {
       // Fix image paths for uploaded photos when running locally
       const fixedPhotos = photosData.map((photo: Photo) => ({
         ...photo,
-        image: photo.image.startsWith('/ugli-boats-v2/uploads/') 
-          ? `http://localhost:3001${photo.image}`
-          : photo.image
+        image: getImageUrl(photo.image)
       }))
       
       setPhotos(fixedPhotos)
@@ -199,7 +198,7 @@ function PhotoUpload() {
       console.log('Uploading with metadata:', metadata)
       
       // Send to backend API
-      const response = await fetch('http://localhost:3001/api/photos/upload', {
+      const response = await authenticatedFetch('photos/upload', {
         method: 'POST',
         body: formData
       })
@@ -231,7 +230,7 @@ function PhotoUpload() {
     if (!selectedPhoto) return
 
     try {
-      const response = await fetch(`http://localhost:3001/api/photos/${selectedPhoto.id}`, {
+      const response = await authenticatedFetch(`photos/${selectedPhoto.id}`, {
         method: 'DELETE'
       })
 
@@ -269,11 +268,8 @@ function PhotoUpload() {
     if (!editPhoto) return
 
     try {
-      const response = await fetch(`http://localhost:3001/api/photos/${editPhoto.id}`, {
+      const response = await authenticatedFetch(`photos/${editPhoto.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           alt: editFormData.alt,
           caption: editFormData.caption,

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
+import { getApiUrl } from '@/config/api'
 
 // Backend build interface - matches the unified structure from seed.ts
 interface BackendBuild {
@@ -57,7 +58,7 @@ export const BuildsProvider: React.FC<BuildsProviderProps> = ({ children }) => {
       setLoading(true)
       setError(null)
       
-      const url = 'http://localhost:3001/api/builds'
+      const url = getApiUrl('builds')
       console.log('Fetching builds from:', url)
       const response = await fetch(url)
       console.log('Response status:', response.status)

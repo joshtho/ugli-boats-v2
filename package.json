@@ -1,6 +1,5 @@
 {
   "name": "ugli-boats-v2",
-  "homepage": "https://joshtho.github.io/ugli-boats-v2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "start": "node server/index.js",
+    "build:production": "npm install && cd server && npm install && cd .. && npm run build && mkdir -p server/public && cp -r dist/* server/public/"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

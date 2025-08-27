@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getApiUrl } from '@/config/api'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -34,7 +35,7 @@ function BuildManagement() {
     }
     // For local development, use backend server
     if (url.startsWith('/uploads/') || url.includes('/uploads/')) {
-      return `http://localhost:3001${url}`
+      return getImageUrl(`${url}`)
     }
     return url.startsWith('/') ? url : `/${url}`
   }
@@ -62,7 +63,7 @@ function BuildManagement() {
       }
       
       // Send to backend API
-      const response = await fetch('http://localhost:3001/api/builds', {
+      const response = await fetch(getApiUrl('builds'), {
         method: 'POST',
         body: formData
       })
@@ -112,7 +113,7 @@ function BuildManagement() {
 
     try {
       console.log('Making DELETE request to:', `/api/builds/${buildId}`)
-      const response = await fetch(`http://localhost:3001/api/builds/${buildId}`, {
+      const response = await fetch(getApiUrl(`builds/${buildId}`), {
         method: 'DELETE'
       })
       
@@ -166,7 +167,7 @@ function BuildManagement() {
 
   const handleSaveBuild = async (updatedData: any) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/builds/${editingBuild.id}`, {
+      const response = await fetch(getApiUrl(`builds/${editingBuild.id}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -223,7 +224,7 @@ function BuildManagement() {
 
   const handleSaveNewBuild = async (buildData: any) => {
     try {
-      const response = await fetch('http://localhost:3001/api/builds', {
+      const response = await fetch(getApiUrl('builds'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

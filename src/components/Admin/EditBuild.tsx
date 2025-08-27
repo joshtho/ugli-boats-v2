@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { getApiUrl } from '@/config/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -161,7 +162,7 @@ function EditBuild({
       formData.append(`captions`, preview.caption || preview.file.name)
     })
 
-    const response = await fetch('http://localhost:3001/api/admin/upload', {
+    const response = await fetch(getApiUrl('admin/upload'), {
       method: 'POST',
       body: formData
     })
@@ -305,9 +306,9 @@ function EditBuild({
 
   const getImageUrl = (url: string): string => {
     if (url.startsWith('http')) return url
-    if (url.startsWith('/ugli-boats-v2')) return `http://localhost:3001${url}`
-    if (url.startsWith('/uploads')) return `http://localhost:3001${url}`
-    return `http://localhost:3001/uploads/${url}`
+    if (url.startsWith('/ugli-boats-v2')) return getImageUrl(`${url}`)
+    if (url.startsWith('/uploads')) return getImageUrl(`${url}`)
+    return `getImageUrl('${url}`
   }
 
   if (previewMode) {

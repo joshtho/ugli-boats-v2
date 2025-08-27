@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Send, X } from 'lucide-react'
+import { getApiUrl } from '@/config/api'
 
 // make a contact info object for data so he can save emails and phone numbers
 // figure out how to handle the submission without making the page reload and without the session timeout thing copilot added
@@ -211,7 +212,7 @@ function SubmitBuild() {
       }
       
       // Send to backend API
-      const response = await fetch('http://localhost:3001/api/submissions', {
+      const response = await fetch(getApiUrl('submissions'), {
         method: 'POST',
         body: submitData
       })

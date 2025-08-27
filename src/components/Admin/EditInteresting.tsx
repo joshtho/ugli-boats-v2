@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
+import { getApiUrl, getImageUrl } from '@/config/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Textarea } from '@/components/ui/textarea'
-import { Upload, Trash2, Eye, X, Edit, Plus, Video, Image, Youtube } from 'lucide-react'
+import { Upload, Trash2, Eye, X, Edit, Video, Youtube } from 'lucide-react'
 
 // Interfaces for interesting content
 interface MediaItem {
@@ -127,7 +128,7 @@ function EditInteresting() {
   const fetchInterestingContent = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/interesting')
+      const response = await fetch(getApiUrl('interesting'))
       if (!response.ok) {
         throw new Error(`Failed to fetch interesting content: ${response.statusText}`)
       }
@@ -139,7 +140,7 @@ function EditInteresting() {
         media: content.media.map(mediaItem => ({
           ...mediaItem,
           url: mediaItem.url.startsWith('/ugli-boats-v2/uploads/') 
-            ? `http://localhost:3001${mediaItem.url}`
+            ? getImageUrl(`${mediaItem.url}`)
             : mediaItem.url
         }))
       }))
@@ -288,7 +289,7 @@ function EditInteresting() {
         formData.append('youtubeVideos', JSON.stringify(youtubeMedia))
       }
 
-      const response = await fetch('http://localhost:3001/api/interesting', {
+      const response = await fetch(getApiUrl('interesting'), {
         method: 'POST',
         body: formData
       })
@@ -321,7 +322,7 @@ function EditInteresting() {
     if (!selectedContent) return
 
     try {
-      const response = await fetch(`http://localhost:3001/api/interesting/${selectedContent.id}`, {
+      const response = await fetch(getApiUrl(`interesting/${selectedContent.id}`), {
         method: 'DELETE'
       })
 
@@ -344,7 +345,7 @@ function EditInteresting() {
     if (!editContent) return
 
     try {
-      const response = await fetch(`http://localhost:3001/api/interesting/${editContent.id}`, {
+      const response = await fetch(getApiUrl(`interesting/${editContent.id}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -371,7 +372,7 @@ function EditInteresting() {
     }
   }
 
-  const renderMediaPreview = (media: MediaPreview, index: number) => {
+  const renderMediaPreview = (media: MediaPreview, _index: number) => {
     if (media.type === 'image') {
       return (
         <img 

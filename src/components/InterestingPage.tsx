@@ -1,4 +1,4 @@
-
+import { getApiUrl, getImageUrl } from '@/config/api'
 import { useState, useEffect, useRef } from 'react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
@@ -41,7 +41,7 @@ function InterestingPage() {
   useEffect(() => {
     const fetchInterestingContent = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/interesting')
+        const response = await fetch(getApiUrl('interesting'))
         if (!response.ok) {
           throw new Error(`Failed to fetch interesting content: ${response.statusText}`)
         }
@@ -53,7 +53,7 @@ function InterestingPage() {
           media: content.media.map(mediaItem => ({
             ...mediaItem,
             url: mediaItem.url.startsWith('/ugli-boats-v2/uploads/') 
-              ? `http://localhost:3001${mediaItem.url}`
+              ? getImageUrl(`${mediaItem.url}`)
               : mediaItem.url
           }))
         }))
@@ -99,10 +99,10 @@ function InterestingPage() {
     return match ? match[1] : null
   }
 
-  const getVimeoId = (url: string) => {
-    const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)
-    return match ? match[1] : null
-  }
+  // const getVimeoId = (url: string) => {
+  //   const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)
+  //   return match ? match[1] : null
+  // }
 
   const renderMediaItem = (media: MediaItem, index: number, content: InterestingContent, isClickable = true) => {
     const handleClick = () => {
