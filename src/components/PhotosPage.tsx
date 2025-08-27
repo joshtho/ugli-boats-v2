@@ -123,7 +123,7 @@ function PhotosPage() {
             </div>
             
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {categoryPhotos.map((photo, photoIndex) => {
+              {categoryPhotos.map((photo) => {
                 // Calculate global index across all photos
                 const globalIndex = photos.findIndex(p => p.id === photo.id)
                 
@@ -142,11 +142,6 @@ function PhotosPage() {
                         e.currentTarget.style.display = 'none'
                       }}
                     />
-                    {/* {photo.caption && (
-                      <p className="text-xs text-gray-600 mt-1 truncate">
-                        {photo.caption}
-                      </p>
-                    )} */}
                   </div>
                 )
               })}
@@ -191,7 +186,7 @@ function PhotosPage() {
                 }}
               >
                 <CarouselContent>
-                  {photos.map((photo, idx) => (
+                  {photos.map((photo) => (
                     <CarouselItem key={photo.id} className="flex flex-col items-center justify-center">
                       <img
                         src={photo.image}
