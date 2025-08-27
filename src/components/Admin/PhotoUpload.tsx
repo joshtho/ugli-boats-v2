@@ -25,6 +25,11 @@ interface PhotoPreview {
   alt: string
 }
 
+interface PreviewPhoto {
+  image: string
+  caption: string
+}
+
 function PhotoUpload() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null)
   const [category, setCategory] = useState('')
@@ -39,8 +44,8 @@ function PhotoUpload() {
   const [loading, setLoading] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [previewPhoto, setPreviewPhoto] = useState<string | null>(null)
-  
+  const [previewPhoto, setPreviewPhoto] = useState<PreviewPhoto | null>(null)
+
   // Edit photo state
   const [editPhoto, setEditPhoto] = useState<Photo | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -449,7 +454,7 @@ function PhotoUpload() {
                       variant="outline"
                       size="sm"
                       className="flex-1"
-                      onClick={() => setPreviewPhoto(photo.image)}
+                      onClick={() => setPreviewPhoto({ image: photo.image, caption: photo.caption })}
                     >
                       <Eye className="h-3 w-3 mr-1" />
                       View
@@ -604,14 +609,38 @@ function PhotoUpload() {
             <DialogTitle>Photo Preview</DialogTitle>
           </DialogHeader>
           {previewPhoto && (
-            <div className="flex justify-center">
+            <div className="flex-col justify-center">
               <img
-                src={previewPhoto}
+                src={previewPhoto.image}
                 alt="Preview"
                 className="max-w-full max-h-[70vh] object-contain"
               />
+              {previewPhoto.caption && (
+                <p
+                  className="
+                    mt-4
+                    mx-auto
+                    px-4
+                    py-2
+                    max-w-xl
+                    text-center
+                    text-base
+                    text-gray-700
+                    bg-white/80
+                    rounded
+                  "
+                >
+                  {previewPhoto.caption.split('\n').map((line: string, i: number) => (
+                    <span key={i}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
+                </p>
+              )}
             </div>
           )}
+            
         </DialogContent>
       </Dialog>
     </div>

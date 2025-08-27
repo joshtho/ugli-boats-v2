@@ -46,8 +46,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/builds">
             <SidebarMenuButton onClick={handleSidebarToggle}>Builds</SidebarMenuButton>
             </Link>
-            <Link to="/about">
-              <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
+            <Link to="/for-sale">
+              <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
             </Link>
             <Link to="/history">
               <SidebarMenuButton onClick={handleSidebarToggle}>History</SidebarMenuButton>
@@ -55,11 +55,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/photos">
               <SidebarMenuButton onClick={handleSidebarToggle}>Photos</SidebarMenuButton>
             </Link>
-            <Link to="/for-sale">
-              <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
-            </Link>
             <Link to="/interesting">
               <SidebarMenuButton onClick={handleSidebarToggle}>Interesting</SidebarMenuButton>
+            </Link>
+            <Link to="/about">
+              <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
+            </Link>
+            <Link to="/contact">
+              <SidebarMenuButton onClick={handleSidebarToggle}>Contact us</SidebarMenuButton>
             </Link>
           </SidebarMenu>
         </SidebarGroup>

@@ -142,11 +142,11 @@ function PhotosPage() {
                         e.currentTarget.style.display = 'none'
                       }}
                     />
-                    {photo.caption && (
+                    {/* {photo.caption && (
                       <p className="text-xs text-gray-600 mt-1 truncate">
                         {photo.caption}
                       </p>
-                    )}
+                    )} */}
                   </div>
                 )
               })}
@@ -236,11 +236,6 @@ function PhotosPage() {
                           ))}
                         </p>
                       )}
-                      {/* Photo details */}
-                      {/* <div className="mt-2 text-center">
-                        <p className="text-sm text-gray-600 font-medium">{photo.category}</p>
-                        <p className="text-xs text-gray-500">{photo.alt}</p>
-                      </div> */}
                     </CarouselItem>
                   ))}
                 </CarouselContent>

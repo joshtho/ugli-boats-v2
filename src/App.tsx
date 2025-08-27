@@ -25,8 +25,8 @@ import InterestingPage from "@/components/InterestingPage"
 import PhotosPage from "@/components/PhotosPage"
 import AdminPage from "@/components/Admin/AdminPage"
 import SubmitBuild from "@/components/SubmitBuild"
-
-
+import ContactPage from "@/components/ContactPage"
+import FooterSection from "@/components/FooterSection"
 
 export default function App() {
   const location = useLocation()
@@ -114,9 +114,11 @@ export default function App() {
               <Route path='/photos' element={<PhotosPage />} />
               <Route path='/admin' element={<AdminPage />} />
               <Route path='/submit-build' element={<SubmitBuild />} />
+              <Route path='/contact' element={<ContactPage />} />
               <Route path="/builds/:name" element={<BoatPage />} />
             </Routes>
         </div>
+            <FooterSection />
       </SidebarInset>
     </SidebarProvider>
   )
