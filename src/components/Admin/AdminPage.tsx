@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -7,19 +7,57 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SubmissionReview from './SubmissionReview'
 import PhotoUpload from './PhotoUpload'
 import BuildManagement from './BuildManagement'
-import ContentManagement from './ContentManagement'
+import EditInteresting from './EditInteresting'
+import { getToken, setToken, logout } from '@/lib/auth'
 
-// Admin authentication (simple password check for now)
+// Dynamic API base URL for development and production
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '' // Use relative URL in production (same domain)
+  : 'http://localhost:3001' // Development server
+
+// Secure admin authentication
 function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = () => {
-    // Simple password check - in production, use proper authentication
-    if (password === 'ugliboats2025') {
+  const handleLogin = async () => {
+    if (!password.trim()) {
+      setError('Password is required')
+      return
+    }
+    
+    setLoading(true)
+    setError('')
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        // Handle specific "admin already logged in" error
+        if (response.status === 423 && data.code === 'ADMIN_ALREADY_ACTIVE') {
+          throw new Error('⚠️ Admin already logged in! Please wait for the current session to expire (24 hours) or ask them to logout.')
+        }
+        throw new Error(data.error || 'Login failed')
+      }
+      
+      // Store the JWT token
+      setToken(data.token)
       onLogin()
-    } else {
-      setError('Invalid password')
+      
+    } catch (error) {
+      console.error('Login error:', error)
+      setError(error instanceof Error ? error.message : 'Login failed')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -28,7 +66,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Admin Login</CardTitle>
-          <CardDescription>Enter the admin password to access the management panel</CardDescription>
+          <CardDescription>Enter your password to access the admin panel</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
@@ -38,12 +76,17 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+              onKeyPress={(e) => e.key === 'Enter' && !loading && handleLogin()}
+              disabled={loading}
             />
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
-          <Button onClick={handleLogin} className="w-full">
-            Login
+          <Button 
+            onClick={handleLogin} 
+            className="w-full" 
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
           </Button>
         </CardContent>
       </Card>
@@ -52,16 +95,30 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
 }
 
 function AdminDashboard() {
+  const handleLogout = async () => {
+    await logout()
+    window.location.reload()
+  }
+
   return (
     <div className="mx-auto max-w-6xl p-6">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <Button 
+          onClick={handleLogout} 
+          variant="outline"
+          className="ml-auto"
+        >
+          Logout
+        </Button>
+      </div>
       
       <Tabs defaultValue="submissions" className="w-full">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
           <TabsTrigger value="photos">Photos</TabsTrigger>
           <TabsTrigger value="builds">Builds</TabsTrigger>
-          <TabsTrigger value="content">Content</TabsTrigger>
+          <TabsTrigger value="interesting">Interesting</TabsTrigger>
         </TabsList>
         
         <TabsContent value="submissions" className="mt-6">
@@ -76,8 +133,8 @@ function AdminDashboard() {
           <BuildManagement />
         </TabsContent>
         
-        <TabsContent value="content" className="mt-6">
-          <ContentManagement />
+        <TabsContent value="interesting" className="mt-6">
+          <EditInteresting />
         </TabsContent>
       </Tabs>
     </div>
@@ -85,36 +142,64 @@ function AdminDashboard() {
 }
 
 function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Check sessionStorage for existing authentication
-    return sessionStorage.getItem('adminAuthenticated') === 'true'
-  })
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  // Check authentication status on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = getToken()
+      
+      if (!token) {
+        setLoading(false)
+        return
+      }
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+        
+        if (response.ok) {
+          setIsAuthenticated(true)
+        } else {
+          // Token invalid, remove it
+          await logout()
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error)
+        await logout()
+      }
+      
+      setLoading(false)
+    }
+    
+    checkAuth()
+  }, [])
 
   const handleLogin = () => {
     setIsAuthenticated(true)
-    sessionStorage.setItem('adminAuthenticated', 'true')
   }
 
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    sessionStorage.removeItem('adminAuthenticated')
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    )
   }
 
   if (!isAuthenticated) {
     return <AdminLogin onLogin={handleLogin} />
   }
 
-  return (
-    <div>
-      <div className="flex justify-between items-center p-4 border-b">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Button onClick={handleLogout} variant="outline">
-          Logout
-        </Button>
-      </div>
-      <AdminDashboard />
-    </div>
-  )
+  return <AdminDashboard />
 }
 
 export default AdminPage

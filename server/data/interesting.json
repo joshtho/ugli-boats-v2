@@ -1,0 +1,66 @@
+[
+  {
+    "id": "807bf66a-60c7-4500-9096-f2079c43e390",
+    "header": "Removable UgliBoat Engine Bracket",
+    "description": "A specialized engine bracket designed for UgliBoats that can be easily removed when needed.",
+    "media": [
+      {
+        "id": "69e4a7da-0a82-4f52-9df5-2d7a1662c121",
+        "type": "image",
+        "alt": "Removable UgliBoat Engine Bracket",
+        "caption": "Removable UgliBoat Engine Bracket",
+        "url": "/ugli-boats-v2/IMAGES/Removable Engine Bracket.jpg"
+      }
+    ],
+    "createdDate": "2025-08-27T18:55:05.874Z",
+    "isLegacy": true
+  },
+  {
+    "id": "e574fd64-87b1-4edd-96aa-f893a2eff57c",
+    "header": "UgliBoat in Africa",
+    "description": "An UgliBoat pushing a raft across a river in pursuit of the African Tiger Fish.",
+    "media": [
+      {
+        "id": "57eaca03-d9f4-4f28-b8d7-005d110e0955",
+        "type": "image",
+        "alt": "UgliBoat in Africa",
+        "caption": "An UgliBoat pushing a raft across a river in pursuit of the African Tiger Fish.",
+        "url": "/ugli-boats-v2/IMAGES/UgliBoat inAfrica.jpg"
+      }
+    ],
+    "createdDate": "2025-08-27T18:55:05.874Z",
+    "isLegacy": true
+  },
+  {
+    "id": "99de3e79-4932-48bc-bd30-50563b7b9f75",
+    "header": "UgliBoat Documentary Trailer",
+    "description": "You can watch the trailer below:",
+    "media": [
+      {
+        "id": "c475f77b-e1dc-4dba-8018-5ddaf6377fca",
+        "type": "vimeo",
+        "alt": "UgliBoat Documentary Trailer",
+        "caption": "UgliBoat documentary trailer on Vimeo",
+        "url": "https://player.vimeo.com/video/248079536?h=c5518f6096"
+      }
+    ],
+    "createdDate": "2025-08-27T18:55:05.874Z",
+    "isLegacy": true
+  },
+  {
+    "id": "5b8b6120-192c-4dd5-a111-1816b108c743",
+    "header": "TV Show Life Below Zero",
+    "description": "UgliBoats featured on the TV show Life Below Zero: Sink or Swim.",
+    "media": [
+      {
+        "id": "a3fa5a9b-bf02-4dad-9805-75df31e19ef2",
+        "type": "image",
+        "alt": "Life Below Zero: Sink or Swim",
+        "caption": "TV Show Life Below Zero featuring UgliBoats",
+        "url": "/ugli-boats-v2/IMAGES/life below zero sink or swim.jpg"
+      }
+    ],
+    "createdDate": "2025-08-27T18:55:05.874Z",
+    "isLegacy": true
+  }
+]

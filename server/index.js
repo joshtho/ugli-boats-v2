@@ -7,6 +7,8 @@ import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 // Configure dotenv
 dotenv.config();
@@ -17,6 +19,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Store the current valid session token (in-memory for single admin)
+let currentValidToken = null;
 
 // Middleware
 app.use(cors());
@@ -40,6 +45,7 @@ if (!fs.existsSync(dataDir)) {
 const photosFile = path.join(dataDir, 'photos.json');
 const buildsFile = path.join(dataDir, 'builds.json');
 const submissionsFile = path.join(dataDir, 'submissions.json');
+const interestingFile = path.join(dataDir, 'interesting.json');
 
 // Initialize JSON files if they don't exist
 if (!fs.existsSync(photosFile)) {
@@ -50,6 +56,9 @@ if (!fs.existsSync(buildsFile)) {
 }
 if (!fs.existsSync(submissionsFile)) {
   fs.writeFileSync(submissionsFile, JSON.stringify([], null, 2));
+}
+if (!fs.existsSync(interestingFile)) {
+  fs.writeFileSync(interestingFile, JSON.stringify([], null, 2));
 }
 
 // Helper functions for JSON file operations
@@ -107,6 +116,24 @@ const writeSubmissions = (submissions) => {
   }
 };
 
+const readInteresting = () => {
+  try {
+    const data = fs.readFileSync(interestingFile, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading interesting content:', error);
+    return [];
+  }
+};
+
+const writeInteresting = (interesting) => {
+  try {
+    fs.writeFileSync(interestingFile, JSON.stringify(interesting, null, 2));
+  } catch (error) {
+    console.error('Error writing interesting content:', error);
+  }
+};
+
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -143,8 +170,207 @@ app.get('/', (req, res) => {
   res.json({ message: 'UGLI Boats API Server is running!' });
 });
 
+// === AUTHENTICATION ENDPOINTS ===
+
+// Login endpoint
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { password } = req.body;
+    
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required' });
+    }
+    
+    // Compare with hashed password from environment
+    const hashedPassword = process.env.ADMIN_PASSWORD_HASH;
+    const jwtSecret = process.env.JWT_SECRET;
+    
+    if (!hashedPassword || !jwtSecret) {
+      console.error('Missing ADMIN_PASSWORD_HASH or JWT_SECRET in environment variables');
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+    
+    const isValidPassword = await bcrypt.compare(password, hashedPassword);
+    
+    if (!isValidPassword) {
+      // Add a small delay to prevent brute force attacks
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return res.status(401).json({ error: 'Invalid password' });
+    }
+
+    // Check if someone is already logged in (Option B: Block new logins)
+    if (currentValidToken !== null) {
+      // Verify the existing token is still valid
+      try {
+        jwt.verify(currentValidToken, jwtSecret);
+        // Token is still valid, block new login
+        console.log('Login attempt blocked - admin already logged in');
+        return res.status(423).json({ 
+          error: 'Admin already logged in. Please try again later or contact the current admin to logout.',
+          code: 'ADMIN_ALREADY_ACTIVE'
+        });
+      } catch (tokenError) {
+        // Existing token is expired/invalid, allow new login
+        console.log('Existing token expired, allowing new login');
+        currentValidToken = null;
+      }
+    }
+    
+    // Generate JWT token (expires in 24 hours)
+    const token = jwt.sign(
+      { admin: true, iat: Date.now() },
+      jwtSecret,
+      { expiresIn: '24h' }
+    );
+
+    // Store as the current valid token
+    currentValidToken = token;
+    console.log('New admin session created');
+    console.log('Current valid token stored:', currentValidToken?.substring(0, 20) + '...');
+    
+    res.json({
+      message: 'Login successful',
+      token: token,
+      expiresIn: '24h'
+    });
+    
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// Verify token endpoint
+app.post('/api/auth/verify', (req, res) => {
+  try {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    // Debug info
+    const debugInfo = {
+      receivedTokenLength: token.length,
+      receivedTokenPreview: token.substring(0, 50) + '...',
+      storedTokenLength: currentValidToken?.length || 0,
+      storedTokenPreview: currentValidToken?.substring(0, 50) + '...' || 'No token',
+      tokensMatch: token === currentValidToken,
+      hasCurrentToken: currentValidToken !== null
+    };
+    
+    console.log('DEBUG Verify:', JSON.stringify(debugInfo, null, 2));
+
+    // Check if this is the current valid token (single session security)
+    if (currentValidToken !== null && token !== currentValidToken) {
+      console.log('Token mismatch - session invalid');
+      return res.status(401).json({ 
+        error: 'Session expired or invalid.',
+        debug: debugInfo
+      });
+    }
+    
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+    
+    const decoded = jwt.verify(token, jwtSecret);
+    
+    if (!decoded.admin) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+    
+    console.log('Token verification successful');
+    res.json({ 
+      message: 'Token valid', 
+      admin: true,
+      expiresAt: new Date(decoded.exp * 1000)
+    });
+    
+  } catch (error) {
+    console.error('Token verification error:', error);
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
+// Logout endpoint
+app.post('/api/auth/logout', (req, res) => {
+  try {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    // For single-admin system, clear session regardless of token match
+    // This allows recovery if tokens get out of sync
+    if (currentValidToken !== null) {
+      currentValidToken = null;
+      console.log('Admin session cleared via logout - new logins now allowed');
+    } else {
+      console.log('Logout called but no active session found');
+    }
+    
+    res.json({ message: 'Logout successful' });
+    
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({ error: 'Logout failed' });
+  }
+});
+
+// Debug endpoint to check current token status
+app.get('/api/auth/debug', (req, res) => {
+  res.json({
+    hasCurrentToken: currentValidToken !== null,
+    tokenLength: currentValidToken?.length || 0,
+    tokenPreview: currentValidToken?.substring(0, 50) + '...' || 'No token'
+  });
+});
+
+// Middleware to verify admin token for protected routes
+const verifyAdminToken = (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ error: 'Access denied. No token provided.' });
+    }
+
+    // Check if this is the current valid token (single session security)
+    console.log('Middleware - Checking token:', token?.substring(0, 20) + '...');
+    console.log('Middleware - Current valid token:', currentValidToken?.substring(0, 20) + '...');
+    
+    if (currentValidToken !== null && token !== currentValidToken) {
+      console.log('Middleware - Token mismatch, access denied');
+      return res.status(401).json({ error: 'Access denied. Session expired or invalid.' });
+    }
+    
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+    
+    const decoded = jwt.verify(token, jwtSecret);
+    
+    if (!decoded.admin) {
+      return res.status(401).json({ error: 'Access denied. Invalid token.' });
+    }
+    
+    req.admin = decoded;
+    next();
+    
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Access denied. Token expired.' });
+    } else if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'Access denied. Invalid token.' });
+    }
+    
+    console.error('Token verification error:', error);
+    res.status(401).json({ error: 'Access denied. Token verification failed.' });
+  }
+};
+
 // Upload photos
-app.post('/api/photos/upload', upload.array('photos', 10), (req, res) => {
+app.post('/api/photos/upload', verifyAdminToken, upload.array('photos', 10), (req, res) => {
   try {
     const { category, metadata } = req.body;
     
@@ -259,7 +485,7 @@ app.get('/api/photos', (req, res) => {
 });
 
 // Delete a photo
-app.delete('/api/photos/:id', (req, res) => {
+app.delete('/api/photos/:id', verifyAdminToken, (req, res) => {
   try {
     const { id } = req.params;
     console.log('Delete request for photo ID:', id);
@@ -310,7 +536,7 @@ app.delete('/api/photos/:id', (req, res) => {
 });
 
 // Update a photo
-app.put('/api/photos/:id', (req, res) => {
+app.put('/api/photos/:id', verifyAdminToken, (req, res) => {
   try {
     const { id } = req.params;
     const { alt, caption, category } = req.body;
@@ -409,7 +635,7 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
 });
 
 // Update a build
-app.put('/api/builds/:id', (req, res) => {
+app.put('/api/builds/:id', verifyAdminToken, (req, res) => {
   try {
     const buildId = req.params.id;
     const updatedData = req.body;
@@ -467,7 +693,7 @@ app.get('/api/builds', (req, res) => {
 });
 
 // Delete a build
-app.delete('/api/builds/:id', (req, res) => {
+app.delete('/api/builds/:id', verifyAdminToken, (req, res) => {
   try {
     const buildId = req.params.id;
     console.log('Delete request for build ID:', buildId);
@@ -505,7 +731,7 @@ app.delete('/api/builds/:id', (req, res) => {
 });
 
 // Admin file upload endpoint (for EditBuild component)
-app.post('/api/admin/upload', upload.array('images', 10), (req, res) => {
+app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded' });
@@ -633,7 +859,7 @@ app.get('/api/submissions', (req, res) => {
 });
 
 // Approve a submission (convert to build)
-app.post('/api/submissions/:id/approve', (req, res) => {
+app.post('/api/submissions/:id/approve', verifyAdminToken, (req, res) => {
   try {
     const submissionId = req.params.id;
     
@@ -681,7 +907,7 @@ app.post('/api/submissions/:id/approve', (req, res) => {
 });
 
 // Update a submission
-app.put('/api/submissions/:id', (req, res) => {
+app.put('/api/submissions/:id', verifyAdminToken, (req, res) => {
   try {
     const submissionId = req.params.id;
     const updatedData = req.body;
@@ -726,7 +952,7 @@ app.put('/api/submissions/:id', (req, res) => {
 });
 
 // Reject a submission
-app.post('/api/submissions/:id/reject', (req, res) => {
+app.post('/api/submissions/:id/reject', verifyAdminToken, (req, res) => {
   try {
     const submissionId = req.params.id;
     
@@ -750,6 +976,202 @@ app.post('/api/submissions/:id/reject', (req, res) => {
   } catch (error) {
     console.error('Error rejecting submission:', error);
     res.status(500).json({ error: 'Failed to reject submission' });
+  }
+});
+
+// === INTERESTING CONTENT ENDPOINTS ===
+
+// Get all interesting content
+app.get('/api/interesting', (req, res) => {
+  try {
+    const interesting = readInteresting();
+    const sortedInteresting = interesting.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+    
+    res.json(sortedInteresting);
+  } catch (error) {
+    console.error('Error getting interesting content:', error);
+    res.status(500).json({ error: 'Failed to get interesting content' });
+  }
+});
+
+// Add new interesting content
+app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, res) => {
+  try {
+    const { header, description, metadata, youtubeVideos } = req.body;
+    
+    console.log('Interesting content upload request:');
+    console.log('Header:', header);
+    console.log('Description:', description);
+    console.log('Metadata:', metadata);
+    console.log('YouTube videos:', youtubeVideos);
+    console.log('Files count:', req.files ? req.files.length : 0);
+    
+    if (!header) {
+      return res.status(400).json({ error: 'Header is required' });
+    }
+    
+    // Read existing interesting content
+    const interesting = readInteresting();
+    
+    // Parse metadata for media files
+    let mediaMetadata = [];
+    if (metadata) {
+      try {
+        mediaMetadata = JSON.parse(metadata);
+      } catch (e) {
+        console.log('Failed to parse media metadata:', e);
+      }
+    }
+    
+    // Parse YouTube videos
+    let youtubeVideoData = [];
+    if (youtubeVideos) {
+      try {
+        youtubeVideoData = JSON.parse(youtubeVideos);
+      } catch (e) {
+        console.log('Failed to parse YouTube videos:', e);
+      }
+    }
+    
+    // Process uploaded media files
+    const uploadedMedia = req.files ? req.files.map((file, index) => {
+      const metadata = mediaMetadata[index] || {};
+      return {
+        id: uuidv4(),
+        type: file.mimetype.startsWith('image/') ? 'image' : 'video',
+        alt: metadata.alt || file.originalname.replace(/\.[^/.]+$/, ""),
+        caption: metadata.caption || '',
+        url: `/ugli-boats-v2/uploads/${file.filename}`
+      };
+    }) : [];
+    
+    // Process YouTube videos
+    const youtubeMedia = youtubeVideoData.map(video => ({
+      id: uuidv4(),
+      type: 'youtube',
+      alt: video.alt || 'YouTube video',
+      caption: video.caption || '',
+      url: video.url
+    }));
+    
+    // Combine all media
+    const allMedia = [...uploadedMedia, ...youtubeMedia];
+    
+    // Create new interesting content item
+    const newInteresting = {
+      id: uuidv4(),
+      header: header.trim(),
+      description: description ? description.trim() : '',
+      media: allMedia,
+      createdDate: new Date().toISOString()
+    };
+    
+    // Add to interesting content array
+    interesting.push(newInteresting);
+    
+    // Save updated interesting content
+    writeInteresting(interesting);
+    
+    res.json({
+      message: 'Interesting content added successfully',
+      interesting: newInteresting
+    });
+    
+  } catch (error) {
+    console.error('Error adding interesting content:', error);
+    res.status(500).json({ error: 'Failed to add interesting content' });
+  }
+});
+
+// Update interesting content
+app.put('/api/interesting/:id', verifyAdminToken, (req, res) => {
+  try {
+    const { id } = req.params;
+    const { header, description, media } = req.body;
+    
+    console.log('Update interesting content request for ID:', id);
+    console.log('Update data:', { header, description, media: media?.length });
+    
+    const interesting = readInteresting();
+    const interestingIndex = interesting.findIndex(item => item.id === id);
+    
+    if (interestingIndex === -1) {
+      return res.status(404).json({ error: 'Interesting content not found' });
+    }
+    
+    // Update the interesting content
+    const updatedInteresting = {
+      ...interesting[interestingIndex],
+      header: header || interesting[interestingIndex].header,
+      description: description !== undefined ? description : interesting[interestingIndex].description,
+      media: media || interesting[interestingIndex].media,
+      updatedDate: new Date().toISOString()
+    };
+    
+    interesting[interestingIndex] = updatedInteresting;
+    
+    // Save updated interesting content
+    writeInteresting(interesting);
+    
+    res.json({
+      message: 'Interesting content updated successfully',
+      interesting: updatedInteresting
+    });
+    
+  } catch (error) {
+    console.error('Error updating interesting content:', error);
+    res.status(500).json({ error: 'Failed to update interesting content' });
+  }
+});
+
+// Delete interesting content
+app.delete('/api/interesting/:id', verifyAdminToken, (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('Delete interesting content request for ID:', id);
+    
+    const interesting = readInteresting();
+    const interestingIndex = interesting.findIndex(item => item.id === id);
+    
+    if (interestingIndex === -1) {
+      return res.status(404).json({ error: 'Interesting content not found' });
+    }
+    
+    // Get the item to delete for cleanup
+    const itemToDelete = interesting[interestingIndex];
+    
+    // Remove item from array
+    const deletedItem = interesting.splice(interestingIndex, 1)[0];
+    
+    // Save updated interesting content
+    writeInteresting(interesting);
+    
+    // Optional: Delete uploaded media files from disk
+    if (itemToDelete.media) {
+      itemToDelete.media.forEach(mediaItem => {
+        if (mediaItem.url.includes('/uploads/')) {
+          const filename = mediaItem.url.split('/').pop();
+          const filePath = path.join(__dirname, 'uploads', filename);
+          
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.log('Could not delete media file from disk:', err.message);
+            } else {
+              console.log('Successfully deleted media file from disk:', filename);
+            }
+          });
+        }
+      });
+    }
+    
+    res.json({
+      message: 'Interesting content deleted successfully',
+      deletedItem: deletedItem
+    });
+    
+  } catch (error) {
+    console.error('Error deleting interesting content:', error);
+    res.status(500).json({ error: 'Failed to delete interesting content' });
   }
 });
 
