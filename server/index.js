@@ -194,7 +194,70 @@ console.log('Using JSON file storage for data persistence');
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ message: 'UGLI Boats API Server is running!' });
+  res.json({ 
+    message: 'UGLI Boats API Server is running!',
+    environment: process.env.NODE_ENV || 'development',
+    hasJWT: !!process.env.JWT_SECRET,
+    hasPasswordHash: !!process.env.ADMIN_PASSWORD_HASH,
+    uploadDir: process.env.UPLOAD_DIR || 'uploads',
+    uploadsExists: fs.existsSync('uploads')
+  });
+});
+
+// Route health check endpoint
+app.get('/api/health/routes', (req, res) => {
+  try {
+    const routes = [];
+    
+    // Check basic file operations
+    const photosExist = fs.existsSync(photosFile);
+    const buildsExist = fs.existsSync(buildsFile);
+    const submissionsExist = fs.existsSync(submissionsFile);
+    const interestingExist = fs.existsSync(interestingFile);
+    const uploadsExist = fs.existsSync(uploadsDir);
+    
+    // Test data read operations
+    let photosCount = 0;
+    let buildsCount = 0;
+    let submissionsCount = 0;
+    let interestingCount = 0;
+    
+    try {
+      photosCount = readPhotos().length;
+      buildsCount = readBuilds().length;
+      submissionsCount = readSubmissions().length;
+      interestingCount = readInteresting().length;
+    } catch (error) {
+      console.error('Data read error:', error);
+    }
+    
+    res.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      files: {
+        photos: { exists: photosExist, count: photosCount },
+        builds: { exists: buildsExist, count: buildsCount },
+        submissions: { exists: submissionsExist, count: submissionsCount },
+        interesting: { exists: interestingExist, count: interestingCount },
+        uploads: { exists: uploadsExist }
+      },
+      routes: {
+        auth: ['/api/auth/login', '/api/auth/verify', '/api/auth/logout'],
+        photos: ['/api/photos', '/api/photos/:category', '/api/photos/upload'],
+        builds: ['/api/builds', '/api/builds/:id'],
+        submissions: ['/api/submissions', '/api/submissions/:id/approve'],
+        interesting: ['/api/interesting'],
+        admin: ['/api/admin/upload']
+      }
+    });
+  } catch (error) {
+    console.error('Health check error:', error);
+    res.status(500).json({ 
+      status: 'error',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // === AUTHENTICATION ENDPOINTS ===
@@ -363,11 +426,15 @@ app.post('/api/photos/upload', verifyAdminToken, upload.array('photos', 10), (re
     const { category, metadata } = req.body;
     
     // Debug logging
-    console.log('Upload request received:');
+    console.log('===== PHOTO UPLOAD REQUEST =====');
     console.log('Category:', category);
     console.log('Metadata:', metadata);
     console.log('Files count:', req.files ? req.files.length : 0);
     console.log('All body keys:', Object.keys(req.body));
+    console.log('Environment check:');
+    console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+    console.log('UPLOAD_DIR:', process.env.UPLOAD_DIR);
+    console.log('Uploads directory exists:', fs.existsSync('uploads'));
     
     let captions = [];
     let alts = [];
@@ -432,7 +499,19 @@ app.post('/api/photos/upload', verifyAdminToken, upload.array('photos', 10), (re
     
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ error: 'Upload failed' });
+    console.error('Error stack:', error.stack);
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      errno: error.errno,
+      syscall: error.syscall,
+      path: error.path
+    });
+    res.status(500).json({ 
+      error: 'Upload failed',
+      details: error.message,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
