@@ -59,8 +59,14 @@ app.use('/ugli-boats-v2', express.static(path.join(__dirname, 'public'), {
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
+console.log('Uploads directory path:', uploadsDir);
+console.log('Uploads directory exists before creation:', fs.existsSync(uploadsDir));
 if (!fs.existsSync(uploadsDir)) {
+  console.log('Creating uploads directory...');
   fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('Uploads directory created, exists now:', fs.existsSync(uploadsDir));
+} else {
+  console.log('Uploads directory already exists');
 }
 
 // Create data directory and files for JSON storage
@@ -200,7 +206,9 @@ app.get('/api/health', (req, res) => {
     hasJWT: !!process.env.JWT_SECRET,
     hasPasswordHash: !!process.env.ADMIN_PASSWORD_HASH,
     uploadDir: process.env.UPLOAD_DIR || 'uploads',
-    uploadsExists: fs.existsSync('uploads')
+    uploadsPath: uploadsDir,
+    uploadsExists: fs.existsSync(uploadsDir),
+    workingDirectory: process.cwd()
   });
 });
 
