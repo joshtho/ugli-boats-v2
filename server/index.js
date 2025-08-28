@@ -97,19 +97,41 @@ if (!fs.existsSync(interestingFile)) {
 // Helper functions for JSON file operations
 const readPhotos = () => {
   try {
+    console.log('Reading photos from:', photosFile);
+    console.log('Photos file exists:', fs.existsSync(photosFile));
+    if (!fs.existsSync(photosFile)) {
+      console.log('Photos file does not exist, creating empty array');
+      return [];
+    }
     const data = fs.readFileSync(photosFile, 'utf8');
-    return JSON.parse(data);
+    const photos = JSON.parse(data);
+    console.log('Successfully read photos, count:', photos.length);
+    return photos;
   } catch (error) {
-    console.error('Error reading photos:', error);
+    console.error('Error reading photos:', error.message);
+    console.error('Error details:', error);
     return [];
   }
 };
 
 const writePhotos = (photos) => {
   try {
+    console.log('Writing photos to:', photosFile);
+    console.log('Photos count:', photos.length);
+    console.log('Data directory exists:', fs.existsSync(dataDir));
+    
+    // Ensure data directory exists
+    if (!fs.existsSync(dataDir)) {
+      console.log('Creating data directory:', dataDir);
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    
     fs.writeFileSync(photosFile, JSON.stringify(photos, null, 2));
+    console.log('Successfully wrote photos file');
   } catch (error) {
-    console.error('Error writing photos:', error);
+    console.error('Error writing photos:', error.message);
+    console.error('Error details:', error);
+    throw error; // Re-throw to propagate the error up
   }
 };
 
@@ -445,8 +467,28 @@ const verifyAdminToken = (req, res, next) => {
   }
 };
 
+// Custom middleware to handle multer errors
+const handleMulterUpload = (req, res, next) => {
+  console.log('===== MULTER UPLOAD MIDDLEWARE =====');
+  console.log('Content-Type:', req.headers['content-type']);
+  console.log('Content-Length:', req.headers['content-length']);
+  
+  upload.array('photos', 10)(req, res, (err) => {
+    if (err) {
+      console.log('Multer error:', err.message, err.code);
+      console.log('Error details:', err);
+      return res.status(400).json({ 
+        error: 'File upload error: ' + err.message,
+        code: err.code 
+      });
+    }
+    console.log('Multer completed successfully, files:', req.files?.length || 0);
+    next();
+  });
+};
+
 // Upload photos
-app.post('/api/photos/upload', verifyAdminToken, upload.array('photos', 10), (req, res) => {
+app.post('/api/photos/upload', verifyAdminToken, handleMulterUpload, (req, res) => {
   try {
     const { category, metadata } = req.body;
     
