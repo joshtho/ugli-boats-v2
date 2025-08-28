@@ -391,32 +391,49 @@ app.post('/api/auth/logout', (req, res) => {
 // Middleware to verify admin token for protected routes
 const verifyAdminToken = (req, res, next) => {
   try {
+    console.log('===== AUTH TOKEN VERIFICATION =====');
+    console.log('Request URL:', req.url);
+    console.log('Authorization header:', req.headers.authorization ? 'Present' : 'Missing');
+    
     const token = req.headers.authorization?.replace('Bearer ', '');
     
     if (!token) {
+      console.log('Auth failed: No token provided');
       return res.status(401).json({ error: 'Access denied. No token provided.' });
     }
 
+    console.log('Token received (first 20 chars):', token.substring(0, 20) + '...');
+    console.log('Current valid token exists:', !!currentValidToken);
+    console.log('Token matches current valid token:', currentValidToken === token);
+
     // Check if this is the current valid token (single session security)
     if (currentValidToken !== null && token !== currentValidToken) {
+      console.log('Auth failed: Session expired or invalid token mismatch');
       return res.status(401).json({ error: 'Access denied. Session expired or invalid.' });
     }
     
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
+      console.log('Auth failed: No JWT_SECRET configured');
       return res.status(500).json({ error: 'Server configuration error' });
     }
     
+    console.log('JWT_SECRET configured:', !!jwtSecret);
+    
     const decoded = jwt.verify(token, jwtSecret);
+    console.log('Token decoded successfully:', !!decoded.admin);
     
     if (!decoded.admin) {
+      console.log('Auth failed: Invalid admin flag in token');
       return res.status(401).json({ error: 'Access denied. Invalid token.' });
     }
     
+    console.log('Auth successful, proceeding to route handler');
     req.admin = decoded;
     next();
     
   } catch (error) {
+    console.log('Auth error:', error.name, error.message);
     if (error.name === 'TokenExpiredError') {
       return res.status(401).json({ error: 'Access denied. Token expired.' });
     } else if (error.name === 'JsonWebTokenError') {
