@@ -57,7 +57,7 @@ function BoatPage({ buildData }: BoatPageProps) {
     }
     // For local development, use backend server
     if (url.startsWith('/uploads/') || url.includes('/uploads/')) {
-      return getImageUrl(url)
+      return `${import.meta.env.DEV ? 'http://localhost:3001' : ''}${url}`
     }
     return url.startsWith('/') ? url : `/${url}`
   }
