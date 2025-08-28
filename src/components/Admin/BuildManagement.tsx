@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getApiUrl } from '@/config/api'
+import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -63,7 +64,7 @@ function BuildManagement() {
       }
       
       // Send to backend API
-      const response = await fetch(getApiUrl('builds'), {
+      const response = await authenticatedFetch('builds', {
         method: 'POST',
         body: formData
       })
@@ -113,7 +114,7 @@ function BuildManagement() {
 
     try {
       console.log('Making DELETE request to:', `/api/builds/${buildId}`)
-      const response = await fetch(getApiUrl(`builds/${buildId}`), {
+      const response = await authenticatedFetch(`builds/${buildId}`, {
         method: 'DELETE'
       })
       
@@ -167,11 +168,8 @@ function BuildManagement() {
 
   const handleSaveBuild = async (updatedData: any) => {
     try {
-      const response = await fetch(getApiUrl(`builds/${editingBuild.id}`), {
+      const response = await authenticatedFetch(`builds/${editingBuild.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(updatedData)
       })
       
@@ -224,11 +222,8 @@ function BuildManagement() {
 
   const handleSaveNewBuild = async (buildData: any) => {
     try {
-      const response = await fetch(getApiUrl('builds'), {
+      const response = await authenticatedFetch('builds', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(buildData)
       })
       

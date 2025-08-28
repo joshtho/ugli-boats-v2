@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getApiUrl } from '@/config/api'
+import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -20,7 +21,7 @@ function SubmissionReview() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch(getApiUrl('submissions'))
+      const response = await authenticatedFetch('submissions')
       if (response.ok) {
         const data = await response.json()
         setSubmissions(data)
@@ -40,7 +41,7 @@ function SubmissionReview() {
   const handleApprove = async (submissionId: string) => {
     setProcessing(submissionId)
     try {
-      const response = await fetch(getApiUrl(`submissions/${submissionId}/approve`), {
+      const response = await authenticatedFetch(`submissions/${submissionId}/approve`, {
         method: 'POST'
       })
       
@@ -68,7 +69,7 @@ function SubmissionReview() {
   const handleReject = async (submissionId: string) => {
     setProcessing(submissionId)
     try {
-      const response = await fetch(getApiUrl(`submissions/${submissionId}/reject`), {
+      const response = await authenticatedFetch(`submissions/${submissionId}/reject`, {
         method: 'POST'
       })
       
@@ -118,11 +119,8 @@ function SubmissionReview() {
     try {
       console.log('Saving submission data:', updatedData)
       
-      const response = await fetch(getApiUrl(`submissions/${previewingSubmission.id}`), {
+      const response = await authenticatedFetch(`submissions/${previewingSubmission.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(updatedData)
       })
       

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getApiUrl, getImageUrl } from '@/config/api'
+import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -128,7 +129,7 @@ function EditInteresting() {
   const fetchInterestingContent = async () => {
     setLoading(true)
     try {
-      const response = await fetch(getApiUrl('interesting'))
+      const response = await authenticatedFetch('interesting')
       if (!response.ok) {
         throw new Error(`Failed to fetch interesting content: ${response.statusText}`)
       }
@@ -289,7 +290,7 @@ function EditInteresting() {
         formData.append('youtubeVideos', JSON.stringify(youtubeMedia))
       }
 
-      const response = await fetch(getApiUrl('interesting'), {
+      const response = await authenticatedFetch('interesting', {
         method: 'POST',
         body: formData
       })
@@ -322,7 +323,7 @@ function EditInteresting() {
     if (!selectedContent) return
 
     try {
-      const response = await fetch(getApiUrl(`interesting/${selectedContent.id}`), {
+      const response = await authenticatedFetch(`interesting/${selectedContent.id}`, {
         method: 'DELETE'
       })
 
@@ -345,11 +346,8 @@ function EditInteresting() {
     if (!editContent) return
 
     try {
-      const response = await fetch(getApiUrl(`interesting/${editContent.id}`), {
+      const response = await authenticatedFetch(`interesting/${editContent.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           header: editContent.header,
           description: editContent.description,

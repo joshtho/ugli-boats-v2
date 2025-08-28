@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getApiUrl } from '@/config/api'
+import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -162,7 +163,7 @@ function EditBuild({
       formData.append(`captions`, preview.caption || preview.file.name)
     })
 
-    const response = await fetch(getApiUrl('admin/upload'), {
+    const response = await authenticatedFetch('admin/upload', {
       method: 'POST',
       body: formData
     })
