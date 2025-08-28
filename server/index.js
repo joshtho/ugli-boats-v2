@@ -718,7 +718,7 @@ app.put('/api/photos/:id', verifyAdminToken, (req, res) => {
 // Add a new build
 app.post('/api/builds', upload.array('images', 20), (req, res) => {
   try {
-    const { name, buildName, header, introText, email, forSale, images } = req.body;
+    const { name, buildName, header, introText, email, forSale, images, captions } = req.body;
 
     if (!buildName) {
       return res.status(400).json({ error: 'Build name is required' });
@@ -738,6 +738,17 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
       }
     }
     
+    // Parse captions array if provided
+    let captionsArray = [];
+    if (captions) {
+      try {
+        // Handle both string array from FormData and array from JSON
+        captionsArray = Array.isArray(captions) ? captions : [captions];
+      } catch (e) {
+        console.log('Invalid captions format, using empty captions');
+      }
+    }
+    
     // Create new build 
     const newBuild = {
       id: uuidv4(),
@@ -747,9 +758,9 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
       introText: introText || '',
       email,
       forSale: forSaleData,
-      images: req.files ? req.files.map(f => ({
+      images: req.files ? req.files.map((f, index) => ({
         alt: f.originalname.replace(/\.[^/.]+$/, ""), // Remove file extension for alt text
-        caption: '',
+        caption: captionsArray[index] || '', // Use corresponding caption or empty string
         url: `/uploads/${f.filename}` // Use consistent format for local development
       })) : (images || []), // Use images from JSON body if no files uploaded
       createdDate: new Date().toISOString()
@@ -875,9 +886,21 @@ app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req
       return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    const uploadedImages = req.files.map(file => ({
+    // Parse captions array if provided
+    let captionsArray = [];
+    const { captions } = req.body;
+    if (captions) {
+      try {
+        // Handle both string array from FormData and array from JSON
+        captionsArray = Array.isArray(captions) ? captions : [captions];
+      } catch (e) {
+        console.log('Invalid captions format, using empty captions');
+      }
+    }
+
+    const uploadedImages = req.files.map((file, index) => ({
       alt: file.originalname.replace(/\.[^/.]+$/, ""),
-      caption: '',
+      caption: captionsArray[index] || '', // Use corresponding caption or empty string
       url: `/uploads/${file.filename}`
     }));
 
@@ -1179,7 +1202,7 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
         type: file.mimetype.startsWith('image/') ? 'image' : 'video',
         alt: metadata.alt || file.originalname.replace(/\.[^/.]+$/, ""),
         caption: metadata.caption || '',
-        url: `/ugli-boats-v2/uploads/${file.filename}`
+        url: `/uploads/${file.filename}` // Use consistent format
       };
     }) : [];
     
