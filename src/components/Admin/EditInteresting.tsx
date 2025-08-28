@@ -141,7 +141,7 @@ function EditInteresting() {
         media: content.media.map(mediaItem => ({
           ...mediaItem,
           url: mediaItem.url.startsWith('/ugli-boats-v2/uploads/') 
-            ? getImageUrl(`${mediaItem.url}`)
+            ? getImageUrl(mediaItem.url)
             : mediaItem.url
         }))
       }))

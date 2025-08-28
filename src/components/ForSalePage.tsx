@@ -26,7 +26,7 @@ function ForSalePage() {
     }
     // For local development, use backend server
     if (url.startsWith('/uploads/') || url.includes('/uploads/')) {
-      return getImageUrl(`${url}`)
+      return getImageUrl(url)
     }
     return url.startsWith('/') ? url : `/${url}`
   }

@@ -306,9 +306,10 @@ function EditBuild({
 
   const getImageUrl = (url: string): string => {
     if (url.startsWith('http')) return url
-    if (url.startsWith('/ugli-boats-v2')) return getImageUrl(`${url}`)
-    if (url.startsWith('/uploads')) return getImageUrl(`${url}`)
-    return `getImageUrl('${url}`
+    if (url.startsWith('/ugli-boats-v2') || url.startsWith('/uploads')) {
+      return `${import.meta.env.DEV ? 'http://localhost:3001' : ''}${url}`
+    }
+    return `/uploads/${url}`
   }
 
   if (previewMode) {
