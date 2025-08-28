@@ -192,10 +192,12 @@ const writeInteresting = (interesting) => {
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    console.log(`📁 Multer destination: ${uploadsDir}`);
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = `${uuidv4()}-${file.originalname}`;
+    console.log(`📝 Multer filename: ${uniqueName}`);
     cb(null, uniqueName);
   }
 });
