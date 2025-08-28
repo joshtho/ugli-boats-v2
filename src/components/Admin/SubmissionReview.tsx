@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { getApiUrl } from '@/config/api'
 import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getApiUrl, getImageUrl } from '@/config/api'
+import { getImageUrl } from '@/config/api'
 import { authenticatedFetch } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
