@@ -26,9 +26,6 @@ let currentValidToken = null;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads')); // Serve uploaded files
-app.use('/ugli-boats-v2/uploads', express.static('uploads')); // Serve uploaded files for GitHub Pages
-app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
 // Serve static files from the React app build
 app.use(express.static(path.join(__dirname, 'public'), {
@@ -68,6 +65,11 @@ if (!fs.existsSync(uploadsDir)) {
 } else {
   console.log('Uploads directory already exists');
 }
+
+// Serve uploaded files using the absolute path
+app.use('/uploads', express.static(uploadsDir)); // Serve uploaded files
+app.use('/ugli-boats-v2/uploads', express.static(uploadsDir)); // Serve uploaded files for GitHub Pages
+app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
 // Create data directory and files for JSON storage
 const dataDir = path.join(__dirname, 'data');
