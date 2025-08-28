@@ -31,7 +31,19 @@ app.use('/ugli-boats-v2/uploads', express.static('uploads')); // Serve uploaded 
 app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
 // Serve static files from the React app build
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+    if (path.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html');
+    }
+  }
+}));
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -1140,7 +1152,12 @@ app.delete('/api/interesting/:id', verifyAdminToken, (req, res) => {
 });
 
 // Catch-all handler: send back React's index.html file for client-side routing
+// But skip static assets (js, css, images, etc.)
 app.get('*', (req, res) => {
+  // Don't serve index.html for static assets
+  if (req.path.includes('.') && !req.path.endsWith('.html')) {
+    return res.status(404).send('File not found');
+  }
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
