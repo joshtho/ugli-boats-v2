@@ -30,6 +30,9 @@ app.use('/uploads', express.static('uploads')); // Serve uploaded files
 app.use('/ugli-boats-v2/uploads', express.static('uploads')); // Serve uploaded files for GitHub Pages
 app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
+// Serve static files from the React app build
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -165,8 +168,8 @@ console.log('Using JSON file storage for data persistence');
 
 // Routes
 
-// Basic health check
-app.get('/', (req, res) => {
+// Health check endpoint
+app.get('/api/health', (req, res) => {
   res.json({ message: 'UGLI Boats API Server is running!' });
 });
 
@@ -1134,6 +1137,11 @@ app.delete('/api/interesting/:id', verifyAdminToken, (req, res) => {
     console.error('Error deleting interesting content:', error);
     res.status(500).json({ error: 'Failed to delete interesting content' });
   }
+});
+
+// Catch-all handler: send back React's index.html file for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Error handling middleware
