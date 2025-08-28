@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server/index.js",
-    "build:production": "pnpm install --frozen-lockfile && cd server && pnpm install --frozen-lockfile && cd .. && pnpm run build && mkdir -p server/public && cp -r dist/* server/public/"
+    "build:production": "pnpm install --frozen-lockfile && cd server && npm install && cd .. && pnpm run build && mkdir -p server/public && cp -r dist/* server/public/"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
