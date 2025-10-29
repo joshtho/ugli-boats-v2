@@ -40,6 +40,27 @@ export default function HomePage() {
                   Ugli-History
                 </Button>
               </Link>
+              <Link to="/contact">
+                <Button className="w-full rounded-md bg-[#202704] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Contact us
+                </Button>
+              </Link>
+    
+              <Link to="/interesting">
+                <Button className="w-full text-sm/6 font-semibold text-white bg-[#414d0b] hover:bg-[#727a17]">
+                  Interesting
+                </Button>
+              </Link>
+              <Link to="/submit-build">
+                <Button className="w-full rounded-md bg-[#202704] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#727a17] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Submit your UGLI Boat
+                </Button>
+              </Link>
+              <Link to="/photos">
+                <Button className="w-full text-sm/6 font-semibold text-white bg-[#414d0b] hover:bg-[#727a17]">
+                  Photo gallery
+                </Button>
+              </Link>
             </div>
           </div>
           <br />

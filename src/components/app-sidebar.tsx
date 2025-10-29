@@ -64,16 +64,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link to="/contact">
               <SidebarMenuButton onClick={handleSidebarToggle}>Contact us</SidebarMenuButton>
             </Link>
-          </SidebarMenu>
-        </SidebarGroup>
-        
-        {/* Admin Section */}
-        <SidebarGroup className="absolute inset-x-0 bottom-0 mb-4">
             <Link to="/submit-build">
               <SidebarMenuButton onClick={handleSidebarToggle} className="text-blue-600 hover:text-blue-700">
                 Submit Your Build
               </SidebarMenuButton>
             </Link>
+          </SidebarMenu>
+        </SidebarGroup>
+        
+        {/* Admin Section */}
+        <SidebarGroup className="absolute inset-x-0 bottom-0 mb-4">
           <SidebarMenu>
             <Link to="/admin">
               <SidebarMenuButton onClick={handleSidebarToggle} className="text-orange-600 hover:text-orange-700">

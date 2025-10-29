@@ -291,7 +291,7 @@ function SubmitBuild() {
       </div>
     )
   }
-  console.log(formData)
+  
   return (
     <div className="mx-auto max-w-2xl p-6">
       <Card>
@@ -483,6 +483,7 @@ function SubmitBuild() {
             
             <div>
               <Label htmlFor="images">Build Photos and Videos</Label>
+              <Label className='text-red-700' htmlFor="images"> (Be sure to upload your first piece of media as an image, as it will be your thumbnail to your build)</Label>
               <Input
                 className='cursor-pointer'
                 id="images and video"

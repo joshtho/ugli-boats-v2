@@ -10,10 +10,7 @@
 - ❌ **Second login attempt**: Someone else enters password → **"Admin already logged in" error**  
 - 🔒 **Original admin stays logged in**: Their session remains active and uninterrupted
 - ⏰ **Automatic expiry**: After 24 hours, new logins are allowed again
-- 🚪 **Manual logout**: Admin can logout to immediately allow new logins
-
-#### Your Security Question Answered:
-> **"If he forgets to logout, or if he is logged in to admin while someone else clicks admin somewhere else, they wont be able to log in right?"**
+- 🚪 **Manual logout**: Admin can logout to immediately allow new login
 
 **ANSWER: Exactly! New logins are BLOCKED when someone is already logged in!** ✅
 - ✅ If you forget to logout → **New login attempts get "Admin already logged in" error**
