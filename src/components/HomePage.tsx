@@ -7,11 +7,11 @@ export default function HomePage() {
   const [toggleHidden, setToggleHidden] = useState(true)
 
   return (
-    <div className="bg-white">
+    <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
       <div className="relative isolate ">
         <div className="mx-auto max-w-2xl py-5">
           <div className="text-center flex flex-col items-center justify-center">
-            <h1 className="font-serif mb-8 text-5xl font-semibold tracking-tight text-balance sm:text-7xl" style={{ color: '#414d0b' }}>
+            <h1 className="font-home mb-8 text-5xl font-semibold tracking-tight text-balance sm:text-7xl" style={{ color: '#414d0b' }}>
               Welcome to UGLI Boats
             </h1>
             <img className='flex justify-center' src='/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg' />
