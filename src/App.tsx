@@ -40,14 +40,15 @@ export default function App() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-          
-          <div className="flex items-center gap-2 px-3 flex-1">
+        <header className="flex bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] ">
+          <img src="/ugli-boats-v2/IMAGES/ugliboatsbanner.jpg" alt="UGLI Boats Banner" />
+        </header>
+          <div className="flex items-center gap-2 px-3 flex-1 mt-5 ">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb className="flex-1">
+            <Breadcrumb className="flex-1 bg-transparent">
               <BreadcrumbList>
-                <BreadcrumbItem>
+                <BreadcrumbItem className="font-effect-3d-border">
                   <Link to="/">UGLI Home</Link>
                 </BreadcrumbItem>
                 {pathnames.map((segment, idx) => (
@@ -84,25 +85,24 @@ export default function App() {
             </Breadcrumb>
             
             {/* Banner in header on large screens */}
-            <div className="hidden lg:block ml-auto">
+            {/* <div className="hidden lg:block ml-auto">
               <img
-                src="/ugli-boats-v2/IMAGES/Ugli-banner.png"
+                src="/ugli-boats-v2/IMAGES/ugliboatsbanner2.jpg"
                 alt="ugliboats.com banner"
                 className="h-12 object-contain"
               />
-            </div>
-          </div>
-        </header>
+            </div> */}
+          </div> 
         
         {/* Banner below header on mobile/medium screens */}
-        <div className="lg:hidden">
+        {/* <div className="lg:hidden">
           <img
             src="/ugli-boats-v2/IMAGES/Ugli-banner.png"
             alt="ugliboats.com banner"
             className="object-contain lg:h-50 w-full"
             style={{ maxWidth: '100%' }}
           />
-        </div>
+        </div> */}
         <div className="flex flex-1 flex-col gap-4 p-4">
             <Routes>
               <Route path="/" element={<HomePage />} />

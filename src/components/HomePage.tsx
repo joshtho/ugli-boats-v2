@@ -11,7 +11,7 @@ export default function HomePage() {
       <div className="relative isolate ">
         <div className="mx-auto max-w-2xl py-5">
           <div className="text-center flex flex-col items-center justify-center">
-            <h1 className="font-home mb-8 text-5xl font-semibold tracking-tight text-balance sm:text-7xl" style={{ color: '#414d0b' }}>
+            <h1 className="mb-8 text-5xl tracking-tight text-balance sm:text-7xl font-home" >
               Welcome to UGLI Boats
             </h1>
             <img className='flex justify-center' src='/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg' />

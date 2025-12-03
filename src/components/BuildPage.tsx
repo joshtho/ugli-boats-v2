@@ -226,7 +226,7 @@ function BuildPage() {
             to={`/builds/${encodeURIComponent(build.name)}`}
             className="block"
           >
-            <Card className="hover:shadow-lg transition-shadow duration-200 bg-white relative">
+            <Card className="hover:shadow-lg transition-shadow duration-200 relative">
               {build.forSale?.onMarket && (
                 <Badge className="absolute top-2 right-2 z-10 bg-green-600 hover:bg-green-700 text-xs">
                   FOR SALE
@@ -273,7 +273,7 @@ function BuildPage() {
 
   return (
     <div ref={containerRef} className="mx-auto max-w-6xl p-6">
-      <h1 className="text-3xl font-bold mb-8 text-center">Builds</h1>
+      {/* <h1 className="text-3xl font-bold mb-8 text-center">Builds</h1> */}
       
       {/* Search and Sort Controls */}
       <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
@@ -310,7 +310,7 @@ function BuildPage() {
       
       {/* View Mode Toggle */}
       <div className="flex justify-center mb-8">
-        <div className="flex bg-gray-100 rounded-lg p-1">
+        <div className="flex rounded-lg p-1">
           <Button
             variant={viewMode === 'thumbnail' ? 'default' : 'ghost'}
             size="sm"
