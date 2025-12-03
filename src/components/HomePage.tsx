@@ -11,13 +11,13 @@ export default function HomePage() {
       <div className="relative isolate ">
         <div className="mx-auto max-w-2xl py-5">
           <div className="text-center flex flex-col items-center justify-center">
-            <h1 className="mb-8 text-5xl tracking-tight text-balance sm:text-7xl font-home" >
+            <h1 className="mb-2 text-5xl tracking-tight text-balance sm:text-7xl font-home" >
               Welcome to UGLI Boats
             </h1>
-            <img className='flex justify-center' src='/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg' />
-            <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
+            <p className="mb-4 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
               A home for enthusiasts of old aluminum boats that can only be described as "Ugli"
             </p>
+            <img className='flex justify-center' src='/ugli-boats-v2/IMAGES/Ugli 2 Build Pics/ugli 2 with top down.jpg' />
             <br />
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mx-auto">
               <Link to="/builds">

@@ -157,7 +157,7 @@ function BoatPage({ buildData }: BoatPageProps) {
         {build.introText && (
           <div className="mb-6">
             <h1 className='italic text-xl font-stretch-20% mb-10 text-center'>{build.header}</h1>
-            <div className="text-lg text-center text-gray-700 bg-white/80 rounded p-4 shadow">
+            <div className="text-lg text-center text-gray-700 rounded p-4 shadow">
               {(() => {
                 const shouldTruncate = build.introText.length > 1000 && !showFullText
                 const displayText = shouldTruncate 

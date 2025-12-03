@@ -191,7 +191,7 @@ function BuildPage() {
             to={`/builds/${encodeURIComponent(build.name)}`}
             className="block"
           >
-            <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-200 bg-white relative">
+            <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-200 relative">
               {build.forSale?.onMarket && (
                 <Badge className="absolute top-2 right-2 z-10 bg-green-600 hover:bg-green-700 text-xs">
                   FOR SALE
