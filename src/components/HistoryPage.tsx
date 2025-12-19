@@ -1,5 +1,6 @@
 
 
+import { useState } from "react"
 import {
   Carousel,
   CarouselContent,
@@ -7,8 +8,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel"
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "./ui/dialog"
 
 function HistoryPage() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const dialogImages = [
   {
     img: "/ugli-boats-v2/IMAGES/militaryEngineer/Mil-eng-898pdf.png",
@@ -341,8 +348,9 @@ function HistoryPage() {
                     key={idx}
                     src={item.img}
                     alt={item.alt}
-                    className="w-full max-w-xs sm:max-w-md md:max-w-lg h-auto mx-auto rounded"
+                    className="w-full max-w-xs sm:max-w-md md:max-w-lg h-auto mx-auto rounded cursor-pointer hover:opacity-80 transition-opacity"
                     style={{ maxHeight: '70vh' }}
+                    onClick={() => setSelectedImage(item.img)}
                   />
                   <p className="text-sm text-gray-600 mt-2 text-center">{item.description}</p>
                 </CarouselItem>
@@ -351,6 +359,18 @@ function HistoryPage() {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
+          
+          <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
+            <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 overflow-auto [&>button]:hidden">
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Full size view"
+                  className="w-auto min-w-[150%]"
+                />
+              )}
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
           <h1 className="text-2xl font-bold p-4">History of Old Non-Military Aluminum Boats</h1>
