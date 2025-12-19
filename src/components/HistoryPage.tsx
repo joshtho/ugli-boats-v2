@@ -11,7 +11,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogClose,
 } from "./ui/dialog"
 
 function HistoryPage() {
