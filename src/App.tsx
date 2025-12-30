@@ -40,23 +40,23 @@ export default function App() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] ">
-          <img src="/ugli-boats-v2/IMAGES/ugliboatsbanner.jpg" alt="UGLI Boats Banner" />
-        </header>
-          <div className="flex items-center gap-2 px-3 flex-1 mt-5 ">
+        {/* <header className="flex bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] bg-transparent">
+          <img src="/ugli-boats-v2/IMAGES/bguglibanner.jpg" alt="UGLI Boats Banner" />
+        </header> */}
+          <div className="flex items-center gap-2 px-3 bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] bg-transparent h-16">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb className="flex-1 bg-transparent">
+            <Breadcrumb className="flex-1 bg-transparent ">
               <BreadcrumbList>
-                <BreadcrumbItem className="font-effect-3d-border">
+                <BreadcrumbLink className="font-effect-3d-border text-secondary">
                   <Link to="/">UGLI Home</Link>
-                </BreadcrumbItem>
+                </BreadcrumbLink>
                 {pathnames.map((segment, idx) => (
                   <span key={idx} className="flex items-center">
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
+                    <BreadcrumbSeparator className="text-secondary"/>
+                    <BreadcrumbItem >
                       {idx === pathnames.length - 1 ? (
-                        <BreadcrumbPage>
+                        <BreadcrumbPage className="text-secondary">
                           {decodeURIComponent(segment)
                             .split("-")
                             .map(
@@ -66,7 +66,7 @@ export default function App() {
                             .join(" ")}
                         </BreadcrumbPage>
                       ) : (
-                        <BreadcrumbLink asChild>
+                        <BreadcrumbLink className="text-secondary" asChild>
                           <Link to={buildPath(idx)}>
                             {decodeURIComponent(segment)
                               .split("-")
@@ -83,6 +83,9 @@ export default function App() {
                 ))}
               </BreadcrumbList>
             </Breadcrumb>
+            <div className=" text-sidebar-primary-foreground flex aspect-square size-12 items-center justify-center">
+                  <img src="/ugli-boats-v2/IMAGES/leftsidebarpic-2.jpg" />
+                </div>
             
             {/* Banner in header on large screens */}
             {/* <div className="hidden lg:block ml-auto">

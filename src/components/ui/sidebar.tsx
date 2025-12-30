@@ -266,14 +266,14 @@ function SidebarTrigger({
       variant="ghost"
       size="icon"
       title="Sidebar Toggle"
-      className={cn("size-9", className)}
+      className={cn("text-secondary hover:bg-transparent", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon className="size-8"/>
+      <PanelLeftIcon className="size-8" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

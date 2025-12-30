@@ -7,7 +7,6 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar"
@@ -27,24 +26,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-              <Link to="/">
-            <SidebarMenuButton onClick={handleSidebarToggle} size="lg" >
-                <div className=" text-sidebar-primary-foreground flex aspect-square size-15 items-center justify-center">
-                  <img src="/ugli-boats-v2/IMAGES/leftsidebarpic-2.jpg" />
-                </div>
-            </SidebarMenuButton>
-              </Link>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="font-home text-2xl">
+        UGLIBOATS
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
             <Link to="/builds">
-            <SidebarMenuButton onClick={handleSidebarToggle}>Builds</SidebarMenuButton>
+            <SidebarMenuButton onClick={handleSidebarToggle} >Builds</SidebarMenuButton>
             </Link>
             <Link to="/for-sale">
               <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
