@@ -56,11 +56,11 @@ export default function FooterSection({
                 Back to Top
               </Button>
           <FooterBottom>
-            <div>© Copyright 2019 MORECARE SYSTEMS, INC. All rights reserved</div>
+            <div>© Copyright UgliBoats.com All rights reserved</div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
                 For more information feel free to 
-                <Link to="/contact">Contact us</Link>
+                <Link className="text-primary" to="/contact">Contact us</Link>
               </div>
               {/* {showModeToggle && <ModeToggle />} */}
             </div>

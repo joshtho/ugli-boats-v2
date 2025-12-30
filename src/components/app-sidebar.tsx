@@ -25,38 +25,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
   
   return (
-    <Sidebar {...props}>
-      <SidebarHeader className="font-home text-2xl">
+    <Sidebar {...props}> 
+      <SidebarHeader className="font-home text-3xl h-16 flex items-center justify-center">
         UGLIBOATS
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-[url('/ugli-boats-v2/IMAGES/bguglibanner-vertical.jpg')] bg-transparent">
         <SidebarGroup>
           <SidebarMenu>
+            
             <Link to="/builds">
-            <SidebarMenuButton onClick={handleSidebarToggle} >Builds</SidebarMenuButton>
-            </Link>
-            <Link to="/for-sale">
-              <SidebarMenuButton onClick={handleSidebarToggle}>For Sale</SidebarMenuButton>
-            </Link>
-            <Link to="/history">
-              <SidebarMenuButton onClick={handleSidebarToggle}>History</SidebarMenuButton>
-            </Link>
-            <Link to="/photos">
-              <SidebarMenuButton onClick={handleSidebarToggle}>Photos</SidebarMenuButton>
-            </Link>
-            <Link to="/interesting">
-              <SidebarMenuButton onClick={handleSidebarToggle}>Interesting</SidebarMenuButton>
-            </Link>
-            <Link to="/about">
-              <SidebarMenuButton onClick={handleSidebarToggle}>About us</SidebarMenuButton>
-            </Link>
-            <Link to="/contact">
-              <SidebarMenuButton onClick={handleSidebarToggle}>Contact us</SidebarMenuButton>
+            <SidebarMenuButton className="text-secondary" onClick={handleSidebarToggle} >Ugli Builds</SidebarMenuButton>
             </Link>
             <Link to="/submit-build">
-              <SidebarMenuButton onClick={handleSidebarToggle} className="text-blue-600 hover:text-blue-700">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary" >
                 Submit Your Build
               </SidebarMenuButton>
+            </Link>
+            <Link to="/for-sale">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">For Sale</SidebarMenuButton>
+            </Link>
+            <Link to="/history">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">History of Ugliboats</SidebarMenuButton>
+            </Link>
+            <Link to="/photos">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">Random Photos</SidebarMenuButton>
+            </Link>
+            <Link to="/interesting">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">Interesting Finds</SidebarMenuButton>
+            </Link>
+            <Link to="/about">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">About us</SidebarMenuButton>
+            </Link>
+            <Link to="/contact">
+              <SidebarMenuButton onClick={handleSidebarToggle} className="text-secondary">Contact us</SidebarMenuButton>
             </Link>
           </SidebarMenu>
         </SidebarGroup>
