@@ -372,6 +372,9 @@ function BuildPage() {
           {viewMode === 'all' && <AllBuildsView />}
         </>
       )}
+      <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
+      Feel free to submit pictures and a description of your UgliBoat customization.  We encourage you to elaborate on any tips, tricks or advice that could benefit your fellow UgliBoaters.  Once your UgliBoat is entered you can always have the option of also making it “For Sale” now or at a later date.
+      </p>
       <Link to="/submit-build">
         <Button className="flex place-self-center rounded-md text-secondary text-lg px-3.5 py-2.5 bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] bg-transparent mt-8">
           Submit your Build
