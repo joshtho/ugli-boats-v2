@@ -29,7 +29,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="font-home text-3xl h-16 flex items-center justify-center">
         UGLIBOATS
       </SidebarHeader>
-      <SidebarContent className="bg-[url('/ugli-boats-v2/IMAGES/bguglibanner-vertical.jpg')] bg-transparent">
+      <SidebarContent className="bg-[url('/ugli-boats-v2/IMAGES/bguglibanner-vertical.jpg')] bg-transparent border-b-gray-900">
         <SidebarGroup>
           <SidebarMenu>
             

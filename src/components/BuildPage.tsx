@@ -372,6 +372,11 @@ function BuildPage() {
           {viewMode === 'all' && <AllBuildsView />}
         </>
       )}
+      <Link to="/submit-build">
+        <Button className="flex place-self-center rounded-md text-secondary text-lg px-3.5 py-2.5 bg-[url('/ugli-boats-v2/IMAGES/bguglibanner.jpg')] bg-transparent mt-8">
+          Submit your Build
+        </Button>
+      </Link>
     </div>
   )
 }
