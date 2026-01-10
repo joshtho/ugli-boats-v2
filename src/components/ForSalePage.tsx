@@ -33,7 +33,8 @@ function ForSalePage() {
 
   return (
     <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
-      <h1 className="text-3xl font-bold mb-6 text-center">UgliBoats For Sale</h1>
+      <h1 className="text-4xl font-bold mb-2 text-center">UgliBoat Marketplace</h1>
+      <p className="text-center italic  mb-6">Where you can find Unobtanium</p>
       
       {/* Builds for Sale Section */}
       {forSaleBuilds.length > 0 && (
@@ -131,7 +132,7 @@ function ForSalePage() {
 
       {/* Original Content */}
       <div className="border-t pt-8">
-        <h2 className="text-2xl font-bold mb-4 text-center">Looking for UgliBoat Hulls?</h2>
+        {/* <h2 className="text-2xl font-bold mb-4 text-center">Where you can find Unobtanium</h2>
         <p className="text-lg text-center mb-4 ">
           You have finally found your very own UgliBoat. These are made of UNOBTANIUM.... as rare as hens teeth..... grab yours now or regret it later. 
           <br />
@@ -142,7 +143,7 @@ function ForSalePage() {
         <br/>
         <img src='/ugli-boats-v2/IMAGES/UgliBoat-Flooring - 2023.jpg'/>
         <br/>
-        <br/>
+        <br/> */}
         <div className="flex items-center p-4">
             <span className="relative flex size-3">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
