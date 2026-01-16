@@ -37,7 +37,7 @@
 ### Required Environment Variables (.env)
 ```bash
 # Keep the old password for reference (optional)
-ADMIN_PASSWORD=ugliboats2025
+ADMIN_PASSWORD=Jordancallsherpontontika1992
 
 # Secure hashed password (required)
 ADMIN_PASSWORD_HASH=$2b$12$z3nS/TwxaoAFVPhmQS5uqubgRmTKFSpkr/56EZootz/J3/Tpgw7LK

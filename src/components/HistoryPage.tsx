@@ -112,8 +112,9 @@ function HistoryPage() {
         They are built sturdy enough to withstand the rigors of combat, and have proven their mettle with anything we have put them to test on.
         <br />
         <br />
+        I tracked down many false leads, scouring all the government auction sites and calling military bases nationwide. It wasn't too long before I realized that the days of buying a stack of these at a military surplus auction are long gone. I didn't have any luck finding one, but my luck was starting to change when I struck up a friendship with a guy that is a good boat mechanic, and quite a craigslist boat section expert.
         </p>
-        <div className="flex items-center p-4">
+        {/* <div className="flex items-center p-4">
           <span className="relative flex size-3">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
           <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
@@ -124,15 +125,7 @@ function HistoryPage() {
         <p className='animate-pulse p-4'>
         IF YOU KNOW WHERE ANY OF THESE ARE FOR SALE, PLEASE CONTACT ME AT Greg@UgliBoats.com
         </p>
-        <br />
-        <p className='p-4'>
-        We will either buy them from you or post them on this site for you.
-        <br />
-        <br />
-
-        I tracked down many false leads, scouring all the government auction sites and calling military bases nationwide. It wasn't too long before I realized that the days of buying a stack of these at a military surplus auction are long gone. I didn't have any luck finding one, but my luck was starting to change when I struck up a friendship with a guy that is a good boat mechanic, and quite a craigslist boat section expert.
-        <br />
-        </p>
+        <br /> */}
         <hr/>
         <h1 className="text-xl text-left p-4">HISTORY AND MILITARY DETAILS</h1>
         <p className='p-4'>
@@ -140,8 +133,9 @@ function HistoryPage() {
         </p>
         <h3 className="text-xl text-left p-4">Chapter 7 Half-Ponton:</h3>
         <img src='/ugli-boats-v2/IMAGES/PHpage pic.jpg' />
+        <p className='p-4'>
         The aluminum alloy half-ponton has an effective length of 18 feet 6 inches, is 6 feet 8.5 inches wide, and 2 feet 10 inches high. The bow of each half-ponton is raised approximately 7 inches higher than the stem to prevent the ponton from swamping when rafting in swift currents. The half-ponton weighs approximately 650 pounds and has a displacement of 6.25 tons. Two half-pontons are joined stem to stem to form a whole ponton which supports the light floating bridge or raft.
-
+        </p>
         
         <hr />
         <p className='p-4'>Entire Field manual links: </p>
@@ -371,7 +365,7 @@ function HistoryPage() {
             </DialogContent>
           </Dialog>
         </div>
-        <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
+        {/* <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min text-start">
           <h1 className="text-2xl font-bold p-4">History of Old Non-Military Aluminum Boats</h1>
           <h1 className="text-xl text-left p-4">These boats have potential for being a great project canvass for fishing or hunting boats</h1>
           <p className="p-4">
@@ -414,7 +408,7 @@ function HistoryPage() {
             <br/>
             The one in the bottom pictures is a project I picked up but sold. All I have left of it is a cool little aluminum steering wheel shaped like the big ones on ships.
           </p>
-        </div>
+        </div> */}
     </div>
   )
 }

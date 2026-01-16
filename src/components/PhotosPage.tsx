@@ -72,7 +72,6 @@ function PhotosPage() {
     "Historical Ponton": "Historical military ponton boats and bridge sections",
     "Customized Ponton": "Customized and modified ponton boats by enthusiasts", 
     "Other Military Boats": "Various military boats and watercraft",
-    "Old Aluminum Boats": "Vintage aluminum boats and restorations",
     "Custom Aluminum Boats": "Custom-built aluminum boats and projects"
   }
 
@@ -105,10 +104,10 @@ function PhotosPage() {
 
   return (
     <div className="mx-auto max-w-6xl p-6">
-      <h1 className="text-3xl font-bold mb-8 text-center">Photo Gallery</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Customized - Historical - Other Military</h1>
       
       {/* Categories View */}
-      <div className="space-y-16">
+      <div className="space-y-8">
         {Object.entries(photosByCategory).map(([categoryName, categoryPhotos]) => (
           <div key={categoryName} className="border-b pb-12 last:border-b-0">
             <div className="mb-8">
