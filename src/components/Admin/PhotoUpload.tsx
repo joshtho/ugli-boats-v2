@@ -61,7 +61,6 @@ function PhotoUpload() {
     'Historical Ponton',
     'Customized Ponton', 
     'Other Military Boats',
-    'Old Aluminum Boats',
     'Custom Aluminum Boats'
   ]
 

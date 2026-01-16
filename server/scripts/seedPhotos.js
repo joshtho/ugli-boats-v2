@@ -37,14 +37,6 @@ const galleryData = {
       caption: `Military boat ${i + 1}`
     })).filter(img => !img.url.includes('Fgallery3-7.jpg')) // Skip missing Fgallery3-7
   },
-  "Old Aluminum Boats": {
-    description: "Vintage aluminum boats and restorations",
-    images: Array.from({ length: 4 }, (_, i) => ({
-      url: `/ugli-boats-v2/gallery/Fgallery4-${i + 1}.jpg`,
-      alt: `Old Aluminum Boat ${i + 1}`,
-      caption: `Vintage aluminum boat ${i + 1}`
-    }))
-  },
   "Custom Aluminum Boats": {
     description: "Custom-built aluminum boats and projects",
     images: [{
