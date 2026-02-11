@@ -264,7 +264,7 @@ function InterestingPage() {
               <div key={content.id} className="space-y-4">
                 <h2 className="text-xl font-semibold">{content.header}</h2>
                 {content.description && (
-                  <p className="text-gray-700">{content.description}</p>
+                  <p >{content.description}</p>
                 )}
                 
                 <div className="space-y-4">
@@ -272,7 +272,7 @@ function InterestingPage() {
                     <div key={media.id}>
                       {renderMediaItem(media, index, content)}
                       {media.caption && (
-                        <p className="text-sm text-gray-600 -mt-4 mb-4">{media.caption}</p>
+                        <p className="text-sm -mt-4 mb-4">{media.caption}</p>
                       )}
                     </div>
                   ))}

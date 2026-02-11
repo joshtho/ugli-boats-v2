@@ -60,7 +60,7 @@ function AboutPage() {
         I will have so much time and money in Ugli2, that I may just decide to be buried in it.
       
         </p>
-        <br/>
+        {/* <br/>
         <br/>
         <hr/>
         <h1 id="contact" className="text-xl text-left p-4">For any questions regarding our website, or any other questions, please contact us at:
@@ -77,7 +77,7 @@ function AboutPage() {
         <p className='animate-pulse p-4'>
         IF YOU KNOW WHERE ANY OF THESE ARE FOR SALE, PLEASE CONTACT ME AT THE EMAIL OR PHONE NUMBER ABOVE.
         <br />
-        </p>
+        </p> */}
     </div>
   )
 }

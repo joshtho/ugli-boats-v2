@@ -68,12 +68,12 @@ function PhotosPage() {
   }, {} as Record<string, Photo[]>)
 
   // Category descriptions
-  const categoryDescriptions: Record<string, string> = {
-    "Historical Ponton": "Historical military ponton boats and bridge sections",
-    "Customized Ponton": "Customized and modified ponton boats by enthusiasts", 
-    "Other Military Boats": "Various military boats and watercraft",
-    "Custom Aluminum Boats": "Custom-built aluminum boats and projects"
-  }
+  // const categoryDescriptions: Record<string, string> = {
+  //   "Historical Ponton": "Historical military ponton boats and bridge sections",
+  //   "Customized Ponton": "Customized and modified ponton boats by enthusiasts", 
+  //   "Other Military Boats": "Various military boats and watercraft",
+  //   "Custom Aluminum Boats": "Custom-built aluminum boats and projects"
+  // }
 
   // Function to open carousel at specific photo
   const openCarousel = (photoIndex: number) => {
@@ -112,9 +112,9 @@ function PhotosPage() {
           <div key={categoryName} className="border-b pb-12 last:border-b-0">
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-2">{categoryName}</h2>
-              <p className="text-gray-700 mb-6">
+              {/* <p className="text-gray-700 mb-6">
                 {categoryDescriptions[categoryName] || 'Photo gallery category'}
-              </p>
+              </p> */}
               <p className="text-sm text-gray-500">
                 {categoryPhotos.length} photo{categoryPhotos.length !== 1 ? 's' : ''}
               </p>
