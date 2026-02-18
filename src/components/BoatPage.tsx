@@ -18,7 +18,7 @@ interface BoatPageProps {
 }
 
 function BoatPage({ buildData }: BoatPageProps) {
-  const { name } = useParams()
+  const { id } = useParams()
   const [build, setBuild] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
@@ -41,18 +41,18 @@ function BoatPage({ buildData }: BoatPageProps) {
     
     // Otherwise, fetch from context using URL param
     setLoading(true)
-    // Look for build by name (which is actually the owner name in our structure)
-    const found = backendBuilds.find(b => b.name === name)
+    // Look for build by ID (unique identifier)
+    const found = backendBuilds.find(b => b.id === id)
     setBuild(found || null)
     setLoading(buildsLoading)
-  }, [name, backendBuilds, buildsLoading, buildData])
+  }, [id, backendBuilds, buildsLoading, buildData])
 
   if (loading) return <div>Loading...</div>
   if (!build) return <div>Boat not found</div>
 
   // Helper to get proper image URL - same as other components
   const getImageUrl = (url: string): string => {
-    if (url.startsWith('http')) {
+    if (url.startsWith('http') || url.startsWith('data:') || url.startsWith('blob:')) {
       return url
     }
     // For local development, use backend server
@@ -63,8 +63,11 @@ function BoatPage({ buildData }: BoatPageProps) {
   }
 
   // Helper to get media type
-  const getMediaType = (url: string): 'image' | 'video' =>
-    url.toLowerCase().endsWith('.mp4') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('youtube.com') || url.toLowerCase().includes('.mov') ? 'video' : 'image'
+  const getMediaType = (url: string, img?: any): 'image' | 'video' => {
+    // If a type field is provided (e.g. from preview data), use it
+    if (img?.type === 'video' || img?.type === 'image') return img.type
+    return url.toLowerCase().endsWith('.mp4') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('youtube.com') || url.toLowerCase().includes('.mov') ? 'video' : 'image'
+  }
 
   // Helper to extract YouTube video ID
   const getYoutubeId = (url: string): string | null => {
@@ -85,10 +88,30 @@ function BoatPage({ buildData }: BoatPageProps) {
     }).format(price)
   }
 
+  // Check if name should be displayed based on contact preferences
+  const showName = build.contactInfo?.displayPreferences?.showName !== false // default true for backwards compat
+
   return (
     <div className="mx-auto max-w-full p-6">
       <div className="text-center mb-5">
-        <h1 className="text-3xl font-bold">{build.name} - {build.buildName}</h1>
+        <h1 className="text-3xl font-bold">
+          {showName && build.name ? `${build.name} - ` : ''}{build.buildName}
+        </h1>
+        
+        {/* Contact Info (based on display preferences) */}
+        {build.contactInfo && (
+          <div className="flex flex-wrap gap-4 justify-center mt-2 text-sm text-gray-600">
+            {build.contactInfo.displayPreferences?.showEmail && (build as any).email && (
+              <span>📧 {(build as any).email}</span>
+            )}
+            {build.contactInfo.displayPreferences?.showPhone && build.contactInfo.phone && (
+              <span>📞 {build.contactInfo.phone}</span>
+            )}
+            {build.contactInfo.displayPreferences?.showAddress && build.contactInfo.address && (
+              <span>📍 {build.contactInfo.address}</span>
+            )}
+          </div>
+        )}
         
         {/* For Sale Badge and Info */}
         {build.forSale?.onMarket && (
@@ -191,7 +214,7 @@ function BoatPage({ buildData }: BoatPageProps) {
         <div id="thumbnail-section" className="grid gap-8 sm:grid-cols-2">
           {build.images.map((img: any, idx: number) => {
             const fullImageUrl = getImageUrl(img.url)
-            const isVideo = getMediaType(fullImageUrl) === 'video'
+            const isVideo = getMediaType(fullImageUrl, img) === 'video'
             const youtubeId = getYoutubeId(img.url)
             
             return isVideo ? (
@@ -247,7 +270,7 @@ function BoatPage({ buildData }: BoatPageProps) {
           <div className={`grid gap-8 ${build.introText?.trim() ? 'sm:grid-cols-2' : 'sm:grid-cols-2 md:grid-cols-3'}`}>
             {build.images.map((img: any, idx: number) => {
               const fullImageUrl = getImageUrl(img.url)
-              const isVideo = getMediaType(fullImageUrl) === 'video'
+              const isVideo = getMediaType(fullImageUrl, img) === 'video'
               const youtubeId = getYoutubeId(img.url)
               
               return isVideo ? (
@@ -360,7 +383,7 @@ function BoatPage({ buildData }: BoatPageProps) {
                   }
                   
                   const fullImageUrl = getImageUrl(imageUrl)
-                  const type = getMediaType(fullImageUrl)
+                  const type = getMediaType(fullImageUrl, img)
                   const youtubeId = getYoutubeId(imageUrl)
                   
                   return (

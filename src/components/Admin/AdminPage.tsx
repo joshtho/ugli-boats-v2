@@ -110,10 +110,11 @@ function AdminDashboard() {
       </div>
       
       <Tabs defaultValue="submissions" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
           <TabsTrigger value="photos">Photos</TabsTrigger>
           <TabsTrigger value="builds">Builds</TabsTrigger>
+          <TabsTrigger value="for-sale">For Sale</TabsTrigger>
           <TabsTrigger value="interesting">Interesting</TabsTrigger>
         </TabsList>
         
@@ -126,7 +127,11 @@ function AdminDashboard() {
         </TabsContent>
         
         <TabsContent value="builds" className="mt-6">
-          <BuildManagement />
+          <BuildManagement filterType="build" />
+        </TabsContent>
+        
+        <TabsContent value="for-sale" className="mt-6">
+          <BuildManagement filterType="for-sale-item" />
         </TabsContent>
         
         <TabsContent value="interesting" className="mt-6">

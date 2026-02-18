@@ -1,3 +1,470 @@
 [
-  
+  {
+    "id": "00f5952a-4b12-48f6-92a7-a76314fd8d16",
+    "name": "Test",
+    "email": "test@test.com",
+    "buildName": "TestBuild",
+    "header": "",
+    "introText": "Test description",
+    "forSale": null,
+    "status": "rejected",
+    "createdDate": "2026-02-17T19:53:47.113Z",
+    "images": [],
+    "rejectedDate": "2026-02-17T20:32:26.753Z"
+  },
+  {
+    "id": "14ce2469-ffe0-4a98-a6be-b7a9428d7bb8",
+    "name": "Test",
+    "email": "test@test.com",
+    "buildName": "TestBuild",
+    "header": "",
+    "introText": "",
+    "forSale": null,
+    "status": "rejected",
+    "createdDate": "2026-02-17T19:55:26.518Z",
+    "images": [
+      {
+        "alt": "test",
+        "caption": "",
+        "url": "/uploads/92a81306-f2fa-4e17-9f3b-eb19fa8e46b7-test.jpg"
+      }
+    ],
+    "rejectedDate": "2026-02-17T20:32:19.509Z"
+  },
+  {
+    "id": "42698cb4-3a7a-4fa1-abaf-06a9bfe05972",
+    "name": "Joshua Keane Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "coffee ponton",
+    "header": "A custom coffee-themed boat build",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, diam in euismod feugiat, nisl eros suscipit augue, at consectetur tortor lorem sit amet diam. Nunc pulvinar metus nisl, venenatis dapibus dui porttitor in. Integer pharetra dignissim lacus, sed tempor augue. Praesent lobortis, magna eget imperdiet imperdiet, tellus sapien consequat erat, ut mollis ex enim ac nisi. Integer augue mi, semper in dui vel, laoreet consequat nisi. Praesent mauris lorem, iaculis id ante eget, dapibus malesuada orci. Nam hendrerit vitae metus commodo vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar luctus mauris id aliquet. Donec laoreet aliquam erat, at sollicitudin metus dapibus id. Maecenas suscipit vel purus ut pretium. Sed blandit, orci a ultricies finibus, ex nulla ultrices ipsum, vitae ullamcorper elit ligula a massa. Donec sapien lacus, commodo vitae augue dapibus, luctus fermentum mauris. Mauris dignissim vestibulum sodales.\r\n\r\nUt fermentum sapien sit amet odio consectetur, ut pretium velit scelerisque. Phasellus cursus mollis erat in hendrerit. Donec eget leo id erat fermentum consequat sit amet ut neque. Ut nibh erat, feugiat nec pretium nec, lobortis non ex. Maecenas at massa ut diam porttitor consectetur. Nunc fringilla tempus orci, vel elementum libero dictum non. Quisque vel porttitor nisi. Sed egestas libero et tincidunt placerat. Suspendisse nec tincidunt sem, vitae ullamcorper risus. Sed scelerisque, mi quis auctor facilisis, justo metus euismod eros, ut porttitor nisi nisi sed tellus. Nulla rutrum nunc vitae interdum elementum. Aliquam vulputate aliquet odio eu consequat.\r\n\r\nNullam convallis tempor auctor. Curabitur elit tellus, vehicula sit amet tortor sed, maximus tristique nisi. Cras ultrices placerat mollis. Aenean vehicula hendrerit arcu non gravida. Donec maximus mi tempus, ultricies quam eget, tincidunt felis. Etiam euismod at turpis non aliquet. Sed mollis ipsum nibh, non molestie sapien dictum nec. Nullam consequat leo in mollis tincidunt. Sed a urna varius, finibus erat vel, vestibulum nibh. Ut rutrum augue mauris, eu porttitor ante posuere vitae. Quisque sed interdum est.\r\n\r\nCras sit amet condimentum velit. Pellentesque malesuada vel risus a laoreet. Duis faucibus lectus ac hendrerit blandit. Sed mollis scelerisque sem ut feugiat. Mauris pellentesque, nisl consequat pharetra laoreet, ipsum lacus vestibulum metus, at auctor risus nisi at arcu. Donec suscipit tellus et ligula hendrerit, sit amet dapibus nisi mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed tristique quam pulvinar elit sagittis convallis. Donec id blandit erat, eu finibus justo. Pellentesque eleifend dui rhoncus erat porttitor, nec hendrerit orci venenatis.",
+    "forSale": {
+      "onMarket": true,
+      "price": 3999,
+      "links": {
+        "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "approved",
+    "createdDate": "2026-02-17T19:58:42.140Z",
+    "images": [
+      {
+        "alt": "care-mom",
+        "caption": "",
+        "url": "/uploads/8bfaa221-982a-4c0a-8d17-9e90181e35bd-care-mom.jpg"
+      },
+      {
+        "alt": "pitch-1",
+        "caption": "",
+        "url": "/uploads/afcca1c0-ca26-4e6e-92c2-10fec92016b3-pitch-1.mp4"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
+        "caption": "",
+        "url": "https://youtu.be/cZ3saNNNN4I"
+      }
+    ],
+    "approvedDate": "2026-02-17T20:30:10.493Z"
+  },
+  {
+    "id": "4da6ade4-3326-417f-8dd1-c84fabcf14f0",
+    "name": "Joshua Keane Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "coffee ponton",
+    "header": "When a dog makes boats",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, diam in euismod feugiat, nisl eros suscipit augue, at consectetur tortor lorem sit amet diam. Nunc pulvinar metus nisl, venenatis dapibus dui porttitor in. Integer pharetra dignissim lacus, sed tempor augue. Praesent lobortis, magna eget imperdiet imperdiet, tellus sapien consequat erat, ut mollis ex enim ac nisi. Integer augue mi, semper in dui vel, laoreet consequat nisi. Praesent mauris lorem, iaculis id ante eget, dapibus malesuada orci. Nam hendrerit vitae metus commodo vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar luctus mauris id aliquet. Donec laoreet aliquam erat, at sollicitudin metus dapibus id. Maecenas suscipit vel purus ut pretium. Sed blandit, orci a ultricies finibus, ex nulla ultrices ipsum, vitae ullamcorper elit ligula a massa. Donec sapien lacus, commodo vitae augue dapibus, luctus fermentum mauris. Mauris dignissim vestibulum sodales.\r\n\r\nUt fermentum sapien sit amet odio consectetur, ut pretium velit scelerisque. Phasellus cursus mollis erat in hendrerit. Donec eget leo id erat fermentum consequat sit amet ut neque. Ut nibh erat, feugiat nec pretium nec, lobortis non ex. Maecenas at massa ut diam porttitor consectetur. Nunc fringilla tempus orci, vel elementum libero dictum non. Quisque vel porttitor nisi. Sed egestas libero et tincidunt placerat. Suspendisse nec tincidunt sem, vitae ullamcorper risus. Sed scelerisque, mi quis auctor facilisis, justo metus euismod eros, ut porttitor nisi nisi sed tellus. Nulla rutrum nunc vitae interdum elementum. Aliquam vulputate aliquet odio eu consequat.\r\n\r\nNullam convallis tempor auctor. Curabitur elit tellus, vehicula sit amet tortor sed, maximus tristique nisi. Cras ultrices placerat mollis. Aenean vehicula hendrerit arcu non gravida. Donec maximus mi tempus, ultricies quam eget, tincidunt felis. Etiam euismod at turpis non aliquet. Sed mollis ipsum nibh, non molestie sapien dictum nec. Nullam consequat leo in mollis tincidunt. Sed a urna varius, finibus erat vel, vestibulum nibh. Ut rutrum augue mauris, eu porttitor ante posuere vitae. Quisque sed interdum est.\r\n\r\nCras sit amet condimentum velit. Pellentesque malesuada vel risus a laoreet. Duis faucibus lectus ac hendrerit blandit. Sed mollis scelerisque sem ut feugiat. Mauris pellentesque, nisl consequat pharetra laoreet, ipsum lacus vestibulum metus, at auctor risus nisi at arcu. Donec suscipit tellus et ligula hendrerit, sit amet dapibus nisi mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed tristique quam pulvinar elit sagittis convallis. Donec id blandit erat, eu finibus justo. Pellentesque eleifend dui rhoncus erat porttitor, nec hendrerit orci venenatis.",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "approved",
+    "createdDate": "2026-02-17T20:21:40.926Z",
+    "images": [
+      {
+        "alt": "Fire POI",
+        "caption": "",
+        "url": "/uploads/7dcd316a-1bc4-4c37-9fcf-77ef27c16e4a-Fire POI.mp4"
+      }
+    ],
+    "approvedDate": "2026-02-17T20:29:17.972Z"
+  },
+  {
+    "id": "0aa7203a-30cc-45f3-b99b-7da5ff5e82e3",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "coffee ponton",
+    "header": "When a dog makes boats",
+    "introText": "Lets think about how to structure the form/wording for instance if someone wanted to sell something like boat flooring or bolt on engine brackets etc.\r\n\r\n",
+    "forSale": {
+      "onMarket": true,
+      "price": 400,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "status": "approved",
+    "createdDate": "2026-02-17T21:36:50.528Z",
+    "images": [
+      {
+        "alt": "UgliBoat-Flooring - 2023",
+        "caption": "This is actually a dog",
+        "url": "/uploads/17ee8aee-a511-4e0d-8ada-8548e912ad42-UgliBoat-Flooring - 2023.jpg"
+      }
+    ],
+    "approvedDate": "2026-02-17T22:18:04.812Z"
+  },
+  {
+    "id": "5d17ba73-33f9-4a32-bc12-714a4a5d3701",
+    "type": "for-sale-item",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "",
+    "header": "",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, diam in euismod feugiat, nisl eros suscipit augue, at consectetur tortor lorem sit amet diam. Nunc pulvinar metus nisl, venenatis dapibus dui porttitor in. Integer pharetra dignissim lacus, sed tempor augue. Praesent lobortis, magna eget imperdiet imperdiet, tellus sapien consequat erat, ut mollis ex enim ac nisi. Integer augue mi, semper in dui vel, laoreet consequat nisi. Praesent mauris lorem, iaculis id ante eget, dapibus malesuada orci. Nam hendrerit vitae metus commodo vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar luctus mauris id aliquet. Donec laoreet aliquam erat, at sollicitudin metus dapibus id. Maecenas suscipit vel purus ut pretium. Sed blandit, orci a ultricies finibus, ex nulla ultrices ipsum, vitae ullamcorper elit ligula a massa. Donec sapien lacus, commodo vitae augue dapibus, luctus fermentum mauris. Mauris dignissim vestibulum sodales.\r\n\r\nUt fermentum sapien sit amet odio consectetur, ut pretium velit scelerisque. Phasellus cursus mollis erat in hendrerit. Donec eget leo id erat fermentum consequat sit amet ut neque. Ut nibh erat, feugiat nec pretium nec, lobortis non ex. Maecenas at massa ut diam porttitor consectetur. Nunc fringilla tempus orci, vel elementum libero dictum non. Quisque vel porttitor nisi. Sed egestas libero et tincidunt placerat. Suspendisse nec tincidunt sem, vitae ullamcorper risus. Sed scelerisque, mi quis auctor facilisis, justo metus euismod eros, ut porttitor nisi nisi sed tellus. Nulla rutrum nunc vitae interdum elementum. Aliquam vulputate aliquet odio eu consequat.",
+    "forSale": {
+      "onMarket": true,
+      "price": 777,
+      "links": {
+        "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "(580) 399-0953",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": true,
+        "showPhone": true,
+        "showAddress": true
+      }
+    },
+    "itemCategory": "parts",
+    "itemTitle": "engine bracket",
+    "status": "approved",
+    "createdDate": "2026-02-17T22:04:52.973Z",
+    "images": [
+      {
+        "alt": "Last-Ugliboats-2023",
+        "caption": "yo ho ho",
+        "url": "/uploads/24a92e1e-14ad-4a6d-afa4-60eb5af74274-Last-Ugliboats-2023.jpg"
+      },
+      {
+        "alt": "Fire POI",
+        "caption": "a japanese castle",
+        "url": "/uploads/8bdb43e0-4f6a-4a66-9f20-9a61b9dc3711-Fire POI.mp4"
+      }
+    ],
+    "approvedDate": "2026-02-17T22:06:20.430Z"
+  },
+  {
+    "id": "defda5ba-4135-49ea-8e8b-e22aec1cf44e",
+    "type": "build",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "This new boat",
+    "header": "When a dog makes boats",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, diam in euismod feugiat, nisl eros suscipit augue, at consectetur tortor lorem sit amet diam. Nunc pulvinar metus nisl, venenatis dapibus dui porttitor in. Integer pharetra dignissim lacus, sed tempor augue. Praesent lobortis, magna eget imperdiet imperdiet, tellus sapien consequat erat, ut mollis ex enim ac nisi. Integer augue mi, semper in dui vel, laoreet consequat nisi. Praesent mauris lorem, iaculis id ante eget, dapibus malesuada orci. Nam hendrerit vitae metus commodo vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar luctus mauris id aliquet. Donec laoreet aliquam erat, at sollicitudin metus dapibus id. Maecenas suscipit vel purus ut pretium. Sed blandit, orci a ultricies finibus, ex nulla ultrices ipsum, vitae ullamcorper elit ligula a massa. Donec sapien lacus, commodo vitae augue dapibus, luctus fermentum mauris. Mauris dignissim vestibulum sodales.\r\n\r\nUt fermentum sapien sit amet odio consectetur, ut pretium velit scelerisque. Phasellus cursus mollis erat in hendrerit. Donec eget leo id erat fermentum consequat sit amet ut neque. Ut nibh erat, feugiat nec pretium nec, lobortis non ex. Maecenas at massa ut diam porttitor consectetur. Nunc fringilla tempus orci, vel elementum libero dictum non. Quisque vel porttitor nisi. Sed egestas libero et tincidunt placerat. Suspendisse nec tincidunt sem, vitae ullamcorper risus. Sed scelerisque, mi quis auctor facilisis, justo metus euismod eros, ut porttitor nisi nisi sed tellus. Nulla rutrum nunc vitae interdum elementum. Aliquam vulputate aliquet odio eu consequat.",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "(580) 399-0953",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": true,
+        "showPhone": true,
+        "showAddress": true
+      }
+    },
+    "itemCategory": null,
+    "itemTitle": null,
+    "status": "approved",
+    "createdDate": "2026-02-17T22:09:33.053Z",
+    "images": [
+      {
+        "alt": "happy-dog",
+        "caption": "Its a dog",
+        "url": "/uploads/399bb03b-96f9-461d-8330-723070b300ff-happy-dog.jpg"
+      },
+      {
+        "alt": "Fire POI",
+        "caption": "Windshields can fold down flat or can be removed completely.",
+        "url": "/uploads/99bd78f8-1f46-44b3-b69c-bd930a6d17c2-Fire POI.mp4"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
+        "caption": "fire",
+        "url": "https://youtu.be/cZ3saNNNN4I"
+      }
+    ],
+    "approvedDate": "2026-02-17T22:17:55.879Z"
+  },
+  {
+    "id": "fdcd2a76-6bf9-4bb1-a224-fabbdad645fb",
+    "type": "build",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Josh's Ponton",
+    "header": "Tika made this",
+    "introText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, diam in euismod feugiat, nisl eros suscipit augue, at consectetur tortor lorem sit amet diam. Nunc pulvinar metus nisl, venenatis dapibus dui porttitor in. Integer pharetra dignissim lacus, sed tempor augue. Praesent lobortis, magna eget imperdiet imperdiet, tellus sapien consequat erat, ut mollis ex enim ac nisi. Integer augue mi, semper in dui vel, laoreet consequat nisi. Praesent mauris lorem, iaculis id ante eget, dapibus malesuada orci. Nam hendrerit vitae metus commodo vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar luctus mauris id aliquet. Donec laoreet aliquam erat, at sollicitudin metus dapibus id. Maecenas suscipit vel purus ut pretium. Sed blandit, orci a ultricies finibus, ex nulla ultrices ipsum, vitae ullamcorper elit ligula a massa. Donec sapien lacus, commodo vitae augue dapibus, luctus fermentum mauris. Mauris dignissim vestibulum sodales.\r\n\r\nUt fermentum sapien sit amet odio consectetur, ut pretium velit scelerisque. Phasellus cursus mollis erat in hendrerit. Donec eget leo id erat fermentum consequat sit amet ut neque. Ut nibh erat, feugiat nec pretium nec, lobortis non ex. Maecenas at massa ut diam porttitor consectetur. Nunc fringilla tempus orci, vel elementum libero dictum non. Quisque vel porttitor nisi. Sed egestas libero et tincidunt placerat. Suspendisse nec tincidunt sem, vitae ullamcorper risus. Sed scelerisque, mi quis auctor facilisis, justo metus euismod eros, ut porttitor nisi nisi sed tellus. Nulla rutrum nunc vitae interdum elementum. Aliquam vulputate aliquet odio eu consequat.",
+    "forSale": {
+      "onMarket": true,
+      "price": 888,
+      "links": {
+        "craigslistUrl": "https://flowbite.com/docs/forms/number-input/",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "(580) 399-0953",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": true,
+        "showPhone": false,
+        "showAddress": false
+      }
+    },
+    "itemCategory": null,
+    "itemTitle": null,
+    "status": "approved",
+    "createdDate": "2026-02-17T22:11:28.281Z",
+    "images": [
+      {
+        "alt": "nonosquare",
+        "caption": "this is actually a capybara not a boat",
+        "url": "/uploads/0e56f5bc-6e47-4565-9d08-ee6dcc5ed28e-nonosquare.png"
+      },
+      {
+        "alt": "Fire POI",
+        "caption": "will ferrel",
+        "url": "/uploads/08dbf2a8-fa44-427b-9c63-4af98668f6fd-Fire POI.mp4"
+      },
+      {
+        "alt": "YouTube Video: https://youtu.be/cZ3saNNNN4I",
+        "caption": "this video doh",
+        "url": "https://youtu.be/cZ3saNNNN4I"
+      }
+    ],
+    "approvedDate": "2026-02-17T22:17:46.315Z"
+  },
+  {
+    "id": "ada4381b-ee13-4048-859d-dd5679bce62a",
+    "type": "build",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "coffee ponton",
+    "header": "Tika made this",
+    "introText": "made materials",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "(580) 399-0953",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": false,
+        "showPhone": false,
+        "showAddress": false
+      }
+    },
+    "itemCategory": null,
+    "itemTitle": null,
+    "status": "rejected",
+    "createdDate": "2026-02-17T23:18:37.241Z",
+    "images": [
+      {
+        "alt": "care-mom",
+        "caption": "",
+        "url": "/uploads/1dd0371a-f8d1-41fe-8bdc-75e26c24aec0-care-mom.jpg"
+      }
+    ],
+    "rejectedDate": "2026-02-18T20:38:46.331Z"
+  },
+  {
+    "id": "e04d12e2-38d2-4ff3-b20b-107fcef8b61e",
+    "type": "for-sale-item",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "",
+    "header": "",
+    "introText": "bracket",
+    "forSale": {
+      "onMarket": true,
+      "price": 500,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "(580) 399-0953",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": true,
+        "showPhone": true,
+        "showAddress": true
+      }
+    },
+    "itemCategory": "materials",
+    "itemTitle": "engine bracket",
+    "status": "rejected",
+    "createdDate": "2026-02-17T23:24:46.961Z",
+    "images": [
+      {
+        "alt": "UgliBoat-Flooring - 2023",
+        "caption": "",
+        "url": "/uploads/fd84b0ae-f1df-4ff8-9b37-131146cf4ed6-UgliBoat-Flooring - 2023.jpg"
+      }
+    ],
+    "rejectedDate": "2026-02-18T20:39:11.742Z"
+  },
+  {
+    "id": "5caa9f40-77b5-4d6d-913d-ba3f55bb36b7",
+    "type": "build",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "Josh's Ponton",
+    "header": "",
+    "introText": "",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": false,
+        "showPhone": false,
+        "showAddress": false
+      }
+    },
+    "itemCategory": null,
+    "itemTitle": null,
+    "status": "rejected",
+    "createdDate": "2026-02-17T23:29:28.883Z",
+    "images": [
+      {
+        "alt": "favi",
+        "caption": "",
+        "url": "/uploads/0f0ab97f-5da9-41eb-a608-1d4d2ca01e7e-favi.png"
+      }
+    ],
+    "rejectedDate": "2026-02-18T20:39:03.547Z"
+  },
+  {
+    "id": "cf55d40f-7a55-42d8-ab9b-2ca59ca829a7",
+    "type": "build",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "coffee ponton",
+    "header": "",
+    "introText": "",
+    "forSale": {
+      "onMarket": false,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": false,
+        "showPhone": false,
+        "showAddress": false
+      }
+    },
+    "itemCategory": null,
+    "itemTitle": null,
+    "status": "rejected",
+    "createdDate": "2026-02-17T23:31:54.170Z",
+    "images": [
+      {
+        "alt": "care-mom",
+        "caption": "",
+        "url": "/uploads/2700453d-a370-4f2a-b943-928bd4894ff1-care-mom.jpg"
+      }
+    ],
+    "rejectedDate": "2026-02-18T20:38:55.564Z"
+  },
+  {
+    "id": "60a795aa-bf14-4442-84cc-451a5b722eb1",
+    "type": "for-sale-item",
+    "name": "Joshua Thompson",
+    "email": "joshua.thompson0010@gmail.com",
+    "buildName": "",
+    "header": "",
+    "introText": "old bolt",
+    "forSale": {
+      "onMarket": true,
+      "price": 0,
+      "links": {
+        "craigslistUrl": "",
+        "facebookUrl": "",
+        "otherUrl": ""
+      }
+    },
+    "contactInfo": {
+      "phone": "",
+      "address": "816 n bell ave # 60",
+      "displayPreferences": {
+        "showName": true,
+        "showEmail": false,
+        "showPhone": false,
+        "showAddress": false
+      }
+    },
+    "itemCategory": "parts",
+    "itemTitle": "old bolt",
+    "status": "rejected",
+    "createdDate": "2026-02-17T23:34:15.957Z",
+    "images": [
+      {
+        "alt": "care-mom",
+        "caption": "",
+        "url": "/uploads/31d7f7e3-1c61-42e0-bdde-d056d0cfbf31-care-mom.jpg"
+      }
+    ],
+    "rejectedDate": "2026-02-18T20:38:41.434Z"
+  }
 ]

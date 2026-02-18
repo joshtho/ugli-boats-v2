@@ -27,14 +27,32 @@ import AdminPage from "@/components/Admin/AdminPage"
 import SubmitBuild from "@/components/SubmitBuild"
 import ContactPage from "@/components/ContactPage"
 import FooterSection from "@/components/FooterSection"
+import { useBuilds } from "@/contexts/BuildsContext"
 
 export default function App() {
   const location = useLocation()
   const pathnames = location.pathname.split("/").filter(Boolean)
+  const { backendBuilds } = useBuilds()
 
   // Helper to build the URL for each breadcrumb
   const buildPath = (idx: number) =>
     "/" + pathnames.slice(0, idx + 1).join("/")
+
+  // Resolve a breadcrumb segment to a display name
+  const getSegmentLabel = (segment: string, idx: number): string => {
+    // If this segment is under /builds/ and looks like a UUID, resolve to build name
+    if (idx > 0 && pathnames[idx - 1] === 'builds' && segment.includes('-') && segment.length > 20) {
+      const build = backendBuilds.find(b => b.id === segment)
+      if (build) {
+        return build.buildName || build.name || 'Boat Page'
+      }
+      return 'Boat Page'
+    }
+    return decodeURIComponent(segment)
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  }
 
   return (
     <SidebarProvider>
@@ -57,24 +75,12 @@ export default function App() {
                     <BreadcrumbItem >
                       {idx === pathnames.length - 1 ? (
                         <BreadcrumbPage className="text-secondary">
-                          {decodeURIComponent(segment)
-                            .split("-")
-                            .map(
-                              (word) =>
-                                word.charAt(0).toUpperCase() + word.slice(1)
-                            )
-                            .join(" ")}
+                          {getSegmentLabel(segment, idx)}
                         </BreadcrumbPage>
                       ) : (
                         <BreadcrumbLink className="text-secondary" asChild>
                           <Link to={buildPath(idx)}>
-                            {decodeURIComponent(segment)
-                              .split("-")
-                              .map(
-                                (word) =>
-                                  word.charAt(0).toUpperCase() + word.slice(1)
-                              )
-                              .join(" ")}
+                            {getSegmentLabel(segment, idx)}
                           </Link>
                         </BreadcrumbLink>
                       )}
@@ -118,7 +124,7 @@ export default function App() {
               <Route path='/admin' element={<AdminPage />} />
               <Route path='/submit-build' element={<SubmitBuild />} />
               <Route path='/contact' element={<ContactPage />} />
-              <Route path="/builds/:name" element={<BoatPage />} />
+              <Route path="/builds/:id" element={<BoatPage />} />
             </Routes>
         </div>
             <FooterSection />

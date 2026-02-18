@@ -3,14 +3,19 @@ import { useBuilds } from '@/contexts/BuildsContext'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, DollarSign } from 'lucide-react'
+import { ExternalLink, DollarSign, Phone, MapPin, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 function ForSalePage() {
   const { backendBuilds } = useBuilds()
   
-  // Filter builds that are marked for sale
-  const forSaleBuilds = backendBuilds.filter(build => build.forSale?.onMarket)
+  // Builds marked for sale (type=build with forSale.onMarket)
+  const forSaleBuilds = backendBuilds.filter(build => 
+    (!build.type || build.type === 'build') && build.forSale?.onMarket
+  )
+  
+  // Standalone for-sale items (type=for-sale-item)
+  const forSaleItems = backendBuilds.filter(build => build.type === 'for-sale-item')
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -76,8 +81,24 @@ function ForSalePage() {
                     {build.introText}
                   </p>
 
+                  {/* Contact info for builds with display preferences */}
+                  {build.contactInfo && (
+                    <div className="text-sm space-y-1">
+                      {build.contactInfo.displayPreferences?.showPhone && build.contactInfo.phone && (
+                        <p className="flex items-center gap-1 text-gray-600">
+                          <Phone className="h-3 w-3" /> {build.contactInfo.phone}
+                        </p>
+                      )}
+                      {build.contactInfo.displayPreferences?.showAddress && build.contactInfo.address && (
+                        <p className="flex items-center gap-1 text-gray-600">
+                          <MapPin className="h-3 w-3" /> {build.contactInfo.address}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
                   <div className="flex flex-col gap-2">
-                    <Link to={`/builds/${encodeURIComponent(build.name)}`}>
+                    <Link to={`/builds/${build.id}`}>
                       <Button variant="outline" className="w-full">
                         View Full Build
                       </Button>
@@ -127,6 +148,120 @@ function ForSalePage() {
               </Card>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Standalone For Sale Items */}
+      {forSaleItems.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4 text-center">Parts & Accessories for Sale</h2>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {forSaleItems.map((item) => (
+              <Card key={item.id} className="relative">
+                <Badge className="absolute top-2 right-2 bg-green-600 hover:bg-green-700">
+                  {item.itemCategory ? item.itemCategory.toUpperCase() : 'FOR SALE'}
+                </Badge>
+
+                <CardHeader>
+                  <CardTitle className="pr-20">
+                    {item.itemTitle || item.buildName}
+                  </CardTitle>
+                  {item.contactInfo?.displayPreferences?.showName && item.name && (
+                    <p className="text-sm text-muted-foreground">by {item.name}</p>
+                  )}
+                  {item.forSale && (
+                    <div className="flex items-center gap-2 text-lg font-bold text-green-600">
+                      <DollarSign className="h-5 w-5" />
+                      {formatPrice(item.forSale.price)}
+                    </div>
+                  )}
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  {item.images.length > 0 && (
+                    <img
+                      src={getImageUrl(item.images[0].url)}
+                      alt={item.images[0].alt}
+                      className="w-full h-48 object-cover rounded"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  )}
+
+                  <p className="text-sm text-gray-600 line-clamp-3">
+                    {item.introText}
+                  </p>
+
+                  {/* Contact info based on display preferences */}
+                  {item.contactInfo && (
+                    <div className="text-sm space-y-1 border-t pt-2">
+                      {item.contactInfo.displayPreferences?.showEmail && (
+                        <p className="flex items-center gap-1 text-gray-600">
+                          <Mail className="h-3 w-3" /> {(item as any).email}
+                        </p>
+                      )}
+                      {item.contactInfo.displayPreferences?.showPhone && item.contactInfo.phone && (
+                        <p className="flex items-center gap-1 text-gray-600">
+                          <Phone className="h-3 w-3" /> {item.contactInfo.phone}
+                        </p>
+                      )}
+                      {item.contactInfo.displayPreferences?.showAddress && item.contactInfo.address && (
+                        <p className="flex items-center gap-1 text-gray-600">
+                          <MapPin className="h-3 w-3" /> {item.contactInfo.address}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {item.forSale && (
+                    <div className="flex gap-2 flex-wrap">
+                      {item.forSale.links.craigslistUrl && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => window.open(item.forSale!.links.craigslistUrl, '_blank')}
+                        >
+                          <ExternalLink className="h-4 w-4 mr-1" />
+                          Craigslist
+                        </Button>
+                      )}
+                      {item.forSale.links.facebookUrl && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => window.open(item.forSale!.links.facebookUrl, '_blank')}
+                        >
+                          <ExternalLink className="h-4 w-4 mr-1" />
+                          Facebook
+                        </Button>
+                      )}
+                      {item.forSale.links.otherUrl && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => window.open(item.forSale!.links.otherUrl, '_blank')}
+                        >
+                          <ExternalLink className="h-4 w-4 mr-1" />
+                          View Listing
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* No items message */}
+      {forSaleBuilds.length === 0 && forSaleItems.length === 0 && (
+        <div className="text-center py-8 mb-8">
+          <p className="text-gray-500 text-lg">No items currently for sale from the community.</p>
+          <p className="text-gray-400 text-sm mt-2">
+            Have something to sell? Visit the Submit page to list your item!
+          </p>
         </div>
       )}
 

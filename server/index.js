@@ -9,16 +9,69 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-// Configure dotenv
-dotenv.config();
+import nodemailer from 'nodemailer';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Configure dotenv with explicit path
+dotenv.config({ path: path.join(__dirname, '.env') });
+
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Email transporter for submission notifications
+const emailTransporter = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD
+  ? nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    })
+  : null;
+
+const ADMIN_NOTIFY_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || 'joshua.thompson0010@gmail.com';
+
+async function sendSubmissionNotification(submission) {
+  if (!emailTransporter) {
+    console.log('Email not configured — skipping notification');
+    return;
+  }
+  try {
+    const isItem = submission.type === 'for-sale-item';
+    const subject = isItem
+      ? `New For-Sale Item Submitted: ${submission.itemTitle || 'Untitled'}`
+      : `New Build Submitted: ${submission.buildName || 'Untitled'}`;
+
+    const html = `
+      <h2>${subject}</h2>
+      <table style="border-collapse:collapse;">
+        <tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Type:</td><td>${isItem ? 'For Sale Item' : 'Build'}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Name:</td><td>${submission.name || '—'}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Email:</td><td>${submission.email}</td></tr>
+        ${isItem ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Item:</td><td>${submission.itemTitle || '—'}</td></tr>` : ''}
+        ${isItem ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Category:</td><td>${submission.itemCategory || '—'}</td></tr>` : ''}
+        ${!isItem ? `<tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Build Name:</td><td>${submission.buildName || '—'}</td></tr>` : ''}
+        <tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Photos:</td><td>${submission.images?.length || 0}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;font-weight:bold;">Submitted:</td><td>${new Date(submission.createdDate).toLocaleString()}</td></tr>
+      </table>
+      <br>
+      <p>Log in to the <a href="https://ugliboats.com/#/admin">Admin Dashboard</a> to review and approve this submission.</p>
+    `;
+
+    await emailTransporter.sendMail({
+      from: `"UgliBoats Notifications" <${process.env.GMAIL_USER}>`,
+      to: ADMIN_NOTIFY_EMAIL,
+      subject,
+      html,
+    });
+    console.log('Submission notification email sent to', ADMIN_NOTIFY_EMAIL);
+  } catch (err) {
+    console.error('Failed to send notification email:', err.message);
+  }
+}
 
 // Store the current valid session token (in-memory for single admin)
 let currentValidToken = null;
@@ -207,7 +260,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 50 * 1024 * 1024, // 50MB limit for videos
+    fileSize: 200 * 1024 * 1024, // 200MB limit
   },
   fileFilter: (req, file, cb) => {
     // Accept images and videos
@@ -920,10 +973,21 @@ app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req
 // Submit a new build for review
 app.post('/api/submissions', upload.array('images', 10), (req, res) => {
   try {
-    const { name, email, buildName, introText, header, imageCaptions, forSale, youtubeVideos } = req.body;
+    const { name, email, buildName, introText, header, imageCaptions, forSale, youtubeVideos, type, contactInfo, itemCategory, itemTitle, itemDescription } = req.body;
     
-    if (!name || !email || !buildName) {
-      return res.status(400).json({ error: 'Name, email, and build name are required' });
+    // Validate based on submission type
+    const submissionType = type || 'build'; // default to 'build' for backwards compatibility
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+    
+    if (submissionType === 'build' && (!buildName || !name)) {
+      return res.status(400).json({ error: 'Name and build name are required for build submissions' });
+    }
+    
+    if (submissionType === 'for-sale-item' && !itemTitle) {
+      return res.status(400).json({ error: 'Item title is required for for-sale submissions' });
     }
     
     // Read existing submissions
@@ -969,15 +1033,30 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
     // Combine file images with YouTube videos
     const allImages = [...fileImages, ...youtubeVideoData];
     
+    // Parse contactInfo if provided
+    let contactInfoData = null;
+    if (contactInfo) {
+      try {
+        contactInfoData = JSON.parse(contactInfo);
+      } catch (e) {
+        console.log('Invalid contactInfo format, ignoring');
+      }
+    }
+    
     // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
-      name,
+      type: submissionType,
+      name: name || '',
       email,
-      buildName,
+      buildName: buildName || '',
       header: header || '',
-      introText: introText || '',
+      introText: introText || itemDescription || '',
       forSale: forSaleData,
+      contactInfo: contactInfoData,
+      // For-sale-item specific fields
+      itemCategory: itemCategory || null,
+      itemTitle: itemTitle || null,
       status: 'pending',
       createdDate: new Date().toISOString(),
       images: allImages
@@ -988,6 +1067,9 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
     
     // Save updated submissions
     writeSubmissions(submissions);
+
+    // Send admin notification email (non-blocking)
+    sendSubmissionNotification(newSubmission);
     
     res.json({
       message: 'Submission received successfully',
@@ -1038,12 +1120,16 @@ app.post('/api/submissions/:id/approve', verifyAdminToken, (req, res) => {
     const builds = readBuilds();
     const newBuild = {
       id: uuidv4(),
+      type: submission.type || 'build',
       name: submission.name,
       buildName: submission.buildName,
       header: submission.header,
       introText: submission.introText || '',
-      forSale: submission.forSale, // Include forSale data from submission
-      images: submission.images || [], // Already in correct format
+      forSale: submission.forSale,
+      contactInfo: submission.contactInfo || null,
+      itemCategory: submission.itemCategory || null,
+      itemTitle: submission.itemTitle || null,
+      images: submission.images || [],
       email: submission.email,
       createdDate: new Date().toISOString()
     };
@@ -1345,7 +1431,7 @@ app.get('*', (req, res) => {
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
     if (error.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json({ error: 'File too large' });
+      return res.status(400).json({ error: 'File too large. Maximum file size is 200MB. For larger videos, consider uploading to YouTube and pasting the link instead.' });
     }
   }
   res.status(500).json({ error: error.message });

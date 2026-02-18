@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
 import { Save, Eye, X, Trash2 } from 'lucide-react'
 import BoatPage from '../BoatPage'
 
@@ -29,6 +30,19 @@ interface BuildData {
   header?: string
   introText: string
   email?: string
+  type?: 'build' | 'for-sale-item'
+  contactInfo?: {
+    phone?: string
+    address?: string
+    displayPreferences?: {
+      showName: boolean
+      showEmail: boolean
+      showPhone: boolean
+      showAddress: boolean
+    }
+  }
+  itemCategory?: string
+  itemTitle?: string
   forSale?: {
     onMarket: boolean
     price: number
@@ -66,6 +80,19 @@ function EditBuild({
     header: '',
     introText: '',
     email: '',
+    type: 'build',
+    contactInfo: {
+      phone: '',
+      address: '',
+      displayPreferences: {
+        showName: true,
+        showEmail: true,
+        showPhone: false,
+        showAddress: false
+      }
+    },
+    itemCategory: '',
+    itemTitle: '',
     forSale: {
       onMarket: false,
       price: 0,
@@ -92,6 +119,19 @@ function EditBuild({
       setFormData({
         ...buildData,
         header: buildData.header || '',
+        type: buildData.type || 'build',
+        contactInfo: buildData.contactInfo || {
+          phone: '',
+          address: '',
+          displayPreferences: {
+            showName: true,
+            showEmail: true,
+            showPhone: false,
+            showAddress: false
+          }
+        },
+        itemCategory: buildData.itemCategory || '',
+        itemTitle: buildData.itemTitle || '',
         forSale: buildData.forSale || {
           onMarket: false,
           price: 0,
@@ -363,17 +403,36 @@ function EditBuild({
         <div className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Build Information</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                {formData.type === 'for-sale-item' ? '🏷️ Item Information' : '🚤 Build Information'}
+                <Badge variant={formData.type === 'for-sale-item' ? 'secondary' : 'default'}>
+                  {formData.type === 'for-sale-item' ? 'For Sale Item' : 'Build'}
+                </Badge>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              {/* Submission Type */}
               <div>
-                <Label htmlFor="name">Builder Name</Label>
+                <Label htmlFor="type">Submission Type</Label>
+                <select
+                  id="type"
+                  value={formData.type || 'build'}
+                  onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as 'build' | 'for-sale-item' }))}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                >
+                  <option value="build">Build</option>
+                  <option value="for-sale-item">For Sale Item</option>
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="name">{formData.type === 'for-sale-item' ? 'Seller Name' : 'Builder Name'}</Label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="Enter builder name"
+                  placeholder={formData.type === 'for-sale-item' ? 'Enter seller name' : 'Enter builder name'}
                 />
               </div>
 
@@ -390,16 +449,50 @@ function EditBuild({
                 </div>
               )}
 
-              <div>
-                <Label htmlFor="buildName">Build Name</Label>
-                <Input
-                  id="buildName"
-                  name="buildName"
-                  value={formData.buildName}
-                  onChange={handleInputChange}
-                  placeholder="What is this boat called?"
-                />
-              </div>
+              {/* For-sale-item specific fields */}
+              {formData.type === 'for-sale-item' && (
+                <>
+                  <div>
+                    <Label htmlFor="itemTitle">Item Title</Label>
+                    <Input
+                      id="itemTitle"
+                      name="itemTitle"
+                      value={formData.itemTitle || ''}
+                      onChange={handleInputChange}
+                      placeholder="What are you selling?"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="itemCategory">Category</Label>
+                    <select
+                      id="itemCategory"
+                      value={formData.itemCategory || ''}
+                      onChange={(e) => setFormData(prev => ({ ...prev, itemCategory: e.target.value }))}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    >
+                      <option value="">Select a category</option>
+                      <option value="parts">Parts</option>
+                      <option value="accessories">Accessories</option>
+                      <option value="materials">Materials</option>
+                      <option value="tools">Tools</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </>
+              )}
+
+              {formData.type !== 'for-sale-item' && (
+                <div>
+                  <Label htmlFor="buildName">Build Name</Label>
+                  <Input
+                    id="buildName"
+                    name="buildName"
+                    value={formData.buildName}
+                    onChange={handleInputChange}
+                    placeholder="What is this boat called?"
+                  />
+                </div>
+              )}
 
               <div>
                 <Label htmlFor="header">Header (optional)</Label>
@@ -422,6 +515,85 @@ function EditBuild({
                   placeholder="Tell the story of this build..."
                   rows={6}
                 />
+              </div>
+
+              {/* Contact Info Section */}
+              <div className="space-y-4 border-t pt-4">
+                <h3 className="text-lg font-semibold">Contact Information</h3>
+                
+                <div>
+                  <Label htmlFor="phone">Phone (optional)</Label>
+                  <Input
+                    id="phone"
+                    value={formData.contactInfo?.phone || ''}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      contactInfo: {
+                        ...prev.contactInfo,
+                        phone: e.target.value,
+                        displayPreferences: prev.contactInfo?.displayPreferences || {
+                          showName: true, showEmail: true, showPhone: false, showAddress: false
+                        }
+                      }
+                    }))}
+                    placeholder="Phone number"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="address">Location (optional)</Label>
+                  <Input
+                    id="address"
+                    value={formData.contactInfo?.address || ''}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      contactInfo: {
+                        ...prev.contactInfo,
+                        address: e.target.value,
+                        displayPreferences: prev.contactInfo?.displayPreferences || {
+                          showName: true, showEmail: true, showPhone: false, showAddress: false
+                        }
+                      }
+                    }))}
+                    placeholder="City, State or full address"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Public Display Preferences</Label>
+                  <p className="text-xs text-gray-500">Control what contact info visitors can see</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { key: 'showName', label: 'Name' },
+                      { key: 'showEmail', label: 'Email' },
+                      { key: 'showPhone', label: 'Phone' },
+                      { key: 'showAddress', label: 'Location' },
+                    ].map(({ key, label }) => (
+                      <div key={key} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id={`display-${key}`}
+                          checked={formData.contactInfo?.displayPreferences?.[key as keyof typeof formData.contactInfo.displayPreferences] ?? (key === 'showName' || key === 'showEmail')}
+                          onChange={(e) => setFormData(prev => ({
+                            ...prev,
+                            contactInfo: {
+                              ...prev.contactInfo,
+                              displayPreferences: {
+                                showName: true,
+                                showEmail: true,
+                                showPhone: false,
+                                showAddress: false,
+                                ...prev.contactInfo?.displayPreferences,
+                                [key]: e.target.checked
+                              }
+                            }
+                          }))}
+                        />
+                        <Label htmlFor={`display-${key}`} className="text-sm">{label}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* For Sale Section */}

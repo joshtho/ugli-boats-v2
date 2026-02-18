@@ -5,6 +5,7 @@ import { getApiUrl } from '@/config/api'
 // Backend build interface - matches the unified structure from seed.ts
 interface BackendBuild {
   id: string
+  type?: 'build' | 'for-sale-item'
   name: string
   buildName: string
   header: string
@@ -18,6 +19,18 @@ interface BackendBuild {
       otherUrl: string
     }
   }
+  contactInfo?: {
+    phone?: string
+    address?: string
+    displayPreferences?: {
+      showName: boolean
+      showEmail: boolean
+      showPhone: boolean
+      showAddress: boolean
+    }
+  }
+  itemCategory?: string
+  itemTitle?: string
   images: {
     alt: string
     caption: string

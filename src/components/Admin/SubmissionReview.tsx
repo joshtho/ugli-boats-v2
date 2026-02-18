@@ -91,11 +91,15 @@ function SubmissionReview() {
     // Transform submission data to EditBuild format
     const buildData = {
       id: submission.id,
+      type: submission.type || 'build',
       name: submission.name,
-      buildName: submission.buildName,
+      buildName: submission.type === 'for-sale-item' ? (submission.itemTitle || submission.buildName) : submission.buildName,
       header: submission.header, 
       introText: submission.introText,
       email: submission.email,
+      contactInfo: submission.contactInfo || null,
+      itemCategory: submission.itemCategory || null,
+      itemTitle: submission.itemTitle || null,
       forSale: submission.forSale || {
         onMarket: false,
         price: 0,
@@ -221,16 +225,44 @@ function SubmissionReview() {
             submissions.map((submission) => (
               <Card key={submission.id} className="border rounded-lg">
                 <CardContent className="p-6">
-                  {/* Header - like BoatPage */}
+                  {/* Header */}
                   <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2 justify-center">
+                      <Badge variant={submission.type === 'for-sale-item' ? 'secondary' : 'default'}>
+                        {submission.type === 'for-sale-item' ? '🏷️ For Sale Item' : '🚤 Build'}
+                      </Badge>
+                      {submission.itemCategory && (
+                        <Badge variant="outline">{submission.itemCategory}</Badge>
+                      )}
+                    </div>
                     <h1 className="text-2xl font-bold mb-2 text-center">
-                      {submission.name} - {submission.buildName}
+                      {submission.type === 'for-sale-item' 
+                        ? (submission.itemTitle || submission.buildName)
+                        : `${submission.name} - ${submission.buildName}`
+                      }
                     </h1>
-                    <div className="flex items-center  mb-4">
+                    <div className="flex items-center mb-4">
                       <div className="text-sm text-gray-600">
                         <p><strong>Email:</strong> {submission.email}</p>
+                        {submission.name && <p><strong>Name:</strong> {submission.name}</p>}
                         <p><strong>Submitted:</strong> {new Date(submission.createdDate).toLocaleDateString()}</p>
                         {submission.header && <p><strong>Header:</strong> {submission.header}</p>}
+                        {submission.contactInfo?.phone && <p><strong>Phone:</strong> {submission.contactInfo.phone}</p>}
+                        {submission.contactInfo?.address && <p><strong>Location:</strong> {submission.contactInfo.address}</p>}
+                        {submission.contactInfo?.displayPreferences && (
+                          <p className="text-xs text-gray-400 mt-1">
+                            <strong>Public display:</strong>{' '}
+                            {[
+                              submission.contactInfo.displayPreferences.showName && 'Name',
+                              submission.contactInfo.displayPreferences.showEmail && 'Email',
+                              submission.contactInfo.displayPreferences.showPhone && 'Phone',
+                              submission.contactInfo.displayPreferences.showAddress && 'Location',
+                            ].filter(Boolean).join(', ') || 'Nothing'}
+                          </p>
+                        )}
+                        {submission.forSale?.onMarket && (
+                          <p><strong>Price:</strong> ${submission.forSale.price}</p>
+                        )}
                       </div>
                     </div>
                       <Badge className="flex items-center gap-1">
@@ -239,25 +271,16 @@ function SubmissionReview() {
                       </Badge>
                   </div>
 
-                  {/* Main content grid - like BoatPage */}
+                  {/* Main content */}
                   <div className="gap-8 mb-6">
-                    {/* Images - left side (2/3 width) */}
-                    <h3 className="font-semibold mb-4">Build Photos - {submission.images.length}</h3>
+                    <h3 className="font-semibold mb-4">Photos - {submission.images?.length || 0}</h3>
 
-
-                    {/* Description - right side (1/3 width) */}
                     <div className='flex justify-start'>
                       {submission.introText && (
                         <div>
-                          <h3 className="font-semibold mb-4">Build Description</h3>
+                          <h3 className="font-semibold mb-4">Description</h3>
                           <div className="text-base text-gray-700 bg-white/80 rounded p-4 shadow border">
-                          <h2 className='font-bold'>{submission.header}</h2>
-                            {/* {submission.introText.split('\n').map((line: string, i: number) => (
-                              <span key={i}>
-                                {line.slice(0, 100)}{line.length > 400 ? '.......' : ''}
-                                <br />
-                              </span>
-                            ))} */}
+                          {submission.header && <h2 className='font-bold'>{submission.header}</h2>}
                             <p>{submission.introText.slice(0,200)}.....</p>
                           </div>
                         </div>

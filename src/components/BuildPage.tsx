@@ -23,19 +23,24 @@ function BuildPage() {
   
   // Use the builds context instead of local state
   const { backendBuilds, loading, error } = useBuilds()
-  const allBuilds = backendBuilds.map(build => ({
-    name: build.name,
-    buildName: build.buildName,
-    header: build.header,
-    introText: build.introText,
-    createdDate: build.createdDate, // Include createdDate for sorting
-    forSale: build.forSale, // Include forSale data
-    images: build.images.map(img => ({
-      alt: build.buildName || 'Build image',
-      caption: img.caption || '',
-      url: img.url
+  // Only show actual builds (not for-sale-only items)
+  const allBuilds = backendBuilds
+    .filter(build => !build.type || build.type === 'build')
+    .map(build => ({
+      id: build.id,
+      name: build.name,
+      buildName: build.buildName,
+      header: build.header,
+      introText: build.introText,
+      createdDate: build.createdDate,
+      forSale: build.forSale,
+      contactInfo: build.contactInfo,
+      images: build.images.map(img => ({
+        alt: build.buildName || 'Build image',
+        caption: img.caption || '',
+        url: img.url
+      }))
     }))
-  }))
 
   // Filter builds based on search term - match beginning of names only
   const filteredBuilds = allBuilds.filter(build => 
@@ -188,7 +193,7 @@ function BuildPage() {
         return (
           <StatefulLink
             key={idx}
-            to={`/builds/${encodeURIComponent(build.name)}`}
+            to={`/builds/${build.id}`}
             className="block"
           >
             <Card className="flex flex-col h-full shadow-md border border-gray-200 hover:shadow-xl transition-shadow duration-200 relative">
@@ -223,7 +228,7 @@ function BuildPage() {
         return (
           <StatefulLink
             key={idx}
-            to={`/builds/${encodeURIComponent(build.name)}`}
+            to={`/builds/${build.id}`}
             className="block"
           >
             <Card className="hover:shadow-lg transition-shadow duration-200 relative">

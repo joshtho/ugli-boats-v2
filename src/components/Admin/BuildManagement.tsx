@@ -7,7 +7,11 @@ import { Plus, Settings, Eye, ArrowLeft, Edit } from 'lucide-react'
 import { useBuilds } from '@/contexts/BuildsContext'
 import EditBuild from './EditBuild'
 
-function BuildManagement() {
+interface BuildManagementProps {
+  filterType?: 'build' | 'for-sale-item'
+}
+
+function BuildManagement({ filterType }: BuildManagementProps) {
   const [newBuild, setNewBuild] = useState({
     name: '',
     introText: '',
@@ -26,7 +30,18 @@ function BuildManagement() {
   const [addingBuild, setAddingBuild] = useState(false)
   
   // Get builds and refetch function from builds context
-  const { backendBuilds, refetchBuilds } = useBuilds()
+  const { backendBuilds: allBuilds, refetchBuilds } = useBuilds()
+
+  // Filter builds based on filterType prop
+  const backendBuilds = filterType === 'for-sale-item'
+    ? allBuilds.filter(b => b.type === 'for-sale-item')
+    : filterType === 'build'
+      ? allBuilds.filter(b => !b.type || b.type === 'build')
+      : allBuilds
+
+  const isForSaleMode = filterType === 'for-sale-item'
+  const entityLabel = isForSaleMode ? 'Item' : 'Build'
+  const entityLabelPlural = isForSaleMode ? 'Items' : 'Builds'
 
   // Helper to get proper image URL - same as BuildPage
   const getImageUrl = (url: string): string => {
@@ -143,11 +158,15 @@ function BuildManagement() {
     // Transform build data to EditBuild format
     const buildData = {
       id: build.id,
+      type: build.type || 'build',
       name: build.name,
       buildName: build.buildName || build.name,
       header: build.header,
       introText: build.introText,
       email: build.email || '',
+      contactInfo: build.contactInfo || null,
+      itemCategory: build.itemCategory || null,
+      itemTitle: build.itemTitle || null,
       forSale: build.forSale || {
         onMarket: false,
         price: 0,
@@ -267,10 +286,10 @@ function BuildManagement() {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Builds
+            Back to {entityLabelPlural}
           </Button>
           <h2 className="text-xl font-semibold">
-            {addingBuild ? 'Add New Build' : 'Edit Build'}
+            {addingBuild ? `Add New ${entityLabel}` : `Edit ${entityLabel}`}
           </h2>
         </div>
         
@@ -289,10 +308,10 @@ function BuildManagement() {
     <div className="space-y-6">
       {/* Add Build Button */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Build Management</h2>
+        <h2 className="text-2xl font-bold">{entityLabel} Management</h2>
         <Button onClick={handleAddNewBuild} className="flex items-center gap-2">
           <Plus className="h-5 w-5" />
-          Add Build
+          Add {entityLabel}
         </Button>
       </div>
       {/* Manage Existing Builds Card */}
@@ -300,25 +319,30 @@ function BuildManagement() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
-            Manage Existing Builds
+            Manage Existing {entityLabelPlural}
             {backendBuilds.length > 0 && (
-              <Badge variant="secondary">{backendBuilds.length} builds</Badge>
+              <Badge variant="secondary">{backendBuilds.length} {entityLabelPlural.toLowerCase()}</Badge>
             )}
           </CardTitle>
-          <CardDescription>View and delete existing builds</CardDescription>
+          <CardDescription>View and edit existing {entityLabelPlural.toLowerCase()}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {backendBuilds.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No builds found</p>
+            <p className="text-gray-500 text-center py-8">No {entityLabelPlural.toLowerCase()} found</p>
           ) : (
             backendBuilds.map((build) => (
               <div key={build.id} className="border rounded-lg p-4 space-y-3">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg">{build.buildName}</h3>
+                    <h3 className="font-semibold text-lg">
+                      {build.type === 'for-sale-item' ? (build.itemTitle || build.buildName) : build.buildName}
+                    </h3>
                     <div className="text-sm text-gray-600 space-y-1">
-                      <p><strong>Owner:</strong> {build.name}</p>
-                      <p><strong>Header:</strong> {build.header}</p>
+                      <p><strong>{build.type === 'for-sale-item' ? 'Seller' : 'Owner'}:</strong> {build.name}</p>
+                      {build.type === 'for-sale-item' && build.itemCategory && (
+                        <p><strong>Category:</strong> {build.itemCategory}</p>
+                      )}
+                      {build.header && <p><strong>Header:</strong> {build.header}</p>}
                       <p><strong>Created:</strong> {new Date(build.createdDate).toLocaleDateString()}</p>
                       <p><strong>Images:</strong> {build.images.length} image{build.images.length !== 1 ? 's' : ''}</p>
                     </div>

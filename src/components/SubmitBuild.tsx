@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Send, X } from 'lucide-react'
+import { Send, X, Eye, Upload, ImagePlus, Wrench, Ship } from 'lucide-react'
 import { getApiUrl } from '@/config/api'
+import BoatPage from './BoatPage'
 
-// make a contact info object for data so he can save emails and phone numbers
-// figure out how to handle the submission without making the page reload and without the session timeout thing copilot added
 interface MediaWithCaption {
   file: File
   preview: string
@@ -16,13 +15,29 @@ interface MediaWithCaption {
   type: 'image' | 'video'
 }
 
+type SubmissionType = 'build' | 'for-sale-item'
+
 function SubmitBuild() {
+  const [submissionType, setSubmissionType] = useState<SubmissionType | null>(null)
   const [formData, setFormData] = useState({
     name: '',
     buildName: '',
     header: '',
     introText: '',
     email: '',
+    phone: '',
+    address: '',
+    // For-sale-item specific
+    itemTitle: '',
+    itemCategory: '' as '' | 'parts' | 'accessories' | 'materials' | 'tools' | 'other',
+    itemDescription: '',
+    // Contact display preferences
+    contactPreferences: {
+      showName: true,
+      showEmail: false,
+      showPhone: false,
+      showAddress: false,
+    },
     forSale: {
       onMarket: false,
       price: 0,
@@ -38,6 +53,9 @@ function SubmitBuild() {
   const [youtubeUrl, setYoutubeUrl] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [previewMode, setPreviewMode] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Check for persisted success state on mount
   useEffect(() => {
@@ -167,8 +185,13 @@ function SubmitBuild() {
     e.preventDefault()
     e.stopPropagation()
     
-    if (!formData.name || !formData.email || !formData.buildName) {
-      alert('Please fill in all required fields')
+    // Validate based on submission type
+    if (submissionType === 'build' && (!formData.name || !formData.email || !formData.buildName)) {
+      alert('Please fill in all required fields (name, email, build name)')
+      return
+    }
+    if (submissionType === 'for-sale-item' && (!formData.email || !formData.itemTitle)) {
+      alert('Please fill in all required fields (email, item title)')
       return
     }
 
@@ -177,11 +200,27 @@ function SubmitBuild() {
     try {
       // Create FormData for submission
       const submitData = new FormData()
+      submitData.append('type', submissionType || 'build')
       submitData.append('name', formData.name)
       submitData.append('email', formData.email)
-      submitData.append('buildName', formData.buildName)
-      submitData.append('introText', formData.introText)
-      submitData.append('header', formData.header)
+      
+      // Contact info with privacy preferences
+      submitData.append('contactInfo', JSON.stringify({
+        phone: formData.phone,
+        address: formData.address,
+        displayPreferences: formData.contactPreferences
+      }))
+      
+      if (submissionType === 'build') {
+        submitData.append('buildName', formData.buildName)
+        submitData.append('introText', formData.introText)
+        submitData.append('header', formData.header)
+      } else {
+        // for-sale-item
+        submitData.append('itemTitle', formData.itemTitle)
+        submitData.append('itemCategory', formData.itemCategory)
+        submitData.append('itemDescription', formData.itemDescription)
+      }
       
       // Add forSale data
       submitData.append('forSale', JSON.stringify(formData.forSale))
@@ -218,7 +257,14 @@ function SubmitBuild() {
       })
       
       if (!response.ok) {
-        throw new Error(`Submission failed: ${response.statusText}`)
+        let errorMessage = `${response.status} ${response.statusText}`
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch {
+          // couldn't parse response body
+        }
+        throw new Error(errorMessage)
       }
       
       const result = await response.json()
@@ -231,10 +277,80 @@ function SubmitBuild() {
       
     } catch (error) {
       console.error('Submission error:', error)
-      alert('Submission failed: ' + (error as Error).message)
+      const message = (error as Error).message
+      if (message.toLowerCase().includes('file too large') || message.toLowerCase().includes('too large')) {
+        alert('One of your files exceeds the 200MB limit. For larger videos, try uploading to YouTube and adding the link instead.')
+      } else {
+        alert('Submission failed: ' + message)
+      }
     } finally {
       setSubmitting(false)
     }
+  }
+
+  // Build preview data by combining form data with local media previews
+  const buildPreviewData = () => {
+    const previewImages = [
+      ...media.map(item => ({
+        alt: formData.buildName || 'Build image',
+        caption: item.caption,
+        url: item.preview, // use the local preview URL (base64 for images, blob for video)
+        type: item.type // pass through 'image' or 'video' so BoatPage can identify blob URLs
+      })),
+      ...youtubeVideos.map(video => ({
+        alt: `YouTube Video: ${video.url}`,
+        caption: video.caption,
+        url: video.url
+      }))
+    ]
+
+    return {
+      name: submissionType === 'build' ? (formData.name || 'Your Name') : (formData.name || ''),
+      buildName: submissionType === 'build' ? (formData.buildName || 'Your Build') : (formData.itemTitle || 'Your Item'),
+      header: submissionType === 'build' ? formData.header : '',
+      introText: submissionType === 'build' ? formData.introText : formData.itemDescription,
+      email: formData.email,
+      forSale: formData.forSale,
+      contactInfo: {
+        phone: formData.phone,
+        address: formData.address,
+        displayPreferences: formData.contactPreferences
+      },
+      images: previewImages
+    }
+  }
+
+  if (previewMode) {
+    return (
+      <div className="mx-auto max-w-full p-6 space-y-4">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-bold">Preview — This is how your build page will look</h2>
+          <Button onClick={() => setPreviewMode(false)} variant="outline">
+            <X className="h-4 w-4 mr-2" />
+            Back to Editing
+          </Button>
+        </div>
+        <BoatPage buildData={buildPreviewData()} />
+        <div className="flex justify-center gap-4 pt-4 border-t">
+          <Button onClick={() => setPreviewMode(false)} variant="outline">
+            Back to Editing
+          </Button>
+          <Button
+            onClick={() => {
+              setPreviewMode(false)
+              // Small delay so form is rendered before we try to submit
+              setTimeout(() => {
+                const form = document.querySelector('form')
+                if (form) form.requestSubmit()
+              }, 100)
+            }}
+            disabled={submitting || (submissionType === 'build' ? (!formData.name || !formData.email || !formData.buildName) : (!formData.email || !formData.itemTitle))}
+          >
+            {submitting ? 'Submitting...' : 'Submit Build'}
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   if (submitted) {
@@ -245,7 +361,7 @@ function SubmitBuild() {
             <div className="text-green-600 text-6xl mb-4">✓</div>
             <h2 className="text-2xl font-bold mb-4">Submission Received!</h2>
             <p className="text-gray-600 mb-6">
-              Thank you for submitting your boat build! We'll review it and get back to you soon.
+              Thank you for your submission! We'll review it and get back to you soon.
             </p>
             <div className="space-y-3">
               <Button onClick={() => {
@@ -253,12 +369,24 @@ function SubmitBuild() {
                 sessionStorage.removeItem('buildSubmitted')
                 sessionStorage.removeItem('buildSubmissionTime')
                 setSubmitted(false)
+                setSubmissionType(null)
                 setFormData({ 
                   name: '', 
                   buildName: '', 
                   header: '', 
                   introText: '', 
                   email: '',
+                  phone: '',
+                  address: '',
+                  itemTitle: '',
+                  itemCategory: '',
+                  itemDescription: '',
+                  contactPreferences: {
+                    showName: true,
+                    showEmail: false,
+                    showPhone: false,
+                    showAddress: false,
+                  },
                   forSale: {
                     onMarket: false,
                     price: 0,
@@ -271,10 +399,8 @@ function SubmitBuild() {
                 })
                 setMedia([])
                 setYoutubeVideos([])
-                const fileInput = document.getElementById('images') as HTMLInputElement
-                if (fileInput) fileInput.value = ''
               }}>
-                Submit Another Build
+                Submit Another
               </Button>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg mt-8">
@@ -292,209 +418,388 @@ function SubmitBuild() {
     )
   }
   
+  // Type selection screen
+  if (!submissionType) {
+    return (
+      <div className="mx-auto max-w-2xl p-6">
+        <h1 className="text-3xl font-bold mb-4 text-center">What would you like to do?</h1>
+        <p className="text-center text-gray-600 mb-8">
+          Share your build with the UgliBoat community or list an item for sale on our marketplace.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card 
+            className="cursor-pointer hover:border-blue-500 hover:shadow-lg transition-all"
+            onClick={() => setSubmissionType('build')}
+          >
+            <CardContent className="flex flex-col items-center text-center p-8">
+              <Ship className="h-16 w-16 text-blue-600 mb-4" />
+              <h2 className="text-xl font-bold mb-2">Share a Build</h2>
+              <p className="text-gray-600 text-sm">
+                Show off your UgliBoat build with photos, videos, and your build story. Your build will appear on the Builds page.
+              </p>
+              <p className="text-xs text-gray-400 mt-3">
+                You can also list your completed boat for sale
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:border-green-500 hover:shadow-lg transition-all"
+            onClick={() => {
+              setSubmissionType('for-sale-item')
+              setFormData(prev => ({
+                ...prev,
+                forSale: { ...prev.forSale, onMarket: true }
+              }))
+            }}
+          >
+            <CardContent className="flex flex-col items-center text-center p-8">
+              <Wrench className="h-16 w-16 text-green-600 mb-4" />
+              <h2 className="text-xl font-bold mb-2">Sell an Item</h2>
+              <p className="text-gray-600 text-sm">
+                List boat parts, accessories, flooring, engine brackets, or other items for sale on our marketplace.
+              </p>
+              <p className="text-xs text-gray-400 mt-3">
+                No build page required — goes directly to the For Sale page
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+  
   return (
     <div className="mx-auto max-w-2xl p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <Button variant="ghost" size="sm" onClick={() => {
+          setSubmissionType(null)
+          setFormData({
+            name: '',
+            buildName: '',
+            header: '',
+            introText: '',
+            email: '',
+            phone: '',
+            address: '',
+            itemTitle: '',
+            itemCategory: '',
+            itemDescription: '',
+            contactPreferences: {
+              showName: true,
+              showEmail: false,
+              showPhone: false,
+              showAddress: false,
+            },
+            forSale: {
+              onMarket: false,
+              price: 0,
+              links: {
+                craigslistUrl: '',
+                facebookUrl: '',
+                otherUrl: ''
+              }
+            }
+          })
+          setMedia([])
+          setYoutubeVideos([])
+        }}>
+          ← Back
+        </Button>
+        <h1 className="text-3xl font-bold">
+          {submissionType === 'build' ? 'Share Your UgliBoat Build' : 'List an Item for Sale'}
+        </h1>
+      </div>
+      <p className="mb-6 text-gray-600">
+        {submissionType === 'build' 
+          ? 'Share your expertise with your fellow UgliBoat enthusiasts. Describe your build process with any tips, tricks, or instructions. You can also optionally list your boat for sale.'
+          : 'List your boat parts, accessories, or other items on the UgliBoat Marketplace.'
+        }
+      </p>
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Send className="h-5 w-5" />
-            Submit Your Boat Build
+            {submissionType === 'build' ? 'Submit Your Build' : 'List Your Item'}
           </CardTitle>
           <CardDescription>
-            Share your Ugli Boat build with the community! We'll review your submission and add it to our builds gallery.
+            We'll review your submission before it goes live.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="name">Your Name *</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="email">Email Address *</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-            </div>
             
-            <div>
-              <Label htmlFor="buildName">Build Name *</Label>
-              <Input
-                id="buildName"
-                name="buildName"
-                value={formData.buildName}
-                onChange={handleInputChange}
-                placeholder="What did you name your boat?"
-                required
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="header">Build Header (optional)</Label>
-              <Input
-                id="header"
-                name="header"
-                value={formData.header}
-                onChange={handleInputChange}
-                placeholder="Description/story in a couple of words"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="introText">Build Description</Label>
-              <Textarea
-                id="introText"
-                name="introText"
-                value={formData.introText}
-                onChange={handleInputChange}
-                placeholder="Tell us about your build - materials used, modifications made, how you use the boat, etc."
-                rows={6}
-              />
-            </div>
-
-            {/* For Sale Section */}
-            <div className="space-y-4 border-t pt-4">
-              <h3 className="text-lg font-semibold">For Sale Information (Optional)</h3>
+            {/* === CONTACT INFO SECTION (both types) === */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Your Contact Information</h3>
+              <p className="text-sm text-gray-500">We need your contact info for review. You control what's shown publicly below.</p>
               
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="onMarket"
-                  checked={formData.forSale.onMarket}
-                  onChange={(e) => 
-                    setFormData(prev => ({
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="name">Your Name {submissionType === 'build' ? '*' : '(optional)'}</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Enter your name"
+                    required={submissionType === 'build'}
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone">Phone Number (optional)</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="(555) 555-5555"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="address">Location / Address (optional)</Label>
+                  <Input
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    placeholder="City, State"
+                  />
+                </div>
+              </div>
+
+              {/* Privacy toggles */}
+              <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                <p className="text-sm font-medium text-gray-700 mb-2">What should be shown publicly on your listing?</p>
+                
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={formData.contactPreferences.showName}
+                    onChange={(e) => setFormData(prev => ({
                       ...prev,
-                      forSale: {
-                        ...prev.forSale,
-                        onMarket: e.target.checked
-                      }
-                    }))
-                  }
-                />
-                <Label htmlFor="onMarket">This build is for sale</Label>
+                      contactPreferences: { ...prev.contactPreferences, showName: e.target.checked }
+                    }))}
+                  />
+                  Show my name
+                </label>
+
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={formData.contactPreferences.showEmail}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      contactPreferences: { ...prev.contactPreferences, showEmail: e.target.checked }
+                    }))}
+                  />
+                  Show my email address
+                </label>
+
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={formData.contactPreferences.showPhone}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      contactPreferences: { ...prev.contactPreferences, showPhone: e.target.checked }
+                    }))}
+                  />
+                  Show my phone number
+                  {!formData.phone && <span className="text-gray-400">(enter a phone number above first)</span>}
+                </label>
+
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={formData.contactPreferences.showAddress}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      contactPreferences: { ...prev.contactPreferences, showAddress: e.target.checked }
+                    }))}
+                  />
+                  Show my location
+                  {!formData.address && <span className="text-gray-400">(enter a location above first)</span>}
+                </label>
               </div>
+            </div>
 
-              {formData.forSale.onMarket && (
-                <div className="space-y-4 ml-6 border-l-2 border-gray-200 pl-4">
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
-                    <Input
-                      id='price'
-                      type="number"
-                      className="pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      value={formData.forSale.price === 0 ? '' : formData.forSale.price}
-                      onChange={(e) => 
-                        setFormData(prev => ({
-                          ...prev,
-                          forSale: {
-                            ...prev.forSale,
-                            price: e.target.value === '' ? 0 : parseInt(e.target.value)
-                          }
-                        }))
-                      }
-                      placeholder='Enter price'
-                    />
-                  </div>
+            {/* === BUILD-SPECIFIC FIELDS === */}
+            {submissionType === 'build' && (
+              <div className="space-y-4 border-t pt-4">
+                <h3 className="text-lg font-semibold">Build Details</h3>
+                
+                <div>
+                  <Label htmlFor="buildName">Build Name *</Label>
+                  <Input
+                    id="buildName"
+                    name="buildName"
+                    value={formData.buildName}
+                    onChange={handleInputChange}
+                    placeholder="What did you name your boat?"
+                    required
+                  />
+                </div>
 
-                  <div>
-                    <Label htmlFor="craigslistUrl">Craigslist URL (optional)</Label>
-                    <Input
-                      id="craigslistUrl"
-                      type="url"
-                      value={formData.forSale.links.craigslistUrl}
-                      onChange={(e) => 
-                        setFormData(prev => ({
-                          ...prev,
-                          forSale: {
-                            ...prev.forSale,
-                            links: {
-                              ...prev.forSale.links,
-                              craigslistUrl: e.target.value
-                            }
-                          }
-                        }))
-                      }
-                      placeholder="https://craigslist.org/..."
-                    />
-                  </div>
+                <div>
+                  <Label htmlFor="header">Build Header (optional)</Label>
+                  <Input
+                    id="header"
+                    name="header"
+                    value={formData.header}
+                    onChange={handleInputChange}
+                    placeholder="Description/story in a couple of words"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="introText">Build Description</Label>
+                  <Textarea
+                    id="introText"
+                    name="introText"
+                    value={formData.introText}
+                    onChange={handleInputChange}
+                    placeholder="Tell us about your build - materials used, modifications made, how you use the boat, etc."
+                    rows={6}
+                  />
+                </div>
+              </div>
+            )}
 
-                  <div>
-                    <Label htmlFor="facebookUrl">Facebook Marketplace URL (optional)</Label>
-                    <Input
-                      id="facebookUrl"
-                      type="url"
-                      value={formData.forSale.links.facebookUrl}
-                      onChange={(e) => 
-                        setFormData(prev => ({
-                          ...prev,
-                          forSale: {
-                            ...prev.forSale,
-                            links: {
-                              ...prev.forSale.links,
-                              facebookUrl: e.target.value
-                            }
-                          }
-                        }))
-                      }
-                      placeholder="https://facebook.com/marketplace/..."
-                    />
-                  </div>
+            {/* === FOR-SALE-ITEM SPECIFIC FIELDS === */}
+            {submissionType === 'for-sale-item' && (
+              <div className="space-y-4 border-t pt-4">
+                <h3 className="text-lg font-semibold">Item Details</h3>
+                
+                <div>
+                  <Label htmlFor="itemTitle">Item Title *</Label>
+                  <Input
+                    id="itemTitle"
+                    name="itemTitle"
+                    value={formData.itemTitle}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Bolt-on Engine Brackets, Boat Flooring Kit"
+                    required
+                  />
+                </div>
 
-                  <div>
-                    <Label htmlFor="otherUrl">Other Listing URL (optional)</Label>
-                    <Input
-                      id="otherUrl"
-                      type="url"
-                      value={formData.forSale.links.otherUrl}
-                      onChange={(e) => 
-                        setFormData(prev => ({
-                          ...prev,
-                          forSale: {
-                            ...prev.forSale,
-                            links: {
-                              ...prev.forSale.links,
-                              otherUrl: e.target.value
-                            }
-                          }
-                        }))
-                      }
-                      placeholder="https://..."
-                    />
+                <div>
+                  <Label>Item Category</Label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-1">
+                    {[
+                      { value: 'parts', label: 'Parts' },
+                      { value: 'accessories', label: 'Accessories' },
+                      { value: 'materials', label: 'Materials' },
+                      { value: 'tools', label: 'Tools' },
+                      { value: 'other', label: 'Other' },
+                    ].map(cat => (
+                      <Button
+                        key={cat.value}
+                        type="button"
+                        variant={formData.itemCategory === cat.value ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setFormData(prev => ({ ...prev, itemCategory: cat.value as any }))}
+                      >
+                        {cat.label}
+                      </Button>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
-            
-            <div>
-              <Label htmlFor="images">Build Photos and Videos</Label>
-              <Label className='text-red-700' htmlFor="images"> (Be sure to upload your first piece of media as an image, as it will be your thumbnail to your build)</Label>
-              <Input
-                className='cursor-pointer'
-                id="images and video"
-                type="file"
-                multiple
-                accept="image/*,video/*"
-                onChange={handleFileChange}
-              />
-              <p className="text-sm text-gray-600 mt-1">
-                Upload photos and videos (as mp4) of your build (optional, but recommended!)
-              </p>
+
+                <div>
+                  <Label htmlFor="itemDescription">Item Description</Label>
+                  <Textarea
+                    id="itemDescription"
+                    name="itemDescription"
+                    value={formData.itemDescription}
+                    onChange={handleInputChange}
+                    placeholder="Describe the item, its condition, any details buyers should know..."
+                    rows={4}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* === PHOTOS & VIDEOS (both types) === */}
+            <div className="border-t pt-4">
+              <Label>Photos and Videos</Label>
+              <p className="text-sm text-red-600 mb-2">Your first image will be used as the thumbnail</p>
+              <div
+                className={`relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                  isDragging
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => {
+                  e.preventDefault()
+                  setIsDragging(true)
+                }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => {
+                  e.preventDefault()
+                  setIsDragging(false)
+                  const files = e.dataTransfer.files
+                  if (files.length > 0) {
+                    Array.from(files).forEach(file => {
+                      const isVideo = file.type.startsWith('video/')
+                      if (isVideo) {
+                        const videoUrl = URL.createObjectURL(file)
+                        setMedia(prev => [...prev, { file, preview: videoUrl, caption: '', type: 'video' }])
+                      } else if (file.type.startsWith('image/')) {
+                        const reader = new FileReader()
+                        reader.onload = (event) => {
+                          if (event.target?.result) {
+                            setMedia(prev => [...prev, { file, preview: event.target!.result as string, caption: '', type: 'image' }])
+                          }
+                        }
+                        reader.readAsDataURL(file)
+                      }
+                    })
+                  }
+                }}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept="image/*,video/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <div className="flex flex-col items-center gap-2">
+                  {media.length === 0 ? (
+                    <>
+                      <Upload className="h-10 w-10 text-gray-400" />
+                      <p className="text-lg font-medium text-gray-700">Drag & drop photos and videos here</p>
+                      <p className="text-sm text-gray-500">or click to browse</p>
+                      <p className="text-xs text-gray-400 mt-1">Supports images and MP4 videos up to 200MB</p>
+                    </>
+                  ) : (
+                    <>
+                      <ImagePlus className="h-8 w-8 text-gray-400" />
+                      <p className="text-sm font-medium text-gray-700">{media.length} file{media.length !== 1 ? 's' : ''} selected</p>
+                      <p className="text-sm text-blue-600">Click or drag to add more</p>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* YouTube Video Section */}
@@ -518,14 +823,14 @@ function SubmitBuild() {
                 </Button>
               </div>
               <p className="text-sm text-gray-600 mt-1">
-                Add YouTube videos of your build. Supports both youtu.be and youtube.com formats.
+                Add YouTube videos. Supports both youtu.be and youtube.com formats.
               </p>
             </div>
 
             {/* Media Previews with Caption Input */}
             {media.length > 0 && (
               <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Your Build Media</h3>
+                <h3 className="font-medium text-gray-900">Your Media</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {media.map((item, index) => (
                     <Card key={index} className="relative">
@@ -632,24 +937,155 @@ function SubmitBuild() {
                 </div>
               </div>
             )}
+
+            {/* === FOR SALE SECTION (build type only - for-sale-item always has it) === */}
+            {submissionType === 'build' && (
+              <div className="space-y-4 border-t pt-4">
+                <h3 className="text-lg font-semibold">For Sale Information (Optional)</h3>
+                <p className="text-sm text-gray-500">Is your completed boat for sale? If so, it will also appear on the Marketplace page.</p>
+                
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="onMarket"
+                    checked={formData.forSale.onMarket}
+                    onChange={(e) => 
+                      setFormData(prev => ({
+                        ...prev,
+                        forSale: {
+                          ...prev.forSale,
+                          onMarket: e.target.checked
+                        }
+                      }))
+                    }
+                  />
+                  <Label htmlFor="onMarket">This boat is for sale</Label>
+                </div>
+              </div>
+            )}
+
+            {/* Price & listing links (shown when for sale) */}
+            {formData.forSale.onMarket && (
+              <div className="space-y-4 ml-6 border-l-2 border-gray-200 pl-4">
+                <div className="relative">
+                  <Label htmlFor="price">Asking Price</Label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                    <Input
+                      id='price'
+                      type="number"
+                      className="pl-8"
+                      value={formData.forSale.price === 0 ? '' : formData.forSale.price}
+                      onChange={(e) => 
+                        setFormData(prev => ({
+                          ...prev,
+                          forSale: {
+                            ...prev.forSale,
+                            price: e.target.value === '' ? 0 : parseInt(e.target.value)
+                          }
+                        }))
+                      }
+                      placeholder='Enter price'
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="craigslistUrl">Craigslist URL (optional)</Label>
+                  <Input
+                    id="craigslistUrl"
+                    type="url"
+                    value={formData.forSale.links.craigslistUrl}
+                    onChange={(e) => 
+                      setFormData(prev => ({
+                        ...prev,
+                        forSale: {
+                          ...prev.forSale,
+                          links: {
+                            ...prev.forSale.links,
+                            craigslistUrl: e.target.value
+                          }
+                        }
+                      }))
+                    }
+                    placeholder="https://craigslist.org/..."
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="facebookUrl">Facebook Marketplace URL (optional)</Label>
+                  <Input
+                    id="facebookUrl"
+                    type="url"
+                    value={formData.forSale.links.facebookUrl}
+                    onChange={(e) => 
+                      setFormData(prev => ({
+                        ...prev,
+                        forSale: {
+                          ...prev.forSale,
+                          links: {
+                            ...prev.forSale.links,
+                            facebookUrl: e.target.value
+                          }
+                        }
+                      }))
+                    }
+                    placeholder="https://facebook.com/marketplace/..."
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="otherUrl">Other Listing URL (optional)</Label>
+                  <Input
+                    id="otherUrl"
+                    type="url"
+                    value={formData.forSale.links.otherUrl}
+                    onChange={(e) => 
+                      setFormData(prev => ({
+                        ...prev,
+                        forSale: {
+                          ...prev.forSale,
+                          links: {
+                            ...prev.forSale.links,
+                            otherUrl: e.target.value
+                          }
+                        }
+                      }))
+                    }
+                    placeholder="https://..."
+                  />
+                </div>
+              </div>
+            )}
             
             <div className="bg-blue-50 p-4 rounded-lg">
               <h3 className="font-medium text-blue-900 mb-2">What happens next?</h3>
               <ul className="text-sm text-blue-800 space-y-1">
                 <li>• We'll review your submission</li>
-                <li>• If approved, your build will be added to our gallery</li>
+                <li>• If approved, it will appear on the {submissionType === 'build' ? 'Builds page' : 'Marketplace'}</li>
                 <li>• We may contact you for additional details</li>
-                <li>• Your email will not be shared publicly</li>
+                <li>• Only info you opted to share will be shown publicly</li>
               </ul>
             </div>
             
-            <Button 
-              type="submit" 
-              disabled={submitting}
-              className="w-full"
-            >
-              {submitting ? 'Submitting...' : 'Submit Build'}
-            </Button>
+            <div className="flex gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                className="flex-1"
+                onClick={() => setPreviewMode(true)}
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Preview
+              </Button>
+              <Button 
+                type="submit" 
+                disabled={submitting}
+                className="flex-1"
+              >
+                {submitting ? 'Submitting...' : 'Submit'}
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>
