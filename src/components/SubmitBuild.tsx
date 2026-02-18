@@ -279,7 +279,7 @@ function SubmitBuild() {
       console.error('Submission error:', error)
       const message = (error as Error).message
       if (message.toLowerCase().includes('file too large') || message.toLowerCase().includes('too large')) {
-        alert('One of your files exceeds the 200MB limit. For larger videos, try uploading to YouTube and adding the link instead.')
+        alert('One of your files exceeds the 99MB limit. For larger videos, try uploading to YouTube and adding the link instead.')
       } else {
         alert('Submission failed: ' + message)
       }
@@ -457,10 +457,10 @@ function SubmitBuild() {
               <Wrench className="h-16 w-16 text-green-600 mb-4" />
               <h2 className="text-xl font-bold mb-2">Sell an Item</h2>
               <p className="text-gray-600 text-sm">
-                List boat parts, accessories, flooring, engine brackets, or other items for sale on our marketplace.
+                List boat parts, accessories, materials, or other items for sale on our marketplace.
               </p>
               <p className="text-xs text-gray-400 mt-3">
-                No build page required — goes directly to the For Sale page
+                Goes directly to the For Sale page
               </p>
             </CardContent>
           </Card>
@@ -789,7 +789,7 @@ function SubmitBuild() {
                       <Upload className="h-10 w-10 text-gray-400" />
                       <p className="text-lg font-medium text-gray-700">Drag & drop photos and videos here</p>
                       <p className="text-sm text-gray-500">or click to browse</p>
-                      <p className="text-xs text-gray-400 mt-1">Supports images and MP4 videos up to 200MB</p>
+                      <p className="text-xs text-gray-400 mt-1">Supports images and MP4 videos up to 99MB</p>
                     </>
                   ) : (
                     <>

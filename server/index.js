@@ -260,7 +260,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 200 * 1024 * 1024, // 200MB limit
+    fileSize: 99 * 1024 * 1024, // 99MB limit (GitHub's file size limit)
   },
   fileFilter: (req, file, cb) => {
     // Accept images and videos
@@ -1431,7 +1431,7 @@ app.get('*', (req, res) => {
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
     if (error.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json({ error: 'File too large. Maximum file size is 200MB. For larger videos, consider uploading to YouTube and pasting the link instead.' });
+      return res.status(400).json({ error: 'File too large. Maximum file size is 99MB. For larger videos, consider uploading to YouTube and pasting the link instead.' });
     }
   }
   res.status(500).json({ error: error.message });

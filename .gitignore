@@ -13,6 +13,9 @@ dist-ssr
 *.local
 notes.md
 
+# Uploaded files (user submissions - can exceed GitHub's 100MB limit)
+server/uploads/
+
 # Environment variables
 .env
 .env.local
