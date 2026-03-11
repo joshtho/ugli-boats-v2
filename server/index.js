@@ -1,4 +1,7 @@
 // filepath: /server/index.js
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
+
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
