@@ -1,7 +1,4 @@
 // filepath: /server/index.js
-import dns from 'dns';
-dns.setDefaultResultOrder('ipv4first');
-
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
@@ -12,7 +9,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -24,24 +21,13 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Email transporter for submission notifications
-const emailTransporter = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD
-  ? nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      family: 4,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    })
-  : null;
+// Email client for submission notifications
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const ADMIN_NOTIFY_EMAIL = process.env.ADMIN_NOTIFY_EMAIL || 'joshua.thompson0010@gmail.com';
 
 async function sendSubmissionNotification(submission) {
-  if (!emailTransporter) {
+  if (!resend) {
     console.log('Email not configured — skipping notification');
     return;
   }
@@ -67,12 +53,13 @@ async function sendSubmissionNotification(submission) {
       <p>Log in to the <a href="https://ugliboats.com/#/admin">Admin Dashboard</a> to review and approve this submission.</p>
     `;
 
-    await emailTransporter.sendMail({
-      from: `"UgliBoats Notifications" <${process.env.GMAIL_USER}>`,
+    const { error } = await resend.emails.send({
+      from: 'UgliBoats Notifications <onboarding@resend.dev>',
       to: ADMIN_NOTIFY_EMAIL,
       subject,
       html,
     });
+    if (error) throw new Error(error.message);
     console.log('Submission notification email sent to', ADMIN_NOTIFY_EMAIL);
   } catch (err) {
     console.error('Failed to send notification email:', err.message);
