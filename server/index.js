@@ -54,7 +54,7 @@ async function sendSubmissionNotification(submission) {
     `;
 
     const { error } = await resend.emails.send({
-      from: 'UgliBoats Notifications <onboarding@resend.dev>',
+      from: 'UgliBoats Notifications <noreply@ugliboats.com>',
       to: ADMIN_NOTIFY_EMAIL,
       subject,
       html,
