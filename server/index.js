@@ -1,4 +1,8 @@
 // filepath: /server/index.js
+// Polyfill globalThis.crypto for Node.js 18 compatibility with mongodb driver
+import { webcrypto } from 'node:crypto';
+if (!globalThis.crypto) globalThis.crypto = webcrypto;
+
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
@@ -10,6 +14,12 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Resend } from 'resend';
+import mongoose from 'mongoose';
+import Build from './models/Build.js';
+import Photo from './models/Photo.js';
+import Submission from './models/Submission.js';
+import Interesting from './models/Interesting.js';
+import { storage as cloudinaryStorage, getFileUrl } from './lib/cloudinary.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -17,6 +27,11 @@ const __dirname = path.dirname(__filename);
 
 // Configure dotenv with explicit path
 dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI || '')
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.error('MongoDB connection failed:', err.message));
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -100,163 +115,25 @@ app.use('/ugli-boats-v2', express.static(path.join(__dirname, 'public'), {
   }
 }));
 
-// Create uploads directory if it doesn't exist
+// Local uploads directory — used as static-file fallback when Cloudinary is not configured
 const uploadsDir = path.join(__dirname, 'uploads');
-console.log('Uploads directory path:', uploadsDir);
-console.log('Uploads directory exists before creation:', fs.existsSync(uploadsDir));
-if (!fs.existsSync(uploadsDir)) {
-  console.log('Creating uploads directory...');
-  fs.mkdirSync(uploadsDir, { recursive: true });
-  console.log('Uploads directory created, exists now:', fs.existsSync(uploadsDir));
-} else {
-  console.log('Uploads directory already exists');
-}
 
 // Serve uploaded files using the absolute path
 app.use('/uploads', express.static(uploadsDir)); // Serve uploaded files
 app.use('/ugli-boats-v2/uploads', express.static(uploadsDir)); // Serve uploaded files for GitHub Pages
 app.use('/ugli-boats-v2/IMAGES', express.static(path.join(__dirname, '../public/IMAGES'))); // Serve legacy images for GitHub Pages
 
-// Create data directory and files for JSON storage
-const dataDir = path.join(__dirname, 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
 
-const photosFile = path.join(dataDir, 'photos.json');
-const buildsFile = path.join(dataDir, 'builds.json');
-const submissionsFile = path.join(dataDir, 'submissions.json');
-const interestingFile = path.join(dataDir, 'interesting.json');
 
-// Initialize JSON files if they don't exist
-if (!fs.existsSync(photosFile)) {
-  fs.writeFileSync(photosFile, JSON.stringify([], null, 2));
-}
-if (!fs.existsSync(buildsFile)) {
-  fs.writeFileSync(buildsFile, JSON.stringify([], null, 2));
-}
-if (!fs.existsSync(submissionsFile)) {
-  fs.writeFileSync(submissionsFile, JSON.stringify([], null, 2));
-}
-if (!fs.existsSync(interestingFile)) {
-  fs.writeFileSync(interestingFile, JSON.stringify([], null, 2));
-}
 
-// Helper functions for JSON file operations
-const readPhotos = () => {
-  try {
-    console.log('Reading photos from:', photosFile);
-    console.log('Photos file exists:', fs.existsSync(photosFile));
-    if (!fs.existsSync(photosFile)) {
-      console.log('Photos file does not exist, creating empty array');
-      return [];
-    }
-    const data = fs.readFileSync(photosFile, 'utf8');
-    const photos = JSON.parse(data);
-    console.log('Successfully read photos, count:', photos.length);
-    return photos;
-  } catch (error) {
-    console.error('Error reading photos:', error.message);
-    console.error('Error details:', error);
-    return [];
-  }
-};
 
-const writePhotos = (photos) => {
-  try {
-    console.log('Writing photos to:', photosFile);
-    console.log('Photos count:', photos.length);
-    console.log('Data directory exists:', fs.existsSync(dataDir));
-    
-    // Ensure data directory exists
-    if (!fs.existsSync(dataDir)) {
-      console.log('Creating data directory:', dataDir);
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-    
-    fs.writeFileSync(photosFile, JSON.stringify(photos, null, 2));
-    console.log('Successfully wrote photos file');
-  } catch (error) {
-    console.error('Error writing photos:', error.message);
-    console.error('Error details:', error);
-    throw error; // Re-throw to propagate the error up
-  }
-};
-
-const readBuilds = () => {
-  try {
-    const data = fs.readFileSync(buildsFile, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading builds:', error);
-    return [];
-  }
-};
-
-const writeBuilds = (builds) => {
-  try {
-    fs.writeFileSync(buildsFile, JSON.stringify(builds, null, 2));
-  } catch (error) {
-    console.error('Error writing builds:', error);
-  }
-};
-
-const readSubmissions = () => {
-  try {
-    const data = fs.readFileSync(submissionsFile, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading submissions:', error);
-    return [];
-  }
-};
-
-const writeSubmissions = (submissions) => {
-  try {
-    fs.writeFileSync(submissionsFile, JSON.stringify(submissions, null, 2));
-  } catch (error) {
-    console.error('Error writing submissions:', error);
-  }
-};
-
-const readInteresting = () => {
-  try {
-    const data = fs.readFileSync(interestingFile, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading interesting content:', error);
-    return [];
-  }
-};
-
-const writeInteresting = (interesting) => {
-  try {
-    fs.writeFileSync(interestingFile, JSON.stringify(interesting, null, 2));
-  } catch (error) {
-    console.error('Error writing interesting content:', error);
-  }
-};
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    console.log(`📁 Multer destination: ${uploadsDir}`);
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${uuidv4()}-${file.originalname}`;
-    console.log(`📝 Multer filename: ${uniqueName}`);
-    cb(null, uniqueName);
-  }
-});
-
+// Configure multer — uses Cloudinary in production, local disk in development
 const upload = multer({
-  storage: storage,
+  storage: cloudinaryStorage,
   limits: {
-    fileSize: 99 * 1024 * 1024, // 99MB limit (GitHub's file size limit)
+    fileSize: 99 * 1024 * 1024,
   },
   fileFilter: (req, file, cb) => {
-    // Accept images and videos
     if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
       cb(null, true);
     } else {
@@ -265,8 +142,7 @@ const upload = multer({
   }
 });
 
-// Initialize JSON storage
-console.log('Using JSON file storage for data persistence');
+
 
 // Routes
 
@@ -538,7 +414,7 @@ const handleMulterUpload = (req, res, next) => {
 };
 
 // Upload photos
-app.post('/api/photos/upload', verifyAdminToken, handleMulterUpload, (req, res) => {
+app.post('/api/photos/upload', verifyAdminToken, handleMulterUpload, async (req, res) => {
   try {
     const { category, metadata } = req.body;
     
@@ -588,26 +464,20 @@ app.post('/api/photos/upload', verifyAdminToken, handleMulterUpload, (req, res) 
       return res.status(400).json({ error: 'No files uploaded' });
     }
     
-    // Read existing photos
-    const photos = readPhotos();
-    
-    // Add new photos
-    const uploadedFiles = req.files.map((file, index) => {
+    // Save new photos to MongoDB
+    const uploadedFiles = await Promise.all(req.files.map(async (file, index) => {
       const newPhoto = {
         id: uuidv4(),
-        image: `/ugli-boats-v2/uploads/${file.filename}`,
+        image: getFileUrl(file),
         alt: alts[index] || `${category} - ${file.originalname}`,
         category: category,
         caption: captions[index] || '',
         uploadDate: new Date().toISOString()
       };
       console.log(`Photo ${index}:`, newPhoto);
-      photos.push(newPhoto);
+      await new Photo(newPhoto).save();
       return newPhoto;
-    });
-    
-    // Save updated photos
-    writePhotos(photos);
+    }));
     
     res.json({
       message: `Successfully uploaded ${uploadedFiles.length} photos`,
@@ -633,16 +503,11 @@ app.post('/api/photos/upload', verifyAdminToken, handleMulterUpload, (req, res) 
 });
 
 // Get all photos by category
-app.get('/api/photos/:category', (req, res) => {
+app.get('/api/photos/:category', async (req, res) => {
   try {
     const { category } = req.params;
-    const photos = readPhotos();
-    
-    const filteredPhotos = photos
-      .filter(photo => photo.category === category)
-      .sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
-    
-    res.json(filteredPhotos);
+    const photos = await Photo.find({ category }).sort({ uploadDate: -1 }).lean();
+    res.json(photos);
   } catch (error) {
     console.error('Error getting photos:', error);
     res.status(500).json({ error: 'Database error' });
@@ -650,18 +515,10 @@ app.get('/api/photos/:category', (req, res) => {
 });
 
 // Get all photos
-app.get('/api/photos', (req, res) => {
+app.get('/api/photos', async (req, res) => {
   try {
-    const photos = readPhotos();
-    const sortedPhotos = photos.sort((a, b) => {
-      // Sort by category first, then by upload date
-      if (a.category === b.category) {
-        return new Date(b.uploadDate) - new Date(a.uploadDate);
-      }
-      return a.category.localeCompare(b.category);
-    });
-    
-    res.json(sortedPhotos);
+    const photos = await Photo.find({}).sort({ category: 1, uploadDate: -1 }).lean();
+    res.json(photos);
   } catch (error) {
     console.error('Error getting photos:', error);
     res.status(500).json({ error: 'Database error' });
@@ -669,50 +526,16 @@ app.get('/api/photos', (req, res) => {
 });
 
 // Delete a photo
-app.delete('/api/photos/:id', verifyAdminToken, (req, res) => {
+app.delete('/api/photos/:id', verifyAdminToken, async (req, res) => {
   try {
     const { id } = req.params;
-    console.log('Delete request for photo ID:', id);
+    const deletedPhoto = await Photo.findOneAndDelete({ id }).lean();
     
-    const photos = readPhotos();
-    const photoIndex = photos.findIndex(photo => photo.id === id);
-    
-    if (photoIndex === -1) {
-      console.log('Photo not found with ID:', id);
+    if (!deletedPhoto) {
       return res.status(404).json({ error: 'Photo not found' });
     }
     
-    // Get the photo to delete for cleanup
-    const photoToDelete = photos[photoIndex];
-    console.log('Found photo to delete:', photoToDelete.image);
-    
-    // Remove photo from array
-    const deletedPhoto = photos.splice(photoIndex, 1)[0];
-    console.log('Deleted photo:', deletedPhoto.alt);
-    
-    // Save updated photos array
-    writePhotos(photos);
-    
-    // Optional: Delete the actual file from disk for uploaded photos
-    if (photoToDelete.image.includes('/uploads/')) {
-      const filename = photoToDelete.image.split('/').pop();
-      const filePath = path.join(__dirname, 'uploads', filename);
-      
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.log('Could not delete file from disk:', err.message);
-          // Don't fail the request if file deletion fails
-        } else {
-          console.log('Successfully deleted file from disk:', filename);
-        }
-      });
-    }
-    
-    res.json({
-      message: 'Photo deleted successfully',
-      deletedPhoto: deletedPhoto
-    });
-    
+    res.json({ message: 'Photo deleted successfully', deletedPhoto });
   } catch (error) {
     console.error('Error deleting photo:', error);
     res.status(500).json({ error: 'Failed to delete photo' });
@@ -720,41 +543,22 @@ app.delete('/api/photos/:id', verifyAdminToken, (req, res) => {
 });
 
 // Update a photo
-app.put('/api/photos/:id', verifyAdminToken, (req, res) => {
+app.put('/api/photos/:id', verifyAdminToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { alt, caption, category } = req.body;
     
-    console.log('Update request for photo ID:', id);
-    console.log('Update data:', { alt, caption, category });
+    const updatedPhoto = await Photo.findOneAndUpdate(
+      { id },
+      { $set: { ...(alt && { alt }), ...(caption !== undefined && { caption }), ...(category && { category }) } },
+      { new: true }
+    ).lean();
     
-    const photos = readPhotos();
-    const photoIndex = photos.findIndex(photo => photo.id === id);
-    
-    if (photoIndex === -1) {
-      console.log('Photo not found with ID:', id);
+    if (!updatedPhoto) {
       return res.status(404).json({ error: 'Photo not found' });
     }
     
-    // Update the photo
-    const updatedPhoto = {
-      ...photos[photoIndex],
-      alt: alt || photos[photoIndex].alt,
-      caption: caption !== undefined ? caption : photos[photoIndex].caption,
-      category: category || photos[photoIndex].category
-    };
-    
-    photos[photoIndex] = updatedPhoto;
-    console.log('Updated photo:', updatedPhoto);
-    
-    // Save updated photos array
-    writePhotos(photos);
-    
-    res.json({
-      message: 'Photo updated successfully',
-      updatedPhoto: updatedPhoto
-    });
-    
+    res.json({ message: 'Photo updated successfully', updatedPhoto });
   } catch (error) {
     console.error('Error updating photo:', error);
     res.status(500).json({ error: 'Failed to update photo' });
@@ -762,7 +566,7 @@ app.put('/api/photos/:id', verifyAdminToken, (req, res) => {
 });
 
 // Add a new build
-app.post('/api/builds', upload.array('images', 20), (req, res) => {
+app.post('/api/builds', upload.array('images', 20), async (req, res) => {
   try {
     const { name, buildName, header, introText, email, forSale, images, captions } = req.body;
 
@@ -771,13 +575,12 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
     }
     
     // Read existing builds
-    const builds = readBuilds();
+    const builds = await Build.find({}).lean();
     
     // Parse forSale data if provided
     let forSaleData = null;
     if (forSale) {
       try {
-        // Handle both string (from FormData) and object (from JSON) cases
         forSaleData = typeof forSale === 'string' ? JSON.parse(forSale) : forSale;
       } catch (e) {
         console.log('Invalid forSale format, ignoring');
@@ -788,7 +591,6 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
     let captionsArray = [];
     if (captions) {
       try {
-        // Handle both string array from FormData and array from JSON
         captionsArray = Array.isArray(captions) ? captions : [captions];
       } catch (e) {
         console.log('Invalid captions format, using empty captions');
@@ -805,18 +607,14 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
       email,
       forSale: forSaleData,
       images: req.files ? req.files.map((f, index) => ({
-        alt: f.originalname.replace(/\.[^/.]+$/, ""), // Remove file extension for alt text
-        caption: captionsArray[index] || '', // Use corresponding caption or empty string
-        url: `/uploads/${f.filename}` // Use consistent format for local development
-      })) : (images || []), // Use images from JSON body if no files uploaded
+        alt: f.originalname.replace(/\.[^/.]+$/, ""),
+        caption: captionsArray[index] || '',
+        url: getFileUrl(f)
+      })) : (images || []),
       createdDate: new Date().toISOString()
     };
     
-    // Add to builds array
-    builds.push(newBuild);
-    
-    // Save updated builds
-    writeBuilds(builds);
+    await new Build(newBuild).save();
     
     res.json({
       message: 'Build added successfully',
@@ -830,42 +628,24 @@ app.post('/api/builds', upload.array('images', 20), (req, res) => {
 });
 
 // Update a build
-app.put('/api/builds/:id', verifyAdminToken, (req, res) => {
+app.put('/api/builds/:id', verifyAdminToken, async (req, res) => {
   try {
     const buildId = req.params.id;
     const updatedData = req.body;
     
-    console.log('PUT /api/builds/:id called');
-    console.log('Build ID:', buildId);
-    console.log('Updated data:', JSON.stringify(updatedData, null, 2));
+    const updatedBuild = await Build.findOneAndUpdate(
+      { id: buildId },
+      { $set: { ...updatedData, updatedDate: new Date().toISOString() } },
+      { new: true }
+    ).lean();
     
-    // Read builds
-    const builds = readBuilds();
-    console.log('Found builds count:', builds.length);
-    
-    const buildIndex = builds.findIndex(b => b.id === buildId);
-    console.log('Build index:', buildIndex);
-    
-    if (buildIndex === -1) {
-      console.log('Build not found');
+    if (!updatedBuild) {
       return res.status(404).json({ error: 'Build not found' });
     }
     
-    // Update build with new data
-    builds[buildIndex] = {
-      ...builds[buildIndex],
-      ...updatedData,
-      updatedDate: new Date().toISOString()
-    };
-    
-    console.log('Updated build:', JSON.stringify(builds[buildIndex], null, 2));
-    
-    writeBuilds(builds);
-    console.log('Build updated successfully');
-    
     res.json({
       message: 'Build updated successfully',
-      build: builds[buildIndex]
+      build: updatedBuild
     });
     
   } catch (error) {
@@ -875,12 +655,10 @@ app.put('/api/builds/:id', verifyAdminToken, (req, res) => {
 });
 
 // Get all builds
-app.get('/api/builds', (req, res) => {
+app.get('/api/builds', async (req, res) => {
   try {
-    const builds = readBuilds();
-    const sortedBuilds = builds.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
-    
-    res.json(sortedBuilds);
+    const builds = await Build.find({}).sort({ createdDate: -1 }).lean();
+    res.json(builds);
   } catch (error) {
     console.error('Error getting builds:', error);
     res.status(500).json({ error: 'Database error' });
@@ -888,35 +666,18 @@ app.get('/api/builds', (req, res) => {
 });
 
 // Delete a build
-app.delete('/api/builds/:id', verifyAdminToken, (req, res) => {
+app.delete('/api/builds/:id', verifyAdminToken, async (req, res) => {
   try {
     const buildId = req.params.id;
-    console.log('Delete request for build ID:', buildId);
+    const deletedBuild = await Build.findOneAndDelete({ id: buildId }).lean();
     
-    // Read existing builds
-    const builds = readBuilds();
-    console.log('Total builds:', builds.length);
-    console.log('Build IDs:', builds.map(b => b.id));
-    
-    // Find the build index
-    const buildIndex = builds.findIndex(build => build.id === buildId);
-    console.log('Found build at index:', buildIndex);
-    
-    if (buildIndex === -1) {
-      console.log('Build not found with ID:', buildId);
+    if (!deletedBuild) {
       return res.status(404).json({ error: 'Build not found' });
     }
     
-    // Remove the build from the array
-    const deletedBuild = builds.splice(buildIndex, 1)[0];
-    console.log('Deleted build:', deletedBuild.buildName);
-    
-    // Save updated builds
-    writeBuilds(builds);
-    
     res.json({
       message: 'Build deleted successfully',
-      deletedBuild: deletedBuild
+      deletedBuild
     });
     
   } catch (error) {
@@ -926,18 +687,16 @@ app.delete('/api/builds/:id', verifyAdminToken, (req, res) => {
 });
 
 // Admin file upload endpoint (for EditBuild component)
-app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req, res) => {
+app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded' });
     }
 
-    // Parse captions array if provided
     let captionsArray = [];
     const { captions } = req.body;
     if (captions) {
       try {
-        // Handle both string array from FormData and array from JSON
         captionsArray = Array.isArray(captions) ? captions : [captions];
       } catch (e) {
         console.log('Invalid captions format, using empty captions');
@@ -946,8 +705,8 @@ app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req
 
     const uploadedImages = req.files.map((file, index) => ({
       alt: file.originalname.replace(/\.[^/.]+$/, ""),
-      caption: captionsArray[index] || '', // Use corresponding caption or empty string
-      url: `/uploads/${file.filename}`
+      caption: captionsArray[index] || '',
+      url: getFileUrl(file)
     }));
 
     res.json({
@@ -964,12 +723,11 @@ app.post('/api/admin/upload', verifyAdminToken, upload.array('images', 10), (req
 // === SUBMISSION ENDPOINTS ===
 
 // Submit a new build for review
-app.post('/api/submissions', upload.array('images', 10), (req, res) => {
+app.post('/api/submissions', upload.array('images', 10), async (req, res) => {
   try {
     const { name, email, buildName, introText, header, imageCaptions, forSale, youtubeVideos, type, contactInfo, itemCategory, itemTitle, itemDescription } = req.body;
     
-    // Validate based on submission type
-    const submissionType = type || 'build'; // default to 'build' for backwards compatibility
+    const submissionType = type || 'build';
     
     if (!email) {
       return res.status(400).json({ error: 'Email is required' });
@@ -983,10 +741,6 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       return res.status(400).json({ error: 'Item title is required for for-sale submissions' });
     }
     
-    // Read existing submissions
-    const submissions = readSubmissions();
-    
-    // Parse captions if provided (should be JSON array)
     let captions = [];
     if (imageCaptions) {
       try {
@@ -996,7 +750,6 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
-    // Parse forSale data if provided
     let forSaleData = null;
     if (forSale) {
       try {
@@ -1006,7 +759,6 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
-    // Parse YouTube videos if provided
     let youtubeVideoData = [];
     if (youtubeVideos) {
       try {
@@ -1016,17 +768,14 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
-    // Create images array from uploaded files
     const fileImages = req.files ? req.files.map((f, index) => ({
       alt: f.originalname.replace(/\.[^/.]+$/, ""),
       caption: captions[index] || '',
-      url: `/uploads/${f.filename}` // Use consistent format for local development
+      url: getFileUrl(f)
     })) : [];
     
-    // Combine file images with YouTube videos
     const allImages = [...fileImages, ...youtubeVideoData];
     
-    // Parse contactInfo if provided
     let contactInfoData = null;
     if (contactInfo) {
       try {
@@ -1036,7 +785,6 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       }
     }
     
-    // Create new submission with proper image format
     const newSubmission = {
       id: uuidv4(),
       type: submissionType,
@@ -1047,7 +795,6 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       introText: introText || itemDescription || '',
       forSale: forSaleData,
       contactInfo: contactInfoData,
-      // For-sale-item specific fields
       itemCategory: itemCategory || null,
       itemTitle: itemTitle || null,
       status: 'pending',
@@ -1055,13 +802,8 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
       images: allImages
     };
     
-    // Add to submissions array
-    submissions.push(newSubmission);
-    
-    // Save updated submissions
-    writeSubmissions(submissions);
+    await new Submission(newSubmission).save();
 
-    // Send admin notification email (non-blocking)
     sendSubmissionNotification(newSubmission);
     
     res.json({
@@ -1080,13 +822,9 @@ app.post('/api/submissions', upload.array('images', 10), (req, res) => {
 });
 
 // Get all pending submissions (admin only)
-app.get('/api/submissions', (req, res) => {
+app.get('/api/submissions', async (req, res) => {
   try {
-    const submissions = readSubmissions();
-    const pendingSubmissions = submissions
-      .filter(s => s.status === 'pending')
-      .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
-    
+    const pendingSubmissions = await Submission.find({ status: 'pending' }).sort({ createdDate: -1 }).lean();
     res.json(pendingSubmissions);
   } catch (error) {
     console.error('Error getting submissions:', error);
@@ -1095,22 +833,15 @@ app.get('/api/submissions', (req, res) => {
 });
 
 // Approve a submission (convert to build)
-app.post('/api/submissions/:id/approve', verifyAdminToken, (req, res) => {
+app.post('/api/submissions/:id/approve', verifyAdminToken, async (req, res) => {
   try {
     const submissionId = req.params.id;
+    const submission = await Submission.findOne({ id: submissionId }).lean();
     
-    // Read submissions
-    const submissions = readSubmissions();
-    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
-    
-    if (submissionIndex === -1) {
+    if (!submission) {
       return res.status(404).json({ error: 'Submission not found' });
     }
     
-    const submission = submissions[submissionIndex];
-    
-    // Create build from submission (matching data.tsx structure)
-    const builds = readBuilds();
     const newBuild = {
       id: uuidv4(),
       type: submission.type || 'build',
@@ -1127,13 +858,11 @@ app.post('/api/submissions/:id/approve', verifyAdminToken, (req, res) => {
       createdDate: new Date().toISOString()
     };
     
-    builds.push(newBuild);
-    writeBuilds(builds);
-    
-    // Update submission status
-    submissions[submissionIndex].status = 'approved';
-    submissions[submissionIndex].approvedDate = new Date().toISOString();
-    writeSubmissions(submissions);
+    await new Build(newBuild).save();
+    await Submission.findOneAndUpdate(
+      { id: submissionId },
+      { $set: { status: 'approved', approvedDate: new Date().toISOString() } }
+    );
     
     res.json({
       message: 'Submission approved and converted to build',
@@ -1147,42 +876,24 @@ app.post('/api/submissions/:id/approve', verifyAdminToken, (req, res) => {
 });
 
 // Update a submission
-app.put('/api/submissions/:id', verifyAdminToken, (req, res) => {
+app.put('/api/submissions/:id', verifyAdminToken, async (req, res) => {
   try {
     const submissionId = req.params.id;
     const updatedData = req.body;
     
-    console.log('PUT /api/submissions/:id called');
-    console.log('Submission ID:', submissionId);
-    console.log('Updated data:', JSON.stringify(updatedData, null, 2));
+    const updatedSubmission = await Submission.findOneAndUpdate(
+      { id: submissionId },
+      { $set: { ...updatedData, updatedDate: new Date().toISOString() } },
+      { new: true }
+    ).lean();
     
-    // Read submissions
-    const submissions = readSubmissions();
-    console.log('Found submissions count:', submissions.length);
-    
-    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
-    console.log('Submission index:', submissionIndex);
-    
-    if (submissionIndex === -1) {
-      console.log('Submission not found');
+    if (!updatedSubmission) {
       return res.status(404).json({ error: 'Submission not found' });
     }
     
-    // Update submission with new data
-    submissions[submissionIndex] = {
-      ...submissions[submissionIndex],
-      ...updatedData,
-      updatedDate: new Date().toISOString()
-    };
-    
-    console.log('Updated submission:', JSON.stringify(submissions[submissionIndex], null, 2));
-    
-    writeSubmissions(submissions);
-    console.log('Submission updated successfully');
-    
     res.json({
       message: 'Submission updated successfully',
-      submission: submissions[submissionIndex]
+      submission: updatedSubmission
     });
     
   } catch (error) {
@@ -1192,26 +903,19 @@ app.put('/api/submissions/:id', verifyAdminToken, (req, res) => {
 });
 
 // Reject a submission
-app.post('/api/submissions/:id/reject', verifyAdminToken, (req, res) => {
+app.post('/api/submissions/:id/reject', verifyAdminToken, async (req, res) => {
   try {
     const submissionId = req.params.id;
+    const updated = await Submission.findOneAndUpdate(
+      { id: submissionId },
+      { $set: { status: 'rejected', rejectedDate: new Date().toISOString() } }
+    ).lean();
     
-    // Read submissions
-    const submissions = readSubmissions();
-    const submissionIndex = submissions.findIndex(s => s.id === submissionId);
-    
-    if (submissionIndex === -1) {
+    if (!updated) {
       return res.status(404).json({ error: 'Submission not found' });
     }
     
-    // Update submission status
-    submissions[submissionIndex].status = 'rejected';
-    submissions[submissionIndex].rejectedDate = new Date().toISOString();
-    writeSubmissions(submissions);
-    
-    res.json({
-      message: 'Submission rejected'
-    });
+    res.json({ message: 'Submission rejected' });
     
   } catch (error) {
     console.error('Error rejecting submission:', error);
@@ -1222,12 +926,10 @@ app.post('/api/submissions/:id/reject', verifyAdminToken, (req, res) => {
 // === INTERESTING CONTENT ENDPOINTS ===
 
 // Get all interesting content
-app.get('/api/interesting', (req, res) => {
+app.get('/api/interesting', async (req, res) => {
   try {
-    const interesting = readInteresting();
-    const sortedInteresting = interesting.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
-    
-    res.json(sortedInteresting);
+    const interesting = await Interesting.find({}).sort({ createdDate: -1 }).lean();
+    res.json(interesting);
   } catch (error) {
     console.error('Error getting interesting content:', error);
     res.status(500).json({ error: 'Failed to get interesting content' });
@@ -1235,25 +937,14 @@ app.get('/api/interesting', (req, res) => {
 });
 
 // Add new interesting content
-app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, res) => {
+app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), async (req, res) => {
   try {
     const { header, description, metadata, youtubeVideos } = req.body;
-    
-    console.log('Interesting content upload request:');
-    console.log('Header:', header);
-    console.log('Description:', description);
-    console.log('Metadata:', metadata);
-    console.log('YouTube videos:', youtubeVideos);
-    console.log('Files count:', req.files ? req.files.length : 0);
     
     if (!header) {
       return res.status(400).json({ error: 'Header is required' });
     }
     
-    // Read existing interesting content
-    const interesting = readInteresting();
-    
-    // Parse metadata for media files
     let mediaMetadata = [];
     if (metadata) {
       try {
@@ -1263,7 +954,6 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
       }
     }
     
-    // Parse YouTube videos
     let youtubeVideoData = [];
     if (youtubeVideos) {
       try {
@@ -1273,19 +963,17 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
       }
     }
     
-    // Process uploaded media files
     const uploadedMedia = req.files ? req.files.map((file, index) => {
-      const metadata = mediaMetadata[index] || {};
+      const meta = mediaMetadata[index] || {};
       return {
         id: uuidv4(),
         type: file.mimetype.startsWith('image/') ? 'image' : 'video',
-        alt: metadata.alt || file.originalname.replace(/\.[^/.]+$/, ""),
-        caption: metadata.caption || '',
-        url: `/uploads/${file.filename}` // Use consistent format
+        alt: meta.alt || file.originalname.replace(/\.[^/.]+$/, ""),
+        caption: meta.caption || '',
+        url: getFileUrl(file)
       };
     }) : [];
     
-    // Process YouTube videos
     const youtubeMedia = youtubeVideoData.map(video => ({
       id: uuidv4(),
       type: 'youtube',
@@ -1294,10 +982,8 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
       url: video.url
     }));
     
-    // Combine all media
     const allMedia = [...uploadedMedia, ...youtubeMedia];
     
-    // Create new interesting content item
     const newInteresting = {
       id: uuidv4(),
       header: header.trim(),
@@ -1306,11 +992,7 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
       createdDate: new Date().toISOString()
     };
     
-    // Add to interesting content array
-    interesting.push(newInteresting);
-    
-    // Save updated interesting content
-    writeInteresting(interesting);
+    await new Interesting(newInteresting).save();
     
     res.json({
       message: 'Interesting content added successfully',
@@ -1324,34 +1006,25 @@ app.post('/api/interesting', verifyAdminToken, upload.array('media', 20), (req, 
 });
 
 // Update interesting content
-app.put('/api/interesting/:id', verifyAdminToken, (req, res) => {
+app.put('/api/interesting/:id', verifyAdminToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { header, description, media } = req.body;
     
-    console.log('Update interesting content request for ID:', id);
-    console.log('Update data:', { header, description, media: media?.length });
+    const updatedInteresting = await Interesting.findOneAndUpdate(
+      { id },
+      { $set: {
+        ...(header && { header }),
+        ...(description !== undefined && { description }),
+        ...(media && { media }),
+        updatedDate: new Date().toISOString()
+      }},
+      { new: true }
+    ).lean();
     
-    const interesting = readInteresting();
-    const interestingIndex = interesting.findIndex(item => item.id === id);
-    
-    if (interestingIndex === -1) {
+    if (!updatedInteresting) {
       return res.status(404).json({ error: 'Interesting content not found' });
     }
-    
-    // Update the interesting content
-    const updatedInteresting = {
-      ...interesting[interestingIndex],
-      header: header || interesting[interestingIndex].header,
-      description: description !== undefined ? description : interesting[interestingIndex].description,
-      media: media || interesting[interestingIndex].media,
-      updatedDate: new Date().toISOString()
-    };
-    
-    interesting[interestingIndex] = updatedInteresting;
-    
-    // Save updated interesting content
-    writeInteresting(interesting);
     
     res.json({
       message: 'Interesting content updated successfully',
@@ -1365,48 +1038,18 @@ app.put('/api/interesting/:id', verifyAdminToken, (req, res) => {
 });
 
 // Delete interesting content
-app.delete('/api/interesting/:id', verifyAdminToken, (req, res) => {
+app.delete('/api/interesting/:id', verifyAdminToken, async (req, res) => {
   try {
     const { id } = req.params;
-    console.log('Delete interesting content request for ID:', id);
+    const deletedItem = await Interesting.findOneAndDelete({ id }).lean();
     
-    const interesting = readInteresting();
-    const interestingIndex = interesting.findIndex(item => item.id === id);
-    
-    if (interestingIndex === -1) {
+    if (!deletedItem) {
       return res.status(404).json({ error: 'Interesting content not found' });
-    }
-    
-    // Get the item to delete for cleanup
-    const itemToDelete = interesting[interestingIndex];
-    
-    // Remove item from array
-    const deletedItem = interesting.splice(interestingIndex, 1)[0];
-    
-    // Save updated interesting content
-    writeInteresting(interesting);
-    
-    // Optional: Delete uploaded media files from disk
-    if (itemToDelete.media) {
-      itemToDelete.media.forEach(mediaItem => {
-        if (mediaItem.url.includes('/uploads/')) {
-          const filename = mediaItem.url.split('/').pop();
-          const filePath = path.join(__dirname, 'uploads', filename);
-          
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.log('Could not delete media file from disk:', err.message);
-            } else {
-              console.log('Successfully deleted media file from disk:', filename);
-            }
-          });
-        }
-      });
     }
     
     res.json({
       message: 'Interesting content deleted successfully',
-      deletedItem: deletedItem
+      deletedItem
     });
     
   } catch (error) {
