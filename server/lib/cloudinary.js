@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
@@ -19,6 +18,28 @@ const hasCloudinary = !!(
   process.env.CLOUDINARY_API_SECRET
 );
 
+// Custom multer storage engine for Cloudinary v2 (no multer-storage-cloudinary needed)
+class CloudinaryStorageEngine {
+  _handleFile(req, file, cb) {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: 'ugli-boats', resource_type: 'auto' },
+      (error, result) => {
+        if (error) return cb(error);
+        cb(null, {
+          path: result.secure_url,
+          filename: result.public_id,
+          size: result.bytes,
+        });
+      }
+    );
+    file.stream.pipe(uploadStream);
+  }
+
+  _removeFile(req, file, cb) {
+    cloudinary.uploader.destroy(file.filename, cb);
+  }
+}
+
 let storage;
 
 if (hasCloudinary) {
@@ -28,13 +49,7 @@ if (hasCloudinary) {
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
-  storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-      folder: 'ugli-boats',
-      resource_type: 'auto',
-    },
-  });
+  storage = new CloudinaryStorageEngine();
 
   console.log('Using Cloudinary storage');
 } else {
