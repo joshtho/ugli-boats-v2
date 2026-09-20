@@ -13,6 +13,13 @@ import BoatPage from './BoatPage'
 type ViewMode = 'thumbnail' | 'list' | 'all'
 type SortMode = 'newest' | 'owner-alpha' | 'boat-alpha'
 
+// The site owner's own boats ("Ugli 1 Build", "Ugli 2 Build") stay pinned to the
+// top of the "Newest First" sort. Returns 1, 2, or Infinity (not pinned).
+const getPinnedRank = (ownerName: string): number => {
+  const match = ownerName.match(/^ugli\s*([12])\b/i)
+  return match ? Number(match[1]) : Infinity
+}
+
 function BuildPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [viewMode, setViewMode] = useState<ViewMode>('list')
@@ -51,9 +58,13 @@ function BuildPage() {
   // Sort builds based on sort mode
   const sortedBuilds = [...filteredBuilds].sort((a, b) => {
     switch (sortMode) {
-      case 'newest':
-        // Sort by creation date, newest first
+      case 'newest': {
+        // Pinned builds first (Ugli 1, then Ugli 2), then by creation date, newest first
+        const rankA = getPinnedRank(a.name)
+        const rankB = getPinnedRank(b.name)
+        if (rankA !== rankB) return rankA < rankB ? -1 : 1
         return new Date(b.createdDate || 0).getTime() - new Date(a.createdDate || 0).getTime()
+      }
       case 'owner-alpha':
         // Sort alphabetically by owner name
         return a.name.localeCompare(b.name)

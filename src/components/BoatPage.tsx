@@ -95,7 +95,7 @@ function BoatPage({ buildData }: BoatPageProps) {
     <div className="mx-auto max-w-full p-6">
       <div className="text-center mb-5">
         <h1 className="text-3xl font-bold">
-          {showName && build.name ? `${build.name} - ` : ''}{build.buildName}
+          {showName && build.name ? `${build.name} - ` : ''}{build.itemTitle || build.buildName}
         </h1>
         
         {/* Contact Info (based on display preferences) */}
@@ -117,7 +117,9 @@ function BoatPage({ buildData }: BoatPageProps) {
         {build.forSale?.onMarket && (
           <div className="mt-4 mb-6">
             <Badge className="text-lg px-4 py-2 bg-green-600 hover:bg-green-700 mb-4">
-              🚤 FOR SALE
+              {build.type === 'for-sale-item' && build.itemCategory
+                ? `${build.itemCategory.toUpperCase()} FOR SALE`
+                : '🚤 FOR SALE'}
             </Badge>
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-w-md mx-auto">
               <div className="flex items-center justify-center gap-2 text-xl font-bold text-green-700 mb-3">

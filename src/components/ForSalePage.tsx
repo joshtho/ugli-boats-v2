@@ -54,7 +54,9 @@ function ForSalePage() {
                 
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <span className="truncate">{build.buildName}</span>
+                    <Link to={`/for-sale/${build.id}`} className="truncate hover:text-blue-600 hover:underline">
+                      {build.buildName}
+                    </Link>
                   </CardTitle>
                   <p className="text-sm text-muted-foreground">by {build.name}</p>
                   {build.forSale && (
@@ -67,14 +69,16 @@ function ForSalePage() {
 
                 <CardContent className="space-y-4">
                   {build.images.length > 0 && (
-                    <img
-                      src={getImageUrl(build.images[0].url)}
-                      alt={build.images[0].alt}
-                      className="w-full h-48 object-cover rounded"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                      }}
-                    />
+                    <Link to={`/for-sale/${build.id}`} className="block">
+                      <img
+                        src={getImageUrl(build.images[0].url)}
+                        alt={build.images[0].alt}
+                        className="w-full h-48 object-cover rounded transition-transform hover:scale-[1.02]"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none'
+                        }}
+                      />
+                    </Link>
                   )}
                   
                   <p className="text-sm text-gray-600 line-clamp-3">
@@ -98,7 +102,7 @@ function ForSalePage() {
                   )}
 
                   <div className="flex flex-col gap-2">
-                    <Link to={`/builds/${build.id}`}>
+                    <Link to={`/for-sale/${build.id}`}>
                       <Button variant="outline" className="w-full">
                         View Full Build
                       </Button>
@@ -164,7 +168,9 @@ function ForSalePage() {
 
                 <CardHeader>
                   <CardTitle className="pr-20">
-                    {item.itemTitle || item.buildName}
+                    <Link to={`/for-sale/${item.id}`} className="hover:text-blue-600 hover:underline">
+                      {item.itemTitle || item.buildName}
+                    </Link>
                   </CardTitle>
                   {item.contactInfo?.displayPreferences?.showName && item.name && (
                     <p className="text-sm text-muted-foreground">by {item.name}</p>
@@ -179,19 +185,27 @@ function ForSalePage() {
 
                 <CardContent className="space-y-4">
                   {item.images.length > 0 && (
-                    <img
-                      src={getImageUrl(item.images[0].url)}
-                      alt={item.images[0].alt}
-                      className="w-full h-48 object-cover rounded"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                      }}
-                    />
+                    <Link to={`/for-sale/${item.id}`} className="block">
+                      <img
+                        src={getImageUrl(item.images[0].url)}
+                        alt={item.images[0].alt}
+                        className="w-full h-48 object-cover rounded transition-transform hover:scale-[1.02]"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none'
+                        }}
+                      />
+                    </Link>
                   )}
 
                   <p className="text-sm text-gray-600 line-clamp-3">
                     {item.introText}
                   </p>
+
+                  <Link to={`/for-sale/${item.id}`}>
+                    <Button variant="outline" className="w-full">
+                      View Details & Photos
+                    </Button>
+                  </Link>
 
                   {/* Contact info based on display preferences */}
                   {item.contactInfo && (

@@ -40,11 +40,12 @@ export default function App() {
 
   // Resolve a breadcrumb segment to a display name
   const getSegmentLabel = (segment: string, idx: number): string => {
-    // If this segment is under /builds/ and looks like a UUID, resolve to build name
-    if (idx > 0 && pathnames[idx - 1] === 'builds' && segment.includes('-') && segment.length > 20) {
+    // If this segment is under /builds/ or /for-sale/ and looks like a UUID, resolve to a name
+    const parent = idx > 0 ? pathnames[idx - 1] : ''
+    if ((parent === 'builds' || parent === 'for-sale') && segment.includes('-') && segment.length > 20) {
       const build = backendBuilds.find(b => b.id === segment)
       if (build) {
-        return build.buildName || build.name || 'Boat Page'
+        return build.itemTitle || build.buildName || build.name || 'Boat Page'
       }
       return 'Boat Page'
     }
@@ -125,6 +126,7 @@ export default function App() {
               <Route path='/submit-build' element={<SubmitBuild />} />
               <Route path='/contact' element={<ContactPage />} />
               <Route path="/builds/:id" element={<BoatPage />} />
+              <Route path="/for-sale/:id" element={<BoatPage />} />
             </Routes>
         </div>
             <FooterSection />

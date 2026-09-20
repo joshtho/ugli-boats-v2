@@ -1,77 +1,76 @@
-# UgliBoats Admin Authentication - Production Guide
+# UgliBoats Admin Authentication
 
-## 🔒 Security Features Implemented
+> **Never put real secrets in this file.** It is committed to a public repo.
+> Real values live only in `server/.env` (gitignored) and in Render's environment settings.
 
-### **🚨 SINGLE-SESSION SECURITY** 
-**Only ONE person can be logged into the admin portal at a time!**
+## Single-Session Security
 
-#### How it works:
-- ✅ **First login**: Admin enters password → Gets valid session token
-- ❌ **Second login attempt**: Someone else enters password → **"Admin already logged in" error**  
-- 🔒 **Original admin stays logged in**: Their session remains active and uninterrupted
-- ⏰ **Automatic expiry**: After 24 hours, new logins are allowed again
-- 🚪 **Manual logout**: Admin can logout to immediately allow new login
+Only ONE person can be logged into the admin portal at a time.
 
-**ANSWER: Exactly! New logins are BLOCKED when someone is already logged in!** ✅
-- ✅ If you forget to logout → **New login attempts get "Admin already logged in" error**
-- ✅ Your session stays active and uninterrupted  
-- ✅ Unauthorized users cannot access admin even with correct password
-- ✅ Only way to access: Wait 24 hours OR you manually logout
-- ✅ Perfect protection against unauthorized access
+- **First login**: admin enters password → gets a valid session token
+- **Second login attempt** while a session is active → `"Admin already logged in"` error
+- **Original admin stays logged in**: their session is uninterrupted
+- **Automatic expiry**: after 24 hours, new logins are allowed again
+- **Manual logout**: admin can log out to immediately allow a new login
 
-### Backend Security
-- **Password Hashing**: Using bcryptjs with salt rounds of 12
-- **JWT Tokens**: Secure token-based authentication with 24-hour expiration
-- **Protected Routes**: All admin endpoints require valid JWT token
-- **Brute Force Protection**: 1-second delay on failed login attempts
-- **Environment Variables**: Sensitive data stored securely in .env
+The active token is held in server memory, so a server restart (including a Render redeploy) clears it.
 
-### Frontend Security  
-- **Token Storage**: JWT stored in localStorage with automatic cleanup
-- **Auto-logout**: Invalid/expired tokens automatically redirect to login
-- **Route Protection**: All admin functionality requires authentication
-- **Session Management**: Token verification on page load
+### Backend
+- **Password hashing**: bcryptjs, 12 salt rounds
+- **JWT tokens**: 24-hour expiration
+- **Protected routes**: all admin endpoints require a valid JWT
+- **Brute-force slowdown**: 1-second delay on failed login attempts
+- **Secrets**: read from environment variables only
 
-## 🔧 Environment Configuration
+### Frontend
+- **Token storage**: JWT in `localStorage`, cleared on logout/expiry
+- **Auto-logout**: invalid/expired tokens redirect to login
+- **Route protection**: all admin functionality requires authentication
+- **Session check**: token verified on page load
 
-### Required Environment Variables (.env)
+## Environment Variables
+
+Add these to `server/.env` locally and to the Render service's environment:
+
 ```bash
-# Keep the old password for reference (optional)
-ADMIN_PASSWORD=Jordancallsherpontontika1992
+# Secure hashed password (required) — generate with scripts/hashPassword.js
+ADMIN_PASSWORD_HASH=<bcrypt-hash>
 
-# Secure hashed password (required)
-ADMIN_PASSWORD_HASH=$2b$12$z3nS/TwxaoAFVPhmQS5uqubgRmTKFSpkr/56EZootz/J3/Tpgw7LK
-
-# JWT secret (required - keep secret!)
-JWT_SECRET=e7zwa6ue0zklu6uxc1fzdux7oq2vazj0
+# JWT signing secret (required) — 32+ random characters
+JWT_SECRET=<random-32+-char-string>
 
 # Server config
 PORT=3001
 ```
 
-## 🚀 For Production Deployment
+See `server/.env.example` for the full list (MongoDB, Cloudinary, Resend, etc.).
 
-### 1. Generate New Secrets
+## Generating / Rotating Secrets
+
 ```bash
-# Run this to generate new production secrets:
+# New password hash
 cd server
 node scripts/hashPassword.js
+
+# New JWT secret
+openssl rand -hex 32
 ```
 
-### 2. Update .env for Production
-- Use a stronger password than "ugliboats2025"
-- Generate a new JWT_SECRET (32+ random characters)
-- Never commit .env file to version control
+After rotating either value:
+1. Update `server/.env` locally
+2. Update the Render environment variable (the service restarts automatically)
+3. All existing admin sessions are invalidated
 
-### 3. Protected Endpoints
-These routes now require authentication:
+## Endpoints
+
+### Protected (require `Authorization: Bearer <token>`)
 - `POST /api/photos/upload`
 - `PUT /api/photos/:id`
 - `DELETE /api/photos/:id`
-- `POST /api/builds` (admin created)
 - `PUT /api/builds/:id`
 - `DELETE /api/builds/:id`
 - `POST /api/admin/upload`
+- `GET /api/submissions`
 - `POST /api/submissions/:id/approve`
 - `PUT /api/submissions/:id`
 - `POST /api/submissions/:id/reject`
@@ -79,51 +78,36 @@ These routes now require authentication:
 - `PUT /api/interesting/:id`
 - `DELETE /api/interesting/:id`
 
-### 4. Public Endpoints (No Auth Required)
+### Public
 - `GET /api/photos`
 - `GET /api/photos/:category`
 - `GET /api/builds`
-- `GET /api/submissions` (admin only but needs token)
 - `GET /api/interesting`
-- `POST /api/submissions` (user submissions)
+- `POST /api/builds` (submission form)
+- `POST /api/submissions` (submission form)
+- `POST /api/auth/login`, `/api/auth/verify`, `/api/auth/logout`
 
-## 🔐 Security Best Practices Implemented
+## Testing Locally
 
-1. **Strong Password Hashing**: bcrypt with high salt rounds
-2. **JWT Best Practices**: Short expiration (24h), secure signing
-3. **Input Validation**: Password required, proper error handling
-4. **Rate Limiting**: Delay on failed attempts
-5. **Token Management**: Automatic cleanup, secure storage
-6. **Environment Security**: Secrets in .env, not in code
-
-## 🧪 Testing Authentication
-
-### Login Test (should succeed):
 ```bash
+# Login (should succeed with the correct password)
 curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"password":"ugliboats2025"}'
-```
+  -d '{"password":"<your-admin-password>"}'
 
-### Wrong Password Test (should fail):
-```bash
+# Wrong password (should fail)
 curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"password":"wrong"}'
-```
 
-### Protected Route Test (should require token):
-```bash
+# Protected route without token (should return "Access denied. No token provided.")
 curl -X POST http://localhost:3001/api/photos/upload
-# Should return: {"error":"Access denied. No token provided."}
 ```
 
-## 📝 Admin Usage
+## Admin Usage
 
-1. Go to `/admin` page
-2. Enter password: `ugliboats2025`  
-3. Token valid for 24 hours
+1. Go to `/#/admin`
+2. Enter the admin password
+3. Token is valid for 24 hours
 4. Auto-logout on token expiration
-5. Logout button available in dashboard
-
-Your admin authentication is now production-ready! 🎉
+5. Logout button available in the dashboard
