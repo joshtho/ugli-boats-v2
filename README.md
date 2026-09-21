@@ -51,9 +51,6 @@ cd server && node scripts/hashPassword.js # generate a new admin password hash
 Hosted on Render. `render-build.sh` installs both halves, builds the frontend, and copies
 `dist/` into `server/public/`.
 
-**Render deploys from the `feat/mongodb-storage` branch, not `main`.** Pushing to that
-branch deploys to production. `main` is behind and still has the old JSON-file storage.
-
 ## Notes
 
 - If `pnpm-lock.yaml` shows as modified after running any `pnpm` command, that's just
